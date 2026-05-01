@@ -1,0 +1,14 @@
+- current zip is staging-level only
+- output is CSV.GZ, not Parquet/Iceberg
+- no zone_metadata.json
+- no data_quality_report.json
+- no feature_availability_report.json
+- point schema does not match canonical contract
+- event_ts missing
+- ElapsedTime missing in many rows
+- Rally mostly missing
+- metadata incomplete
+- doubles/mixed are mixed into a two-player architecture
+- PointWinner / PointServer need normalization
+- PointNumber has special values like 0X, 0Y, 45D
+- ATP data is useful but not yet integrated

@@ -1,0 +1,24 @@
+{
+  "candidate_match_count": 10508,
+  "default_interval_seconds": 2.0,
+  "event_count": 1917672,
+  "excluded_match_count": 44,
+  "excluded_reasons": {
+    "fewer_than_20_valid_points": 12,
+    "included": 10464,
+    "unknown_player_placeholder": 32
+  },
+  "generated_at": "2026-05-01T15:59:14Z",
+  "included_match_count": 10464,
+  "limitations": [
+    "Kafka replay is not started in this milestone",
+    "unknown-player placeholder matches are excluded by default",
+    "elapsed_seconds gaps use deterministic default interval offsets",
+    "surface remains unavailable"
+  ],
+  "match_count": 10464,
+  "replay_schema_version": "2A.1.0",
+  "replay_session_id": "replay_session_v1_seed_42",
+  "seed": 42,
+  "source_dataset": "data/curated/singles_points"
+}

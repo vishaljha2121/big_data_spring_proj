@@ -1,0 +1,16 @@
+{
+  "default_interval_seconds": 2.0,
+  "event_count": 1917672,
+  "excluded_match_count": 44,
+  "generated_at": "2026-05-01T15:59:14Z",
+  "limitations": [
+    "Kafka replay is not started in this milestone",
+    "unknown-player placeholder matches are excluded by default",
+    "elapsed_seconds gaps use deterministic default interval offsets",
+    "surface remains unavailable"
+  ],
+  "match_count": 10464,
+  "replay_session_id": "replay_session_v1_seed_42",
+  "seed": 42,
+  "source_dataset": "data/curated/singles_points"
+}

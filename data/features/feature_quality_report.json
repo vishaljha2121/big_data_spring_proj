@@ -1,0 +1,40 @@
+{
+  "availability_percent": {
+    "elapsed_time_features": 80.7617,
+    "rally_features": 5.9589,
+    "score_context_features": 80.7462,
+    "serve_return_features": 99.4153,
+    "surface_features": 0.0
+  },
+  "feature_schema_version": "2A.1.0",
+  "generated_at": "2026-05-01T15:56:22Z",
+  "invalid_or_missing_server_count": 11238,
+  "invalid_or_missing_winner_count": 11239,
+  "missing_elapsed_seconds_count": 369786,
+  "missing_rally_length_count": 1807598,
+  "null_rates": {
+    "elapsed_seconds_before": 19.677,
+    "elapsed_seconds_delta_from_prev": 19.68,
+    "label_match_winner_is_player_a": 0.0,
+    "label_point_winner_is_player_a": 0.5847,
+    "label_server_won_point": 0.5847,
+    "player_a_rally_length_avg_before": 94.1506,
+    "player_b_rally_length_avg_before": 94.146,
+    "rally_length_avg_before": 94.0749,
+    "serve_speed_kmh_avg_before": 5.3016
+  },
+  "recommendation_excluded_features": [
+    "surface-based features until metadata improves",
+    "rally-length primary features because coverage is sparse",
+    "ATP bridge features until a reliable join key is validated"
+  ],
+  "recommendation_mvp_feature_set": [
+    "point/game score context",
+    "prior point win percentages",
+    "prior serve and return win percentages",
+    "recent 5/10 point win percentages",
+    "ace and double-fault prior counts",
+    "elapsed-time availability flags"
+  ],
+  "unknown_player_row_count": 4310
+}

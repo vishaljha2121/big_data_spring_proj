@@ -1,0 +1,102 @@
+{
+  "features": [
+    {
+      "availability_percent": 99.4153,
+      "feature_name": "serve win features",
+      "missing_count": 11239,
+      "notes": "Derivable from server and point winner mapping when both are valid.",
+      "source_columns": [
+        "server_player",
+        "point_winner_player"
+      ],
+      "usable_for_mvp": true
+    },
+    {
+      "availability_percent": 100.0,
+      "feature_name": "ace features",
+      "missing_count": 0,
+      "notes": "Available from P1Ace/P2Ace normalized booleans.",
+      "source_columns": [
+        "is_ace"
+      ],
+      "usable_for_mvp": true
+    },
+    {
+      "availability_percent": 100.0,
+      "feature_name": "double fault features",
+      "missing_count": 0,
+      "notes": "Available from P1DoubleFault/P2DoubleFault normalized booleans.",
+      "source_columns": [
+        "is_double_fault"
+      ],
+      "usable_for_mvp": true
+    },
+    {
+      "availability_percent": 100.0,
+      "feature_name": "break point features",
+      "missing_count": 0,
+      "notes": "Available from P1BreakPoint/P2BreakPoint normalized booleans.",
+      "source_columns": [
+        "is_break_point"
+      ],
+      "usable_for_mvp": true
+    },
+    {
+      "availability_percent": 5.9589,
+      "feature_name": "rally length features",
+      "missing_count": 1807598,
+      "notes": "Sparse coverage; report but do not use as a primary MVP feature.",
+      "source_columns": [
+        "rally_length"
+      ],
+      "usable_for_mvp": false
+    },
+    {
+      "availability_percent": 80.7617,
+      "feature_name": "elapsed time features",
+      "missing_count": 369786,
+      "notes": "Missing for some rows but event_index preserves ordering.",
+      "source_columns": [
+        "elapsed_seconds"
+      ],
+      "usable_for_mvp": true
+    },
+    {
+      "availability_percent": 100.0,
+      "feature_name": "player metadata features",
+      "missing_count": 0,
+      "notes": "Metadata join covers inspected singles matches.",
+      "source_columns": [
+        "player_a",
+        "player_b"
+      ],
+      "usable_for_mvp": true
+    },
+    {
+      "availability_percent": 0.0,
+      "feature_name": "surface/tournament features",
+      "missing_count": 1922136,
+      "notes": "Tournament exists; surface is unavailable in metadata.",
+      "source_columns": [
+        "surface",
+        "tournament"
+      ],
+      "usable_for_mvp": false
+    },
+    {
+      "availability_percent": 80.7462,
+      "feature_name": "score context features",
+      "missing_count": 370085,
+      "notes": "Score and game context are present for MVP state features.",
+      "source_columns": [
+        "p1_score",
+        "p2_score",
+        "p1_games_won",
+        "p2_games_won"
+      ],
+      "usable_for_mvp": true
+    }
+  ],
+  "generated_at": "2026-04-29T22:45:33Z",
+  "schema_version": "1.0.0"
+}

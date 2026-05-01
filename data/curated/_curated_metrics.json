@@ -1,0 +1,16 @@
+{
+  "curated_singles_match_count": 10508,
+  "curated_singles_point_rows": 1922136,
+  "duplicate_event_id_count": 0,
+  "invalid_point_server_count": 10598,
+  "invalid_point_winner_count": 10599,
+  "metadata_join_missing_count": 4310,
+  "metadata_join_success_count": 1917826,
+  "missing_elapsed_time_count": 369445,
+  "missing_event_id_count": 0,
+  "missing_match_id_count": 0,
+  "missing_rally_length_count": 1807598,
+  "missing_surface_count": 1922136,
+  "quarantined_row_count": 10599,
+  "special_point_number_count": 6970
+}

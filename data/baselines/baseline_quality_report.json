@@ -1,0 +1,15 @@
+{
+  "baseline_schema_version": "2A.1.0",
+  "generated_at": "2026-05-01T16:00:32Z",
+  "input_dataset": "data/curated/singles_points",
+  "missing_return_data_count": 0,
+  "missing_serve_data_count": 0,
+  "moderate_baseline_count": 242,
+  "output_dataset": "data/baselines/player_baselines",
+  "placeholder_player_count": 32,
+  "player_count": 1891,
+  "rally_sparse_warning": "rally_length coverage is sparse; rally baselines are secondary",
+  "strong_baseline_count": 1616,
+  "surface_unavailable_warning": "surface-specific baselines are blocked until metadata improves",
+  "weak_baseline_count": 1
+}

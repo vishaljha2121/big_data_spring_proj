@@ -1,0 +1,10 @@
+{
+  "baseline_rows": 1891,
+  "blocking_errors": [],
+  "curated_point_rows": 1922136,
+  "generated_at": "2026-05-01T16:01:57Z",
+  "match_feature_rows": 10508,
+  "point_feature_rows": 1922136,
+  "replay_manifest_rows": 1917672,
+  "status": "PASSED"
+}

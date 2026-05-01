@@ -1,0 +1,426 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "current_game_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "current_set_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "elapsed_seconds": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "elapsed_seconds_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "elapsed_seconds_delta_from_prev": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "event_index": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "game_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "has_elapsed_seconds": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "has_rally_length": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "has_surface": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "has_valid_point_winner": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "has_valid_server": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "is_receiver_player_a": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "is_server_player_a": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "label_match_winner_is_player_a": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "label_match_winner_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "label_point_winner_is_player_a": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "label_server_won_point": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "match_id": {
+      "type": "string"
+    },
+    "p1_games_won": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "p1_score": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "p1_score_numeric": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "p2_games_won": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "p2_score": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "p2_score_numeric": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_a": {
+      "type": "string"
+    },
+    "player_a_aces_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_a_break_points_seen_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_a_break_points_won_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_a_double_faults_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_a_point_win_pct_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "player_a_points_won_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_a_rally_length_avg_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "player_a_recent_10_win_pct_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "player_a_recent_5_win_pct_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "player_b": {
+      "type": "string"
+    },
+    "player_b_aces_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_b_break_points_seen_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_b_break_points_won_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_b_double_faults_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_b_point_win_pct_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "player_b_points_won_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "player_b_rally_length_avg_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "player_b_recent_10_win_pct_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "player_b_recent_5_win_pct_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "point_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "point_winner_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "points_played_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "rally_length_avg_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "receiver_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "receiver_point_win_pct_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "receiver_points_played_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "receiver_points_won_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "serve_speed_kmh_avg_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "server_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "server_point_win_pct_before": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "server_points_played_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "server_points_won_before": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "set_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "source_file": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "match_id",
+    "event_index",
+    "player_a",
+    "player_b",
+    "server_player",
+    "receiver_player",
+    "point_winner_player",
+    "source_file",
+    "schema_version",
+    "elapsed_seconds",
+    "set_number",
+    "game_number",
+    "point_number",
+    "points_played_before",
+    "player_a_points_won_before",
+    "player_b_points_won_before",
+    "player_a_point_win_pct_before",
+    "player_b_point_win_pct_before",
+    "server_points_played_before",
+    "server_points_won_before",
+    "server_point_win_pct_before",
+    "receiver_points_played_before",
+    "receiver_points_won_before",
+    "receiver_point_win_pct_before",
+    "player_a_recent_5_win_pct_before",
+    "player_b_recent_5_win_pct_before",
+    "player_a_recent_10_win_pct_before",
+    "player_b_recent_10_win_pct_before",
+    "player_a_aces_before",
+    "player_b_aces_before",
+    "player_a_double_faults_before",
+    "player_b_double_faults_before",
+    "player_a_break_points_seen_before",
+    "player_b_break_points_seen_before",
+    "player_a_break_points_won_before",
+    "player_b_break_points_won_before",
+    "serve_speed_kmh_avg_before",
+    "elapsed_seconds_before",
+    "elapsed_seconds_delta_from_prev",
+    "current_set_number",
+    "current_game_number",
+    "p1_games_won",
+    "p2_games_won",
+    "p1_score",
+    "p2_score",
+    "p1_score_numeric",
+    "p2_score_numeric",
+    "is_server_player_a",
+    "is_receiver_player_a",
+    "has_valid_point_winner",
+    "has_valid_server",
+    "has_rally_length",
+    "has_elapsed_seconds",
+    "has_surface",
+    "rally_length_avg_before",
+    "player_a_rally_length_avg_before",
+    "player_b_rally_length_avg_before",
+    "label_point_winner_is_player_a",
+    "label_server_won_point",
+    "label_match_winner_is_player_a",
+    "label_match_winner_player"
+  ],
+  "title": "PointFeature",
+  "type": "object"
+}

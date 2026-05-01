@@ -1,0 +1,10 @@
+{
+  "datasets": {
+    "match_features_parts": 1,
+    "point_features_parts": 1
+  },
+  "format": "parquet",
+  "generated_at": "2026-05-01T15:56:23Z",
+  "schema_version": "2A.1.0",
+  "zone": "features"
+}

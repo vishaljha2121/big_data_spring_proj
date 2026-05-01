@@ -1,0 +1,9 @@
+{
+  "datasets": {
+    "player_baselines_parts": 1
+  },
+  "format": "parquet",
+  "generated_at": "2026-05-01T16:00:32Z",
+  "schema_version": "2A.1.0",
+  "zone": "baselines"
+}

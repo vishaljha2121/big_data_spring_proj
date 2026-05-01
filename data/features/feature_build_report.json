@@ -1,0 +1,27 @@
+{
+  "blocking_errors": [],
+  "feature_schema_version": "2A.1.0",
+  "generated_at": "2026-05-01T15:56:22Z",
+  "input_dataset": "data/curated/singles_points",
+  "input_rows": 1922136,
+  "labels_created": [
+    "label_point_winner_is_player_a",
+    "label_server_won_point",
+    "label_match_winner_is_player_a",
+    "label_match_winner_player"
+  ],
+  "match_count": 10508,
+  "output_dataset": "data/features",
+  "output_rows": 1922136,
+  "point_in_time_safe": true,
+  "sparse_features": [
+    "rally_length_avg_before",
+    "player_a_rally_length_avg_before",
+    "player_b_rally_length_avg_before"
+  ],
+  "warnings": [
+    "rally_length coverage is sparse; rally features are excluded from the recommended MVP primary set",
+    "surface is unavailable in curated data; surface-based features remain blocked",
+    "match winner labels are inferred from last valid point winner because ATP match bridge is not reliable yet"
+  ]
+}

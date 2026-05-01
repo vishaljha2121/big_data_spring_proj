@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "ace_rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "aces": {
+      "type": "integer"
+    },
+    "avg_serve_speed_kmh": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "baseline_quality_level": {
+      "type": "string"
+    },
+    "baseline_schema_version": {
+      "type": "string"
+    },
+    "double_fault_rate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "double_faults": {
+      "type": "integer"
+    },
+    "elapsed_time_available_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "is_unknown_placeholder": {
+      "type": "boolean"
+    },
+    "player": {
+      "type": "string"
+    },
+    "rally_length_available_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "rally_length_avg": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "return_point_win_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "return_points": {
+      "type": "integer"
+    },
+    "return_points_won": {
+      "type": "integer"
+    },
+    "serve_point_win_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "serve_points": {
+      "type": "integer"
+    },
+    "serve_points_won": {
+      "type": "integer"
+    },
+    "total_matches": {
+      "type": "integer"
+    },
+    "total_points": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "player",
+    "total_matches",
+    "total_points",
+    "serve_points",
+    "serve_points_won",
+    "serve_point_win_pct",
+    "return_points",
+    "return_points_won",
+    "return_point_win_pct",
+    "aces",
+    "double_faults",
+    "ace_rate",
+    "double_fault_rate",
+    "avg_serve_speed_kmh",
+    "rally_length_avg",
+    "rally_length_available_pct",
+    "elapsed_time_available_pct",
+    "baseline_quality_level",
+    "is_unknown_placeholder",
+    "baseline_schema_version"
+  ],
+  "title": "PlayerBaseline",
+  "type": "object"
+}

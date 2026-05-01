@@ -1,0 +1,12 @@
+{
+  "datasets": {
+    "match_metadata": 1,
+    "matches": 1,
+    "points": 83
+  },
+  "format": "parquet",
+  "generated_at": "2026-04-29T22:32:57Z",
+  "schema_version": "1.0.0",
+  "source": "cleaned_data",
+  "zone": "cleaned"
+}

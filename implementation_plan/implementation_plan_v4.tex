@@ -1,0 +1,2078 @@
+\documentclass[11pt,a4paper]{article}
+
+% ── Packages ──────────────────────────────────────────────────────────────────
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{tocloft}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{appendix}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+
+
+% ── Colors ────────────────────────────────────────────────────────────────────
+\definecolor{criticalred}{RGB}{180,40,40}
+\definecolor{criticallight}{RGB}{253,235,235}
+\definecolor{importantyellow}{RGB}{160,110,0}
+\definecolor{importantlight}{RGB}{255,248,220}
+\definecolor{minorgray}{RGB}{80,80,100}
+\definecolor{minorlight}{RGB}{240,240,248}
+\definecolor{fixblue}{RGB}{20,80,160}
+\definecolor{fixlight}{RGB}{232,242,255}
+\definecolor{codecolor}{RGB}{248,248,252}
+\definecolor{coderule}{RGB}{200,200,220}
+\definecolor{sectionblue}{RGB}{15,60,130}
+\definecolor{linkcolor}{RGB}{20,80,160}
+\definecolor{notegreen}{RGB}{30,110,60}
+\definecolor{notelight}{RGB}{234,248,238}
+
+% ── Hyperref setup ────────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=linkcolor,
+  urlcolor=linkcolor,
+  citecolor=linkcolor,
+  pdftitle={Real-Time Tennis Oddsmaking and Integrity Monitoring},
+  pdfauthor={Team},
+  pdfsubject={Big Data System Architecture and Implementation Plan},
+  bookmarksnumbered=true,
+  bookmarksopen=true
+}
+
+% ── Section heading style ─────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{sectionblue}}{{\thesection}}{1em}{}[\vspace{-4pt}\rule{\linewidth}{0.4pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{sectionblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% ── Header / footer ───────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Real-Time Tennis Oddsmaking \& Integrity Monitoring}}
+\fancyhead[R]{\small\textit{Big Data Architecture}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Code listing style ────────────────────────────────────────────────────────
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codecolor},
+  frame=single,
+  framerule=0.5pt,
+  rulecolor=\color{coderule},
+  breaklines=true,
+  breakatwhitespace=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b,
+  xleftmargin=6pt,
+  xrightmargin=6pt,
+  aboveskip=8pt,
+  belowskip=8pt
+}
+
+% ── Custom boxes ──────────────────────────────────────────────────────────────
+\newtcolorbox{criticalbox}[1][]{
+  breakable, enhanced,
+  colback=criticallight, colframe=criticalred,
+  fonttitle=\bfseries\small\color{white},
+  title={\textbf{CRITICAL GAP}\ #1},
+  coltitle=white, attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={colback=criticalred, colframe=criticalred},
+  top=6pt, left=8pt, right=8pt, bottom=6pt
+}
+
+\newtcolorbox{importantbox}[1][]{
+  breakable, enhanced,
+  colback=importantlight, colframe=importantyellow,
+  fonttitle=\bfseries\small,
+  title={\textbf{IMPORTANT GAP}\ #1},
+  coltitle=importantyellow, attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={colback=importantlight, colframe=importantyellow},
+  top=6pt, left=8pt, right=8pt, bottom=6pt
+}
+
+\newtcolorbox{minorbox}[1][]{
+  breakable, enhanced,
+  colback=minorlight, colframe=minorgray,
+  fonttitle=\bfseries\small,
+  title={\textbf{MINOR GAP}\ #1},
+  coltitle=minorgray, attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={colback=minorlight, colframe=minorgray},
+  top=6pt, left=8pt, right=8pt, bottom=6pt
+}
+
+\newtcolorbox{fixbox}{
+  breakable, enhanced,
+  colback=fixlight, colframe=fixblue,
+  left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fontupper=\small
+}
+
+\newtcolorbox{notebox}{
+  breakable, enhanced,
+  colback=notelight, colframe=notegreen,
+  left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fontupper=\small
+}
+
+% ── Table column types ────────────────────────────────────────────────────────
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+% ── Misc ──────────────────────────────────────────────────────────────────────
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\captionsetup{font=small, labelfont=bf}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+% ── Title page ────────────────────────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+  \vspace*{2cm}
+  {\huge\bfseries\color{sectionblue} Real-Time Tennis Oddsmaking\\[6pt] and Integrity Monitoring\par}
+  \vspace{1cm}
+  \rule{\linewidth}{1pt}
+  \vspace{4pt}
+  {\large A Big Data System Architecture and Implementation Plan\\
+  \textit{Revised Edition --- All Architectural Gaps Addressed}\par}
+  \vspace{4pt}
+  \rule{\linewidth}{1pt}
+  \vspace{1.5cm}
+  {\normalsize Team Members: Add Names and NetIDs\par}
+  \vspace{0.5cm}
+  {\normalsize April 28, 2026\par}
+  \vspace{2cm}
+  \begin{tcolorbox}[colback=fixlight, colframe=fixblue, width=0.85\linewidth]
+    \centering\small
+    \textbf{Revision Note.}
+    This document incorporates all 24 architectural gaps identified in the
+    original proposal review. New or modified content is present throughout
+    every section. Gap annotations (\textcolor{criticalred}{\textbf{CRITICAL}},
+    \textcolor{importantyellow}{\textbf{IMPORTANT}},
+    \textcolor{minorgray}{\textbf{MINOR}}) mark each
+    addition so reviewers can locate changes quickly.
+  \end{tcolorbox}
+\end{titlepage}
+
+% ── Table of contents ─────────────────────────────────────────────────────────
+\tableofcontents
+\newpage
+
+% =============================================================================
+\section{Purpose of This Document}
+% =============================================================================
+
+This document defines the final architecture, implementation plan, data contracts, pipeline design,
+modeling approach, testing strategy, and presentation plan for the big data project titled
+\textit{Real-Time Tennis Oddsmaking and Integrity Monitoring}. The goal is to provide a single
+reference that guides development, team coordination, cloud deployment, report writing, and final
+demonstration.
+
+The project follows a practical Lambda-style architecture deployed using two Amazon EC2 instances
+and an Amazon S3 data lake. EC2 Instance~1 acts as the ingestion, orchestration, streaming, batch
+processing, and machine learning node. EC2 Instance~2 acts as the serving and application node.
+Amazon~S3 is the durable data lake storing raw data, cleaned data, feature tables, model
+artifacts, baseline profiles, benchmark outputs, and final report assets.
+
+% =============================================================================
+\section{Project Thesis and Big Data Justification}
+% =============================================================================
+
+\subsection{Project Thesis}
+
+The project builds a real-time analytics system for professional tennis supporting two related use
+cases from the same underlying event stream. First, it computes live win probabilities for
+simulated tennis matches using point-by-point streaming events. Second, it monitors match-integrity
+risk by comparing live player behavior against historical baselines and flagging statistically
+unusual deviations.
+
+The central thesis is that live sports prediction and integrity monitoring can be unified into one
+data engineering system because both require granular event streams, historical baselines, rolling
+features, low-latency scoring, and serving layers that expose results to end users.
+
+\subsection{Why This Is a Data Engineering Problem}
+
+This project is primarily a data engineering problem because the system must move, transform,
+store, and serve data across multiple stages. The core work is not only building a machine
+learning model, but building the infrastructure around the model. The system must ingest raw
+historical files, prepare replayable event streams, process streaming data, build feature tables,
+train models, store outputs, and serve results through APIs and dashboards.
+
+Core data engineering challenges include:
+\begin{itemize}[nosep]
+  \item maintaining a clean data lake layout in S3;
+  \item converting historical point-level data into live replay streams;
+  \item processing Kafka events with Spark Structured Streaming;
+  \item generating batch features and player baselines;
+  \item coordinating offline and online pipelines via Airflow DAG dependencies;
+  \item persisting serving-ready outputs in PostgreSQL and optional Redis;
+  \item exposing results through FastAPI and React.
+\end{itemize}
+
+\subsection{Why This Is a Big Data Project Rather Than a Small Local Script}
+
+A small script could train a static model on a subset of tennis matches but would not demonstrate
+the distributed and system-level requirements of this project. This project involves high-volume
+historical processing, synthetic stream amplification, real-time event ingestion, stateful
+streaming computations, batch retraining, and separate serving responsibilities.
+
+The big data nature comes from:
+\begin{itemize}[nosep]
+  \item \textbf{Volume:} historical data expanded into a larger synthetic archive;
+  \item \textbf{Velocity:} point events replayed as live streams through Kafka;
+  \item \textbf{Variety:} match-level, point-level, player-level, model, and risk-event data coexist;
+  \item \textbf{Complexity:} rolling features, baselines, anomaly scores, and live odds computed consistently;
+  \item \textbf{Deployment:} multiple services across two cloud instances and S3.
+\end{itemize}
+
+\subsection{Target Scale Envelope}
+
+\begin{itemize}[nosep]
+  \item Replay hundreds to thousands of simulated matches depending on EC2 resources;
+  \item process point events through Kafka topics partitioned by match identifier;
+  \item store raw and processed data in Parquet format in S3;
+  \item maintain low-latency serving of current match states through PostgreSQL and optional Redis;
+  \item expose dashboards that refresh frequently enough to feel real-time for demonstration.
+\end{itemize}
+
+\subsection{Numerical Benchmark Targets}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{L{5.5cm}X}
+\toprule
+\textbf{Metric} & \textbf{Target} \\
+\midrule
+Streaming throughput & At least 1,000 point events per second for MVP; higher as stretch goal \\
+End-to-end latency & Under 5 seconds from event production to dashboard visibility \\
+Batch processing & Complete feature generation on selected dataset within demo window \\
+Model output latency & Streaming inference completed within each Spark micro-batch \\
+Serving read latency & API responses under 500\,ms in normal demo conditions \\
+Dashboard refresh & 2--5 second refresh interval for live views \\
+\bottomrule
+\end{tabularx}
+\caption{Benchmark targets}
+\end{table}
+
+% =============================================================================
+\section{Executive Architecture Decision}
+% =============================================================================
+
+\subsection{Final Architectural Choice}
+
+The final architecture is a practical Lambda-style architecture using:
+
+\begin{itemize}[nosep]
+  \item Amazon S3 as the central data lake;
+  \item EC2 Instance~1 as the processing node;
+  \item EC2 Instance~2 as the serving and application node;
+  \item Apache Kafka for live event ingestion;
+  \item Apache Spark for batch processing and streaming analytics;
+  \item Apache Airflow for workflow orchestration;
+  \item PostgreSQL for serving current match, odds, and risk-event data;
+  \item optional Redis for low-latency latest-state caching;
+  \item FastAPI for backend APIs;
+  \item React for the frontend dashboard.
+\end{itemize}
+
+\subsection{Why This Choice Was Made}
+
+This architecture balances ambition, cost control, and implementation feasibility. Fully managed
+services such as Amazon MSK, Amazon EMR, and managed OpenSearch would be closer to a production
+cloud architecture but are cost-prohibitive for a student project. A purely local system would be
+cheaper but would not demonstrate realistic cloud deployment.
+
+The two-EC2 architecture provides a strong middle ground: real services running in AWS, separated
+processing from serving, S3 as a real cloud data lake, and manageable operational complexity.
+
+% =============================================================================
+\section{System Overview}
+% =============================================================================
+
+\subsection{High-Level Components}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{L{3.5cm}X}
+\toprule
+\textbf{Component} & \textbf{Responsibility} \\
+\midrule
+S3 Data Lake & Stores raw, cleaned, features, models, baselines, logs, and benchmark outputs \\
+EC2 Instance~1 & Runs ingestion, Kafka, Spark, ML workflows, and Airflow \\
+EC2 Instance~2 & Runs PostgreSQL, optional Redis, FastAPI, React, and optional Nginx \\
+Kafka & Buffers and distributes simulated live point events \\
+Spark Batch & Builds curated datasets, features, baselines, and model training inputs \\
+Spark Streaming & Processes live point events, computes rolling features, and performs online scoring \\
+Airflow & Schedules and monitors batch workflows and model publication jobs \\
+PostgreSQL & Stores serving-ready current match state, odds history, and risk events \\
+Redis & Optional cache for latest match state and live dashboard reads \\
+FastAPI & Provides API endpoints to the dashboard \\
+React & Provides the user-facing live odds and risk exploration interface \\
+\bottomrule
+\end{tabularx}
+\caption{High-level system components}
+\end{table}
+
+\subsection{Canonical Flow}
+
+\begin{enumerate}[nosep]
+  \item Raw tennis datasets are uploaded to S3.
+  \item EC2 Instance~1 reads raw data from S3.
+  \item Spark batch jobs clean data and build curated datasets.
+  \item Feature engineering jobs create offline feature tables and player baselines.
+  \item Model training jobs train odds and risk models.
+  \item Model artifacts and baselines are published back to S3 via a validated two-phase publish.
+  \item A replay producer reads prepared point sequences and sends events to Kafka.
+  \item Spark Structured Streaming consumes Kafka events.
+  \item Streaming jobs compute rolling features and apply latest models.
+  \item Current odds and risk outputs are written to PostgreSQL and optionally Redis on EC2 Instance~2.
+  \item FastAPI exposes serving data through API endpoints.
+  \item React dashboard displays live odds, match drill-downs, risk events, and benchmark summaries.
+\end{enumerate}
+
+% =============================================================================
+\section{Scope Definition}
+% =============================================================================
+
+\subsection{What Will Be Real}
+
+\begin{itemize}[nosep]
+  \item S3 data lake layout with zone manifests;
+  \item Kafka-based event replay with explicit topic configuration;
+  \item Spark batch jobs for cleaning and feature generation;
+  \item Spark streaming job for live processing with dead-letter handling;
+  \item baseline odds model;
+  \item baseline anomaly/risk scoring model;
+  \item PostgreSQL serving schema with indexes and archival;
+  \item FastAPI backend with bearer token authentication;
+  \item React dashboard;
+  \item benchmark scripts and result exports.
+\end{itemize}
+
+\subsection{What May Be Simplified}
+
+\begin{itemize}[nosep]
+  \item Number of features may be reduced to a practical MVP set;
+  \item model choices may use scikit-learn or Spark MLlib depending on complexity;
+  \item Redis may be optional if PostgreSQL performance is sufficient;
+  \item Airflow initially orchestrates one MVP DAG for the offline pipeline;
+  \item streaming scale may be lower than a full production sports-betting workload.
+\end{itemize}
+
+\subsection{What Will Not Be Claimed}
+
+\begin{itemize}[nosep]
+  \item Real betting odds suitable for financial wagering;
+  \item anomaly flags as proof of match-fixing or misconduct;
+  \item synthetic replay exactly matching live professional tennis operations;
+  \item two-instance deployment at production scale;
+  \item legally or commercially validated models.
+\end{itemize}
+
+% =============================================================================
+\section{Repository Structure}
+% =============================================================================
+
+\begin{lstlisting}
+tennis-big-data-project/
+README.md
+.github/
+  workflows/
+    ci.yml               # linting, unit tests, compose-validate
+docker-compose.processing.yml
+docker-compose.serving.yml
+docker-compose.dev.yml   # single-machine dev with shared bridge network
+.env.example
+data/
+  sample/
+contracts/
+  point_event_schema.json    # enforced on raw ingestion
+  match_state_schema.json
+  risk_event_schema.json
+infra/
+  ec2/
+    kafka_setup.sh       # topic creation with explicit partition config
+    spark_defaults.conf  # Iceberg catalog + micro-batch tuning
+  s3/
+    create_layout.sh     # creates prefixes + zone_metadata.json
+  iam/
+    ec2-processing-role-policy.json
+    ec2-serving-role-policy.json
+  nginx/
+producer/
+  replay_producer.py
+  config.py
+spark/
+  batch/
+    historical_ingestion.py
+    curated_build.py
+    feature_build.py
+    baseline_build.py
+    train_models.py
+    publish_model.py     # two-phase validated model publish
+  streaming/
+    streaming_processor.py
+    sinks.py
+    scoring.py
+    dead_letter.py       # malformed-message handling
+airflow/
+  dags/
+    nightly_batch_pipeline.py   # A->B->C->D->E->publish->F
+    replay_demo_pipeline.py
+api/
+  app/
+    main.py
+    middleware/
+      auth.py            # bearer token check
+    routes/
+    db/
+    schemas/
+frontend/
+  src/
+    pages/
+    components/
+    services/
+sql/
+  serving_schema.sql
+  indexes.sql            # idx_odds_history_match_ts + others
+  archival.sql           # pg_cron archival job
+tests/
+  unit/
+  integration/
+  e2e/
+reports/
+  benchmark_results/
+\end{lstlisting}
+
+% =============================================================================
+\section{Technology Decisions}
+% =============================================================================
+
+\subsection{Core Stack}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{L{4cm}L{4cm}X}
+\toprule
+\textbf{Layer} & \textbf{Technology} & \textbf{Reason} \\
+\midrule
+Cloud Storage & Amazon S3 & Durable data lake and artifact store \\
+Lakehouse Table Format & Apache Iceberg (Hadoop catalog) & Schema evolution, snapshots, incremental reads on curated/features zones \\
+Compute & Two Amazon EC2 instances & Cost-controlled cloud deployment \\
+Streaming Ingestion & Apache Kafka & Event buffering and replay simulation \\
+Batch Processing & Apache Spark & Scalable feature engineering \\
+Streaming Processing & Spark Structured Streaming & Stateful live event processing \\
+Orchestration & Apache Airflow & Scheduled workflows with explicit DAG dependencies \\
+Serving Database & PostgreSQL & Reliable relational serving store \\
+Cache & Redis (optional) & Fast latest-state reads \\
+Backend & FastAPI & Lightweight Python API layer \\
+Frontend & React & Interactive dashboard \\
+Containerization & Docker Compose & Reproducible deployment \\
+Secrets Management & AWS SSM Parameter Store & Shared secrets across both EC2 instances \\
+\bottomrule
+\end{tabularx}
+\caption{Core technology stack}
+\end{table}
+
+\subsection{Iceberg Catalog Configuration}
+
+\begin{importantbox}[--- Gap \#09 addressed]
+Iceberg requires a catalog backend. For this two-EC2 student deployment the \textbf{Hadoop catalog
+backed by S3} is used. No external catalog service is required. The following configuration must
+be present in \texttt{infra/ec2/spark\_defaults.conf} and referenced in
+\texttt{docker-compose.processing.yml}:
+\end{importantbox}
+
+\begin{lstlisting}[language=bash, caption={spark-defaults.conf --- Iceberg Hadoop catalog}]
+spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
+spark.sql.catalog.iceberg=org.apache.iceberg.spark.SparkCatalog
+spark.sql.catalog.iceberg.type=hadoop
+spark.sql.catalog.iceberg.warehouse=s3://tennis-big-data/iceberg/
+spark.sql.defaultCatalog=iceberg
+\end{lstlisting}
+
+\begin{notebox}
+\textbf{Iceberg scope.} Iceberg is applied only to the \texttt{cleaned/} and \texttt{features/}
+zones. The \texttt{raw/} zone remains plain S3 objects. The \texttt{baselines/} and
+\texttt{models/} zones use versioned Parquet files, not Iceberg tables, because they are written
+once per training run rather than updated incrementally.
+\end{notebox}
+
+\subsection{Explicit Technology Rejections}
+
+\begin{itemize}[nosep]
+  \item \textbf{Amazon MSK:} rejected due to cost for student version;
+  \item \textbf{Amazon EMR:} optional for stretch benchmarking only;
+  \item \textbf{Elasticsearch/OpenSearch:} replaced by PostgreSQL risk-event serving;
+  \item \textbf{Cassandra:} replaced by PostgreSQL and optional Redis;
+  \item \textbf{Kubernetes:} Docker Compose sufficient for two EC2 instances.
+\end{itemize}
+
+% =============================================================================
+\section{Environment Split}
+% =============================================================================
+
+\subsection{Local Development}
+
+\begin{notebox}
+\textbf{Gap \#23 addressed.} A dedicated \texttt{docker-compose.dev.yml} runs all services on a
+single machine using a shared Docker bridge network. This eliminates configuration drift between
+developers and removes the need to manage two sets of private IPs during local testing. Elastic
+IPs are applied to both EC2 instances so private IPs remain stable across reboots.
+\end{notebox}
+
+Local development responsibilities:
+\begin{itemize}[nosep]
+  \item writing and testing Spark transformations on samples;
+  \item testing producer payloads;
+  \item developing FastAPI endpoints;
+  \item developing React pages;
+  \item running schema validation and unit tests.
+\end{itemize}
+
+\subsection{Cloud Deployment}
+
+\textbf{EC2 Instance~1 --- Processing Node.}
+Kafka, producer, Spark, Airflow, ML pipelines.
+Recommended type: \texttt{m5.xlarge} (4~vCPUs, 16\,GB RAM).
+
+\begin{criticalbox}[--- Gap \#10 addressed]
+EC2-1 runs Kafka, Spark, and Airflow concurrently on 16\,GB RAM. To prevent OOM during model
+training:
+\begin{itemize}[nosep]
+  \item Mount a 30\,GB EBS scratch volume at \texttt{/mnt}; set
+    \texttt{spark.local.dir=/mnt/spark-temp} in \texttt{spark-defaults.conf}.
+  \item Configure 8\,GB swap: \texttt{sudo fallocate -l 8G /swapfile \&\& sudo mkswap
+    /swapfile \&\& sudo swapon /swapfile}.
+  \item When running Pipeline~E (model training), \textbf{pause the Kafka consumer and replay
+    producer} to free RAM. Document this in the Airflow DAG via task dependencies.
+\end{itemize}
+\end{criticalbox}
+
+\textbf{EC2 Instance~2 --- Serving and Application Node.}
+PostgreSQL, optional Redis, FastAPI, React, optional Nginx.
+Recommended type: \texttt{t3.large} or \texttt{m5.large}.
+
+\subsection{Networking and Security Group Setup}
+
+Both EC2 instances must be in the same AWS region, VPC, and preferably the same private subnet.
+EC2-1 communicates with EC2-2 over private IP addresses only.
+
+\begin{criticalbox}[--- Gap \#05 addressed: IAM role separation]
+Two separate IAM roles must be created and documented in \texttt{infra/iam/}:
+
+\textbf{ec2-processing-role} (attached to EC2-1):
+\begin{itemize}[nosep]
+  \item \texttt{s3:GetObject}, \texttt{s3:PutObject}, \texttt{s3:DeleteObject} on all prefixes;
+  \item \texttt{ssm:GetParameter} on \texttt{/tennis/*};
+  \item \texttt{ec2:DescribeInstances} for instance self-identification.
+\end{itemize}
+
+\textbf{ec2-serving-role} (attached to EC2-2):
+\begin{itemize}[nosep]
+  \item \texttt{s3:GetObject} on \texttt{models/} and \texttt{baselines/} prefixes \textbf{only};
+  \item \texttt{ssm:GetParameter} on \texttt{/tennis/*};
+  \item \textbf{No S3 write permissions} --- EC2-2 must never write to the data lake.
+\end{itemize}
+
+EC2-2 security group must allow PostgreSQL (5432) and Redis (6379) traffic only from EC2-1's
+private security group. Public inbound must be restricted to SSH from developer IPs and
+port~80/443 or~8000 for the demo.
+\end{criticalbox}
+
+\subsection{Shared Secrets Management}
+
+\begin{importantbox}[--- Gap \#18 addressed]
+All shared secrets (\texttt{POSTGRES\_PASSWORD}, \texttt{REDIS\_HOST}, \texttt{API\_KEY}, etc.)
+are stored in \textbf{AWS Systems Manager Parameter Store} as \texttt{SecureString} values under
+the \texttt{/tennis/} prefix. Both EC2 instances read from SSM at startup:
+
+\begin{lstlisting}[language=bash]
+export POSTGRES_PASSWORD=$(aws ssm get-parameter \
+  --name /tennis/postgres_password \
+  --with-decryption \
+  --query Parameter.Value \
+  --output text)
+\end{lstlisting}
+
+This prevents secrets from appearing in git, \texttt{.env} files synced between instances, or
+EC2 instance metadata. The \texttt{.env.example} file references SSM parameter names, not values.
+\end{importantbox}
+
+% =============================================================================
+\section{Data Contracts}
+% =============================================================================
+
+\subsection{Point Event Contract}
+
+\begin{lstlisting}[ caption={Point event Kafka message schema}]
+{
+  "event_id":       "string",
+  "match_id":       "string",
+  "event_ts":       "timestamp (UTC ISO-8601)",
+  "tournament":     "string",
+  "surface":        "string",
+  "player_a":       "string",
+  "player_b":       "string",
+  "server":         "string",
+  "receiver":       "string",
+  "point_winner":   "string",
+  "set_number":     1,
+  "game_number":    4,
+  "point_number":   23,
+  "score_context":  "string",
+  "serve_number":   1,
+  "rally_length":   6,
+  "is_break_point": false,
+  "is_double_fault":false,
+  "is_ace":         false
+}
+\end{lstlisting}
+
+\subsection{Current Match State Contract}
+
+\begin{lstlisting}[ caption={Current match state serving contract}]
+{
+  "match_id":            "string",
+  "updated_at":          "timestamp (UTC ISO-8601)",
+  "player_a":            "string",
+  "player_b":            "string",
+  "player_a_win_prob":   0.62,
+  "player_b_win_prob":   0.38,
+  "momentum_player":     "string",
+  "momentum_score":      0.14,
+  "set_score":           "string",
+  "game_score":          "string",
+  "points_played":       87,
+  "status":              "live"
+}
+\end{lstlisting}
+
+\subsection{Risk Event Contract}
+
+\begin{lstlisting}[ caption={Risk event contract}]
+{
+  "risk_event_id":   "string",
+  "match_id":        "string",
+  "event_ts":        "timestamp (UTC ISO-8601)",
+  "player":          "string",
+  "opponent":        "string",
+  "risk_score":      0.83,
+  "risk_level":      "high",
+  "primary_signal":  "serve_win_rate_drop",
+  "feature_deviation_summary": {
+    "serve_win_rate_delta":    -0.31,
+    "rally_length_delta":       4.2,
+    "pressure_point_delta":    -0.22
+  },
+  "explanation": "Current rolling serve performance is far below historical baseline."
+}
+\end{lstlisting}
+
+\subsection{Schema Governance Rules}
+
+\begin{itemize}[nosep]
+  \item Every event must include a unique \texttt{event\_id}.
+  \item Every event must include \texttt{match\_id} for partitioning and joins.
+  \item Timestamp fields must use UTC ISO-8601.
+  \item New fields must be backward compatible where possible.
+  \item Null handling rules must be defined for every feature.
+  \item Schema changes must be documented and increment the schema version.
+\end{itemize}
+
+\begin{importantbox}[--- Gap \#24 addressed: schema enforcement on raw ingestion]
+Raw zone files are plain S3 objects (no Iceberg). To prevent mixed-schema Parquet files after
+pipeline changes, \texttt{historical\_ingestion.py} validates every incoming file against
+\texttt{contracts/point\_event\_schema.json} before writing. Any column additions require a schema
+version bump (\texttt{v1}, \texttt{v2}, \ldots) and a full raw-zone re-ingest. Failed validation
+routes files to \texttt{s3://tennis-big-data/raw/quarantine/}.
+\end{importantbox}
+
+% =============================================================================
+\section{Data Lake Design}
+% =============================================================================
+
+\subsection{Zones}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{L{3cm}L{3cm}X}
+\toprule
+\textbf{Zone} & \textbf{Format} & \textbf{Description} \\
+\midrule
+\texttt{raw/} & CSV / plain S3 & Original source files; schema-validated on ingest \\
+\texttt{cleaned/} & Parquet (Iceberg) & Standardized, validated records \\
+\texttt{features/} & Parquet (Iceberg) & Offline feature tables \\
+\texttt{baselines/} & Parquet (versioned) & Player baseline profiles \\
+\texttt{models/} & Pickle/MLlib (versioned) & Trained model artifacts \\
+\texttt{stream\_archive/} & Parquet & Archived point events and streaming outputs \\
+\texttt{results/} & JSON/CSV & Benchmark and report outputs \\
+\bottomrule
+\end{tabularx}
+\caption{S3 data lake zones}
+\end{table}
+
+\subsection{Storage Layout}
+
+\begin{lstlisting}
+s3://tennis-big-data/
+  raw/
+    matches/
+    points/
+    quarantine/          # schema-validation failures
+    zone_metadata.json   # zone manifest
+  cleaned/               # Iceberg-managed
+    matches/
+    points/
+    zone_metadata.json
+  features/              # Iceberg-managed
+    match_features/
+    point_features/
+    zone_metadata.json
+  baselines/
+    player_baselines/
+    zone_metadata.json
+  models/
+    odds/
+      v1/, v2/, ...
+      latest.json        # two-phase publish pointer
+    risk/
+      v1/, v2/, ...
+      latest.json
+    zone_metadata.json
+  stream_archive/
+    point_events/
+    scored_events/
+    zone_metadata.json
+  results/
+    benchmarks/
+    reports/
+    zone_metadata.json
+  iceberg/               # Iceberg Hadoop catalog metadata root
+\end{lstlisting}
+
+\begin{minorbox}[--- Gap \#19 addressed: zone manifests]
+Each zone root contains a \texttt{zone\_metadata.json} file written by
+\texttt{infra/s3/create\_layout.sh}. The file records:
+\texttt{zone\_name}, \texttt{managed\_by} (\texttt{iceberg}/\texttt{parquet}/\texttt{plain}),
+\texttt{owner}, \texttt{created\_at}, \texttt{description}. This prevents confusion when team
+members browse the bucket.
+\end{minorbox}
+
+\subsection{Partitioning}
+
+\begin{itemize}[nosep]
+  \item By year for historical match data;
+  \item by tournament or surface for selected feature tables;
+  \item by replay date for stream archive data;
+  \item by model version for artifacts.
+\end{itemize}
+
+\subsection{File Formats}
+
+\begin{itemize}[nosep]
+  \item \textbf{CSV:} raw data ingestion only;
+  \item \textbf{Parquet:} physical storage for cleaned data, features, stream archives;
+  \item \textbf{Apache Iceberg:} table format for curated and feature zones;
+  \item \textbf{JSON:} event contracts, zone manifests, model registry pointers;
+  \item \textbf{Pickle/MLlib/Joblib:} model artifacts depending on framework.
+\end{itemize}
+
+% =============================================================================
+\section{Lake vs.\ Serving Responsibilities}
+% =============================================================================
+
+\subsection{Data Lake Responsibilities}
+
+S3 is responsible for durable, reproducible storage. It holds the full historical record,
+intermediate datasets, offline features, models, baselines, and benchmark evidence.
+
+\subsection{Serving Layer Responsibilities}
+
+The serving layer holds dashboard-ready data. PostgreSQL stores current match states, odds
+history, risk events, model versions, and benchmark summaries. Redis may store the latest state
+for low-latency reads.
+
+\subsection{Design Rule}
+
+The data lake is the source of truth. The serving layer is optimized for application access. If
+serving tables are corrupted or deleted, they must be fully rebuildable from S3 and pipeline
+outputs.
+
+% =============================================================================
+\section{Serving Data Model}
+% =============================================================================
+
+\subsection{PostgreSQL Tables}
+
+\begin{lstlisting}[language=sql, caption={serving\_schema.sql}]
+CREATE TABLE matches (
+  match_id    TEXT PRIMARY KEY,
+  player_a    TEXT NOT NULL,
+  player_b    TEXT NOT NULL,
+  tournament  TEXT,
+  surface     TEXT,
+  status      TEXT,
+  created_at  TIMESTAMP,
+  updated_at  TIMESTAMP
+);
+
+CREATE TABLE current_match_state (
+  match_id            TEXT PRIMARY KEY REFERENCES matches(match_id),
+  updated_at          TIMESTAMP NOT NULL,
+  player_a_win_prob   DOUBLE PRECISION,
+  player_b_win_prob   DOUBLE PRECISION,
+  momentum_player     TEXT,
+  momentum_score      DOUBLE PRECISION,
+  set_score           TEXT,
+  game_score          TEXT,
+  points_played       INTEGER
+);
+
+CREATE TABLE odds_history (
+  id                  BIGSERIAL PRIMARY KEY,
+  match_id            TEXT REFERENCES matches(match_id),
+  event_ts            TIMESTAMP NOT NULL,
+  player_a_win_prob   DOUBLE PRECISION,
+  player_b_win_prob   DOUBLE PRECISION,
+  momentum_score      DOUBLE PRECISION,
+  points_played       INTEGER
+);
+
+CREATE TABLE risk_events (
+  risk_event_id  TEXT PRIMARY KEY,
+  match_id       TEXT REFERENCES matches(match_id),
+  event_ts       TIMESTAMP NOT NULL,
+  player         TEXT,
+  opponent       TEXT,
+  risk_score     DOUBLE PRECISION,
+  risk_level     TEXT,
+  primary_signal TEXT,
+  explanation    TEXT
+);
+
+CREATE TABLE model_versions (
+  model_version  TEXT PRIMARY KEY,
+  model_type     TEXT,
+  artifact_path  TEXT,
+  trained_at     TIMESTAMP,
+  metrics_json   JSONB
+);
+\end{lstlisting}
+
+\begin{criticalbox}[--- Gap \#03 addressed: indexes and archival]
+\textbf{Indexes (indexes.sql):}
+\begin{lstlisting}[language=sql]
+-- Dashboard reads filter by match_id and sort by event_ts DESC
+CREATE INDEX idx_odds_history_match_ts
+  ON odds_history (match_id, event_ts DESC);
+
+CREATE INDEX idx_risk_events_match_ts
+  ON risk_events (match_id, event_ts DESC);
+
+CREATE INDEX idx_risk_events_level
+  ON risk_events (risk_level, event_ts DESC);
+\end{lstlisting}
+
+\textbf{Archival job (archival.sql --- scheduled via pg\_cron every 15 minutes):}
+\begin{lstlisting}[language=sql]
+-- Retain only the last 2 hours of odds_history rows
+DELETE FROM odds_history
+WHERE event_ts < NOW() - INTERVAL '2 hours';
+
+-- Archive risk events older than 24 hours to S3 before deletion
+-- (handled by Airflow Pipeline I before DELETE runs)
+DELETE FROM risk_events
+WHERE event_ts < NOW() - INTERVAL '24 hours';
+\end{lstlisting}
+
+\textbf{JDBC batch size} must be set in \texttt{streaming\_processor.py}:
+\begin{lstlisting}[language=python]
+odds_df.write \
+  .format("jdbc") \
+  .option("url", POSTGRES_URL) \
+  .option("dbtable", "odds_history") \
+  .option("batchsize", "500") \
+  .mode("append") \
+  .save()
+\end{lstlisting}
+\end{criticalbox}
+
+\subsection{Redis Keys (Optional)}
+
+\begin{lstlisting}
+match:{match_id}:latest_state    TTL = 30s
+match:{match_id}:latest_odds     TTL = 30s
+live_matches                     TTL = 10s
+system:latest_benchmark          TTL = 300s
+\end{lstlisting}
+
+\begin{importantbox}[--- Gap \#15 addressed: odds\_history size estimate]
+For 10 concurrent matches at a 2-second micro-batch trigger over 90 minutes of demo time,
+\texttt{odds\_history} accumulates approximately $10 \times 2{,}700 = 27{,}000$ rows. This is
+manageable but must be a conscious design decision. The pg\_cron archival job above bounds the
+table to the last 2 hours. Live dashboard reads use \texttt{current\_match\_state} (one row per
+match) rather than querying \texttt{odds\_history} for the latest value.
+\end{importantbox}
+
+\subsection{Serving Retention Strategy}
+
+PostgreSQL retains all demo-period current states, odds histories within the 2-hour rolling
+window, and risk events within 24 hours. Redis retains only latest values and is treated as
+disposable cache. Long-term archives remain in S3.
+
+% =============================================================================
+\section{Synthetic Data Strategy}
+% =============================================================================
+
+\subsection{Core Principle}
+
+Synthetic data should amplify scale without inventing unrealistic conclusions. Synthetic replay
+preserves the structure of real tennis point sequences while allowing many simulated matches to
+run concurrently.
+
+\subsection{Allowed Methods}
+
+\begin{itemize}[nosep]
+  \item Replaying historical point sequences with new synthetic match identifiers;
+  \item shifting event timestamps to simulate live progression;
+  \item sampling matches by tournament, surface, or player;
+  \item modest perturbation of non-critical metadata for scale testing;
+  \item duplicating replay streams for controlled throughput benchmarks.
+\end{itemize}
+
+\subsection{Disallowed Methods}
+
+\begin{itemize}[nosep]
+  \item Inventing risk labels and presenting them as real evidence;
+  \item claiming synthetic anomalies are confirmed match-fixing;
+  \item corrupting tennis scoring rules;
+  \item using future points to compute current live features;
+  \item producing models that leak target outcomes into live prediction features.
+\end{itemize}
+
+\begin{importantbox}[--- Gap \#16 addressed: anomaly training strategy]
+The risk model must be trained without invented anomaly labels. The approach is fully
+\textbf{unsupervised}:
+\begin{enumerate}[nosep]
+  \item Compute historical player baselines (mean and standard deviation of each feature
+    per player per surface) from the full historical dataset.
+  \item During streaming, compute z-scores of current rolling features against the stored
+    baseline.
+  \item Flag events where $|z| > 2.5$ on two or more key signals simultaneously as
+    \texttt{risk\_level = high}.
+  \item Optionally train an Isolation Forest on historical feature vectors to score
+    global anomalousness alongside the z-score approach.
+\end{enumerate}
+This approach requires no labeled anomaly examples and is not susceptible to label fabrication.
+Document this in \texttt{README.md} under the Modeling section.
+\end{importantbox}
+
+\subsection{Documentation Requirement}
+
+Every synthetic generation method must be documented with: input source, transformation rule,
+output location, intended purpose, and limitations.
+
+% =============================================================================
+\section{Modeling Plan}
+% =============================================================================
+
+\subsection{Predictive Odds Model}
+
+The odds model predicts each player's probability of winning given current match state. For the
+MVP the model may use Logistic Regression, Random Forest, or Gradient Boosted Trees.
+
+\textbf{Inputs:} current score context, serve win rate, return points won, recent point streak,
+surface, player baseline strength, rolling momentum features.
+
+\textbf{Outputs:} player A win probability, player B win probability, model version metadata.
+
+\subsection{Risk / Anomaly Model}
+
+The risk model identifies unusual deviations between current player behavior and historical
+baselines using z-score deviation and optional Isolation Forest (see Section~13.2 above).
+
+\textbf{Risk signals:} serve win rate significantly below baseline, double faults above baseline,
+unusual drop in pressure-point performance, abnormal rally length pattern, sudden momentum
+collapse.
+
+\subsection{Why Spark MLlib Is Not the Sole Path}
+
+Spark MLlib is useful for distributed training but the project may use scikit-learn or another
+Python ML library for MVP if the selected dataset is manageable. Spark remains central for
+distributed feature generation and streaming analytics.
+
+\subsection{Model Governance Rules}
+
+\begin{itemize}[nosep]
+  \item Every model artifact must have a version identifier.
+  \item Every model must store its training timestamp.
+  \item Evaluation metrics must be saved to \texttt{benchmark\_results/model\_eval.json}.
+  \item The streaming job must log which model version was used.
+  \item Risk scores must be described as statistical signals, not proof of misconduct.
+\end{itemize}
+
+\begin{criticalbox}[--- Gap \#13 addressed: two-phase model publish with validation gate]
+\texttt{publish\_model.py} implements a two-phase publish to prevent corrupt or incomplete
+model artifacts from reaching the streaming job:
+\begin{enumerate}[nosep]
+  \item Train and save model to \texttt{s3://tennis-big-data/models/odds/staging/}.
+  \item Load the staged artifact and score a fixed test fixture
+    (\texttt{data/sample/model\_validation\_fixture.parquet}).
+  \item Assert: \texttt{AUC >= 0.55} and \texttt{brier\_score <= 0.30}. If either fails,
+    abort --- do not update \texttt{latest.json}.
+  \item On success, copy artifact from \texttt{staging/} to \texttt{v\{N\}/} and atomically
+    overwrite \texttt{latest.json} with the new version path.
+\end{enumerate}
+S3 object versioning is enabled on the \texttt{models/} prefix as a recovery fallback.
+\end{criticalbox}
+
+\begin{importantbox}[--- Gap \#20 addressed: model evaluation thresholds]
+The following minimum thresholds gate model publication. They are deliberately conservative for a
+synthetic dataset:
+\begin{itemize}[nosep]
+  \item Odds model: AUC $\geq 0.55$, Brier score $\leq 0.30$.
+  \item Risk model: precision on held-out injected anomalies $\geq 0.50$ (if labeled test set
+    available); otherwise, validate that z-score distribution on the test set matches expected
+    Gaussian properties.
+\end{itemize}
+These values are logged to \texttt{results/benchmarks/model\_eval.json} on every training run.
+\end{importantbox}
+
+During streaming, the processor loads the latest approved model at startup and refreshes only at
+controlled boundaries. Model artifacts are identified by \texttt{latest.json}. A version switch
+is logged when it occurs.
+
+% =============================================================================
+\section{Feature Design}
+% =============================================================================
+
+\subsection{Feature Families}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{L{4cm}X}
+\toprule
+\textbf{Family} & \textbf{Example Features} \\
+\midrule
+Serve Dynamics & first serve \%, ace rate, double fault rate, serve points won \\
+Return and Rally & return points won, avg.\ rally length, rally length trend \\
+Pressure and Clutch & break-point conversion, break-point save rate, deuce performance \\
+Momentum and Fatigue & recent points won, streak length, cumulative rally load, momentum index \\
+Contextual & surface, tournament, round, player baseline, opponent strength \\
+\bottomrule
+\end{tabularx}
+\caption{Feature families}
+\end{table}
+
+\subsection{Rules for Feature Correctness}
+
+\begin{criticalbox}[--- Gap \#07 addressed: point-in-time correctness]
+\textbf{Batch features (Pipeline~C):}
+\begin{itemize}[nosep]
+  \item Sort all events by \texttt{event\_ts} before computing any rolling window.
+  \item Apply a \textbf{temporal train/test split}: all matches completed before date~$T$ form
+    the training set; matches after $T$ form the test set. Never allow future match data to
+    appear in training features.
+  \item Use \texttt{Window.rowsBetween(Window.unboundedPreceding, -1)} in Spark window
+    functions so the current row's own outcome is never included in its own feature.
+  \item Document the split date and window boundaries in \texttt{features/feature\_catalog.md}.
+\end{itemize}
+
+\textbf{Streaming features (live):}
+\begin{itemize}[nosep]
+  \item Streaming features may only use events with \texttt{event\_ts $\leq$ current\_event\_ts}.
+  \item Watermark of 30 seconds ensures late events are bounded (see Section~18.3).
+  \item Rolling windows use \texttt{withWatermark} before any stateful aggregation.
+\end{itemize}
+\end{criticalbox}
+
+\begin{itemize}[nosep]
+  \item Null values must be explicitly handled (fill with baseline mean or zero as documented).
+  \item Feature definitions must be documented and unit-tested.
+\end{itemize}
+
+% =============================================================================
+\section{Data Quality Plan}
+% =============================================================================
+
+\subsection{Core Data Quality Checks}
+
+\begin{itemize}[nosep]
+  \item Required fields are present;
+  \item event timestamps are parseable and in UTC;
+  \item match IDs are non-null;
+  \item \texttt{point\_winner} is one of the valid players;
+  \item set/game/point numbers are non-negative;
+  \item duplicate event IDs are removed or ignored;
+  \item invalid scoring states are flagged.
+\end{itemize}
+
+\subsection{DQ Failure Policy}
+
+Records failing non-critical checks are quarantined at
+\texttt{s3://tennis-big-data/raw/quarantine/}. Records failing critical checks are not published
+to Kafka or serving tables. Rejected record counts are logged per pipeline run.
+
+% =============================================================================
+\section{Pipelines}
+% =============================================================================
+
+\subsection{Pipeline A: Historical Ingestion}
+
+Loads raw source files into S3, validates against \texttt{contracts/point\_event\_schema.json},
+and writes zone metadata. Triggered by Airflow S3KeySensor or CLI script \texttt{ingest.sh}.
+
+\begin{importantbox}[--- Gap \#08 addressed: ingestion trigger]
+Pipeline~A has a defined entry point. Option~1 (recommended): an Airflow
+\texttt{S3KeySensor} watching \texttt{s3://tennis-big-data/raw/points/}. Option~2: a bash script
+\texttt{ingest.sh} that syncs a local data folder and then triggers the Airflow DAG via the CLI
+(\texttt{airflow dags trigger nightly\_batch\_pipeline}). Both options are documented in
+\texttt{README.md} under Quick Start.
+\end{importantbox}
+
+\subsection{Pipeline B: Curated Dataset Build}
+Reads raw S3 data, standardizes columns, normalizes types, validates records, and writes cleaned
+Iceberg tables.
+
+\subsection{Pipeline C: Feature Build}
+Builds batch feature tables using temporal-join-correct rolling windows. Applies point-in-time
+split described in Section~15.2.
+
+\subsection{Pipeline D: Baseline Build}
+Computes player historical baselines: serve win rate, return performance, pressure-point
+conversion, rally length distribution, and surface-specific tendencies. Outputs stored as
+versioned Parquet in \texttt{baselines/}.
+
+\subsection{Pipeline E: Model Training}
+Trains odds and risk models using feature tables and baseline profiles. Evaluates metrics against
+thresholds. Calls \texttt{publish\_model.py} for two-phase validated publish.
+
+\subsection{Pipeline F: Replay Preparation}
+Converts historical point sequences into replay-ready event files. Assigns synthetic match IDs,
+replay timestamps, and partition keys.
+
+\subsection{Pipeline G: Live Replay and Streaming}
+Starts the replay producer, writes events to Kafka, runs Spark Structured Streaming, scores
+events, and writes live outputs to PostgreSQL and optional Redis.
+
+\subsection{Pipeline H: Serving API}
+Always-running FastAPI service. Queries PostgreSQL and Redis, formats responses, returns
+dashboard-ready JSON.
+
+\subsection{Pipeline I: Reporting and Evidence Export}
+Exports benchmark results, example match timelines, model evaluation tables, and final report
+figures into S3 and the repository's \texttt{reports/} folder.
+
+\subsection{Airflow DAG --- Explicit Dependency Graph}
+
+\begin{criticalbox}[--- Gap \#06 addressed: DAG dependency prevents replay before model is ready]
+The single MVP Airflow DAG must encode the following task dependency chain:
+
+\begin{lstlisting}[language=python, caption={nightly\_batch\_pipeline.py --- task ordering}]
+ingest_task \
+  >> curated_build_task \
+  >> feature_build_task \
+  >> baseline_build_task \
+  >> train_models_task \
+  >> publish_model_task \   # validates metrics, writes latest.json
+  >> replay_prep_task \     # CANNOT start before model is published
+  >> notify_streaming_ready_task
+\end{lstlisting}
+
+\texttt{publish\_model\_task} writes \texttt{latest.json} only if validation passes (Section~14.4).
+The streaming startup script checks for the existence of \texttt{latest.json} before subscribing
+to Kafka:
+
+\begin{lstlisting}[language=python, caption={streaming\_processor.py --- model readiness check}]
+import boto3, json, sys
+
+s3 = boto3.client('s3')
+try:
+    obj = s3.get_object(Bucket='tennis-big-data',
+                        Key='models/odds/latest.json')
+    model_meta = json.loads(obj['Body'].read())
+    MODEL_PATH = model_meta['artifact_path']
+except s3.exceptions.NoSuchKey:
+    print("ERROR: models/odds/latest.json not found. "
+          "Run Pipeline E before starting streaming.")
+    sys.exit(1)
+\end{lstlisting}
+\end{criticalbox}
+
+% =============================================================================
+\section{Streaming Correctness and Reliability Semantics}
+% =============================================================================
+
+\subsection{Core Streaming Assumptions}
+
+The stream is generated from historical replay so event order is controlled. Kafka partitions use
+\texttt{match\_id} as the key so point events for the same match preserve order within a
+partition.
+
+\subsection{Kafka Topic Configuration}
+
+\begin{criticalbox}[--- Gap \#01 addressed: explicit Kafka topic specification]
+Before running \texttt{kafka-topics --create}, the following parameters must be decided and
+committed to \texttt{infra/ec2/kafka\_setup.sh}:
+
+\begin{lstlisting}[language=bash, caption={kafka\_setup.sh}]
+KAFKA_BIN=/opt/kafka/bin
+BOOTSTRAP=localhost:9092
+TOPIC=tennis-point-events
+
+$KAFKA_BIN/kafka-topics.sh --create \
+  --bootstrap-server $BOOTSTRAP \
+  --topic $TOPIC \
+  --partitions 20 \           # supports up to 20 concurrent matches
+  --replication-factor 1 \    # single-broker EC2 demo
+  --config retention.ms=86400000 \   # 24-hour retention
+  --config cleanup.policy=delete \
+  --config max.message.bytes=1048576
+
+# Consumer group used by Spark streaming
+# (set in streaming_processor.py via .option("kafka.group.id","spark-tennis"))
+echo "Topic $TOPIC created. Consumer group: spark-tennis"
+\end{lstlisting}
+
+\textbf{Partition count rationale:} 20 partitions supports up to 20 concurrent replay matches
+with strict ordering per match (one partition per match\_id). Kafka does not allow safe
+partition-count changes on live topics, so this must be set correctly before the first producer
+run.
+\end{criticalbox}
+
+\subsection{Spark Micro-Batch Tuning}
+
+\begin{criticalbox}[--- Gap \#02 addressed: throughput tuning parameters]
+The following parameters must be set before benchmarking. Expose all three as environment
+variables so they can be tuned without redeployment:
+
+\begin{lstlisting}[language=python, caption={streaming\_processor.py --- tuning config}]
+spark = SparkSession.builder \
+    .appName("TennisStreamingProcessor") \
+    .config("spark.sql.shuffle.partitions", "4")  \  # = vCPU count on m5.xlarge
+    .getOrCreate()
+
+query = (scored_stream
+    .writeStream
+    .trigger(processingTime="2 seconds")   # micro-batch interval
+    .option("maxOffsetsPerTrigger", os.getenv("MAX_OFFSETS", "5000"))
+    .option("checkpointLocation", "/mnt/checkpoints/streaming_processor")
+    .option("kafka.group.id", "spark-tennis")
+    .foreachBatch(write_batch)
+    .start())
+\end{lstlisting}
+
+\textbf{Validation:} the throughput benchmark (Section~24) must demonstrate $\geq 1{,}000$
+events/second by tuning \texttt{MAX\_OFFSETS} and \texttt{processingTime} together. Start with
+the values above and increase \texttt{MAX\_OFFSETS} if throughput is below target.
+\end{criticalbox}
+
+\subsection{Watermarking and Late Data}
+
+\begin{importantbox}[--- Gap \#11 addressed: watermark interval quantified]
+Because replay events are generated by the project, late data is rare. The watermark is set to
+30 seconds. This bounds state growth for all stateful aggregations:
+
+\begin{lstlisting}[language=python]
+windowed = (events_df
+    .withWatermark("event_ts", "30 seconds")
+    .groupBy(
+        F.window("event_ts", "5 minutes", "30 seconds"),
+        "match_id", "player_a", "player_b"
+    )
+    .agg(...feature_aggregations...))
+\end{lstlisting}
+
+State TTL is bounded by the watermark plus window duration. For a 5-minute window with a
+30-second watermark, state is held for at most 5.5 minutes per match. After a match ends, state
+is evicted automatically. Set \texttt{spark.sql.streaming.stateStore.minDeltasForSnapshot=10}
+to control state snapshot frequency.
+\end{importantbox}
+
+\subsection{Checkpoint Storage}
+
+\begin{importantbox}[--- Gap \#12 addressed: checkpoint location decision]
+Use \textbf{local EBS} for checkpointing during the demo:
+\texttt{checkpointLocation=/mnt/checkpoints/streaming\_processor}.
+
+Mount a dedicated EBS volume at \texttt{/mnt} so checkpoints survive instance reboots but are
+not lost on instance termination. \textbf{Important:} when the Spark streaming schema changes
+(e.g.\ new feature column added), the existing checkpoint must be deleted before restart.
+Document this in \texttt{README.md}:
+
+\begin{lstlisting}[language=bash]
+# Run this ONLY when streaming schema changes
+sudo rm -rf /mnt/checkpoints/streaming_processor
+echo "Checkpoint cleared. Restart streaming_processor.py"
+\end{lstlisting}
+\end{importantbox}
+
+\subsection{Dead-Letter Queue for Malformed Messages}
+
+\begin{criticalbox}[--- Gap \#04 addressed: streaming dead-letter handling]
+\texttt{dead\_letter.py} wraps Spark's \texttt{from\_json} so a single malformed Kafka message
+cannot stall the entire streaming job:
+
+\begin{lstlisting}[language=python, caption={dead\_letter.py}]
+from pyspark.sql import functions as F
+from pyspark.sql.types import StructType
+
+def parse_with_dead_letter(raw_df, schema: StructType,
+                            s3_quarantine: str) -> tuple:
+    """
+    Returns (good_df, bad_df).
+    good_df: rows where JSON parsed successfully.
+    bad_df:  rows where parse failed (written to S3 quarantine).
+    """
+    parsed = raw_df.select(
+        F.col("offset"),
+        F.col("timestamp").alias("kafka_ts"),
+        F.from_json(F.col("value").cast("string"),
+                    schema,
+                    {"mode": "PERMISSIVE"}).alias("data"),
+        F.col("value").cast("string").alias("raw_value")
+    )
+
+    good_df = parsed.filter(F.col("data.event_id").isNotNull()) \
+                    .select("data.*", "kafka_ts")
+
+    bad_df  = parsed.filter(F.col("data.event_id").isNull()) \
+                    .select("raw_value", "kafka_ts",
+                            F.current_timestamp().alias("quarantine_ts"))
+
+    bad_df.write \
+          .mode("append") \
+          .json(s3_quarantine)   # s3://tennis-big-data/raw/quarantine/streaming/
+
+    return good_df, bad_df
+\end{lstlisting}
+
+Call \texttt{parse\_with\_dead\_letter} at the start of every micro-batch. Log the count of
+quarantined records per batch to the observability metrics (Section~22).
+\end{criticalbox}
+
+\subsection{Idempotency and Deduplication}
+
+Every event includes a unique \texttt{event\_id}. The serving writer uses PostgreSQL upserts for
+\texttt{current\_match\_state} and unique constraints on \texttt{risk\_events.risk\_event\_id}.
+
+\subsection{State TTL and Cleanup}
+
+Streaming state evicted after watermark window expires. Redis keys carry explicit TTLs
+(Section~12.2). Old demo data archived to S3 by Pipeline~I.
+
+\subsection{Failure Handling}
+
+\begin{itemize}[nosep]
+  \item Producer retry logic on Kafka send failure;
+  \item Kafka topic durability with 24-hour retention;
+  \item Spark checkpoint recovery on EBS;
+  \item database upserts for idempotent writes;
+  \item Airflow task retries for batch jobs;
+  \item dead-letter queue for malformed streaming records;
+  \item logs for all failed records and failed tasks.
+\end{itemize}
+
+% =============================================================================
+\section{Backend Service Plan}
+% =============================================================================
+
+\subsection{Replay Producer}
+
+Reads prepared point-event files and publishes to Kafka. Controls replay speed, number of
+concurrent matches, and timestamp generation. Uses \texttt{match\_id} as the Kafka message key
+to enforce partition routing.
+
+\subsection{Streaming Processor}
+
+Consumes Kafka events, calls \texttt{parse\_with\_dead\_letter}, computes rolling features,
+applies the validated model, and writes to PostgreSQL and optional Redis.
+
+\subsection{API Service}
+
+FastAPI service exposing dashboard endpoints. No heavy analytics performed inline.
+
+\begin{importantbox}[--- Gap \#14 addressed: API bearer token authentication]
+All API endpoints require a static bearer token validated in
+\texttt{api/app/middleware/auth.py}:
+
+\begin{lstlisting}[language=python, caption={auth.py}]
+import os
+from fastapi import Request, HTTPException
+from starlette.middleware.base import BaseHTTPMiddleware
+
+class BearerTokenMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        if request.url.path == "/health":
+            return await call_next(request)   # health check is public
+        token = request.headers.get("X-API-Key", "")
+        if token != os.environ["API_KEY"]:
+            raise HTTPException(status_code=401,
+                                detail="Invalid or missing API key")
+        return await call_next(request)
+\end{lstlisting}
+
+The \texttt{API\_KEY} value is stored in AWS SSM Parameter Store and injected at startup. The
+React dashboard sends the key in every request header. Document the demo key in
+\texttt{.env.example} as \texttt{API\_KEY=\$\{SSM:/tennis/api\_key\}}.
+\end{importantbox}
+
+% =============================================================================
+\section{Frontend Build Plan}
+% =============================================================================
+
+\subsection{Pages}
+
+React application pages: Overview Dashboard, Live Odds Board, Match Drill-Down, Risk Explorer,
+System Benchmark View.
+
+\subsection{Overview Dashboard Components}
+
+Number of live matches, events processed per second, recent risk alerts, latest model version,
+system health cards.
+
+\subsection{Live Odds Board Components}
+
+Active match table, player win probabilities, current score, momentum indicator, last update
+timestamp.
+
+\subsection{Match Drill-Down Components}
+
+Odds history line chart, recent point timeline, rolling serve and return statistics, risk event
+markers, model explanation summary.
+
+\subsection{Risk Explorer Components}
+
+Risk event table, filters by player/match/risk level/time, risk score distribution, feature
+deviation details, explanation panel.
+
+\subsection{System Benchmark View}
+
+Throughput chart, latency summary, batch runtime, processed event count, resource utilization.
+
+\subsection{Frontend Refresh Policy}
+
+Live endpoints polled every 2--5 seconds. Historical pages refresh on user action only.
+
+\begin{minorbox}[--- Gap \#22 addressed: Cache-Control headers]
+Adding \texttt{Cache-Control} headers to FastAPI responses reduces redundant PostgreSQL reads
+when multiple browser tabs or demo viewers are connected simultaneously:
+
+\begin{lstlisting}[language=python, caption={routes/live.py --- cache headers}]
+from fastapi import Response
+
+@router.get("/api/matches/live")
+async def get_live_matches(response: Response):
+    response.headers["Cache-Control"] = "max-age=2, must-revalidate"
+    return await db.fetch_live_matches()
+
+@router.get("/api/matches/{match_id}/odds-history")
+async def get_odds_history(match_id: str, response: Response):
+    response.headers["Cache-Control"] = "max-age=30"
+    return await db.fetch_odds_history(match_id)
+\end{lstlisting}
+\end{minorbox}
+
+% =============================================================================
+\section{API Contracts}
+% =============================================================================
+
+\subsection{Required Endpoints}
+
+\begin{lstlisting}
+GET  /health                                  (public, no auth)
+GET  /api/matches/live                        Cache-Control: max-age=2
+GET  /api/matches/{match_id}                  Cache-Control: max-age=5
+GET  /api/matches/{match_id}/odds-history     Cache-Control: max-age=30
+GET  /api/matches/{match_id}/points           Cache-Control: max-age=5
+GET  /api/risk-events                         Cache-Control: max-age=5
+GET  /api/risk-events/{risk_event_id}         Cache-Control: max-age=30
+GET  /api/benchmarks/latest                   Cache-Control: max-age=60
+GET  /api/models/current                      Cache-Control: max-age=60
+\end{lstlisting}
+
+\subsection{API Correctness Rules}
+
+\begin{itemize}[nosep]
+  \item API responses must include timestamps.
+  \item Empty states return valid JSON, not errors.
+  \item Database errors are handled gracefully with 500 status and logged.
+  \item Dashboard endpoints optimized for repeated reads (indexed queries only).
+  \item No endpoint triggers heavy Spark processing directly.
+  \item All endpoints except \texttt{/health} require \texttt{X-API-Key} header.
+\end{itemize}
+
+% =============================================================================
+\section{Observability Plan}
+% =============================================================================
+
+\subsection{Metrics to Capture}
+
+\begin{itemize}[nosep]
+  \item Kafka messages produced per second;
+  \item Kafka messages consumed per second;
+  \item Spark micro-batch duration;
+  \item dead-letter message count per micro-batch;
+  \item end-to-end event latency;
+  \item number of active matches;
+  \item number of risk alerts generated;
+  \item API request latency;
+  \item PostgreSQL row counts per table;
+  \item batch job runtime per pipeline.
+\end{itemize}
+
+\subsection{Logs to Capture}
+
+Producer logs, Kafka container logs, Spark driver and executor logs, Airflow task logs, FastAPI
+request/error logs, frontend deployment logs, database migration logs, dead-letter quarantine
+counts.
+
+\subsection{Operational Dashboards}
+
+The frontend Benchmark View serves as the main operational dashboard. Container-level metrics may
+be captured via \texttt{docker stats} or CloudWatch if time allows.
+
+% =============================================================================
+\section{Testing Strategy}
+% =============================================================================
+
+\subsection{Unit Tests}
+
+\begin{itemize}[nosep]
+  \item Data contract validation (each schema field);
+  \item feature calculations (rolling window correctness, null handling);
+  \item odds scoring functions;
+  \item risk scoring functions (z-score thresholds);
+  \item \texttt{parse\_with\_dead\_letter} with intentionally malformed JSON;
+  \item two-phase model publish --- mock S3 put, assert latest.json updated only on pass;
+  \item API response formatting;
+  \item bearer token middleware (valid, missing, wrong token);
+  \item frontend utility functions.
+\end{itemize}
+
+\subsection{Integration Tests}
+
+\begin{itemize}[nosep]
+  \item Producer to Kafka;
+  \item Spark reading from Kafka;
+  \item Spark writing to PostgreSQL (including JDBC batch size);
+  \item API reading from PostgreSQL;
+  \item frontend calling API endpoints;
+  \item dead-letter route: malformed message reaches S3 quarantine.
+\end{itemize}
+
+\subsection{End-to-End Tests}
+
+Run a small replay from S3 sample data through Kafka, Spark, PostgreSQL, API, and dashboard.
+Verify that a live match appears in the frontend and odds values update. Verify that a
+deliberately malformed event does not crash the streaming job.
+
+\subsection{Performance Tests}
+
+Vary replay speed, number of concurrent matches, and event volume. Outputs include throughput,
+latency, and resource utilization. \textbf{Discard the first 60 seconds of metrics} as the
+Spark JIT, Kafka consumer rebalance, and JVM GC warm-up window (see Section~24).
+
+% =============================================================================
+\section{Benchmarking Plan}
+% =============================================================================
+
+\subsection{Benchmark Scenarios}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{L{4cm}X}
+\toprule
+\textbf{Scenario} & \textbf{Description} \\
+\midrule
+Baseline replay & Small number of matches, low replay rate \\
+Moderate load & Hundreds of concurrent simulated matches \\
+High load & Maximum sustainable replay rate for selected EC2 instance \\
+Failure recovery & Restart streaming job, verify checkpoint recovery \\
+Serving stress & Repeated dashboard/API reads during replay \\
+\bottomrule
+\end{tabularx}
+\caption{Benchmark scenarios}
+\end{table}
+
+\subsection{Metrics Reported}
+
+Events produced/second, events processed/second, average and p95 streaming latency, API response
+latency, batch job runtime, model metrics, alerts generated.
+
+\subsection{Benchmark Success Criteria}
+
+\begin{itemize}[nosep]
+  \item System processes a live replay stream end-to-end.
+  \item Dashboard updates within 5 seconds of event production.
+  \item Risk events stored and displayed correctly.
+  \item Benchmark evidence exported to \texttt{results/benchmarks/}.
+\end{itemize}
+
+\begin{importantbox}[--- Gap \#21 addressed: warm-up period]
+All benchmark measurement windows must \textbf{exclude the first 60 seconds} after streaming
+job startup. This accounts for Spark JIT compilation, Kafka consumer group rebalancing, and JVM
+GC ramp-up. Document the warm-up window in \texttt{results/benchmarks/README.md} so graders
+understand the methodology. The benchmark script must record:
+\begin{itemize}[nosep]
+  \item \texttt{warmup\_seconds}: 60
+  \item \texttt{measurement\_start}: timestamp after warm-up
+  \item \texttt{measurement\_duration}: configurable (recommend 300 seconds)
+\end{itemize}
+\end{importantbox}
+
+% =============================================================================
+\section{Analytical Output Plan}
+% =============================================================================
+
+\subsection{Required Analytical Questions}
+
+\begin{itemize}[nosep]
+  \item How do win probabilities change during a simulated match?
+  \item Which features contribute most to odds movement?
+  \item Which players or matches generate high risk scores?
+  \item How does system latency change as event throughput increases?
+  \item How do batch and streaming layers interact?
+\end{itemize}
+
+\subsection{Required Charts and Tables}
+
+Live odds over time, momentum timeline, risk score distribution, feature deviation table,
+throughput and latency chart, model evaluation table, architecture diagram.
+
+\subsection{Business Interpretation Requirement}
+
+Every analytical output must include a plain-English interpretation. A high risk score must be
+explained as a statistical anomaly relative to baseline, not as proof of wrongdoing.
+
+% =============================================================================
+\section{Report, Presentation, and Deliverables Plan}
+% =============================================================================
+
+\subsection{Required Final Deliverables}
+
+GitHub repository with code and documentation; Docker Compose files for both EC2 instances and
+local dev; S3 data lake structure with zone manifests; working Kafka replay with explicit topic
+config; Spark batch and streaming jobs with dead-letter handling; trained model artifacts with
+two-phase publish; PostgreSQL serving schema with indexes and archival; FastAPI backend with auth;
+React frontend; benchmark results with warm-up methodology documented; final report; final
+presentation.
+
+\subsection{Project Report Structure}
+
+Problem statement; architecture; data engineering design; Kafka and streaming configuration;
+modeling methodology (unsupervised anomaly approach); implementation details; benchmark results;
+dashboard screenshots; limitations and future work.
+
+\subsection{Presentation Slide Structure}
+
+\begin{enumerate}[nosep]
+  \item Title and motivation
+  \item Problem statement
+  \item Architecture overview
+  \item Data lake and pipelines
+  \item Streaming demo flow
+  \item Model design
+  \item Dashboard screenshots
+  \item Benchmark results
+  \item Limitations
+  \item Conclusion
+\end{enumerate}
+
+\subsection{Executive Audience Standard}
+
+The final presentation explains the system clearly to both technical and business audiences. It
+emphasizes: what was built, why the architecture is appropriate, what tradeoffs were made, and
+what evidence proves the system works.
+
+% =============================================================================
+\section{Milestones}
+% =============================================================================
+
+\subsection{Milestone 1: Data Foundation}
+Upload raw datasets to S3, define data contracts with JSON schemas, implement cleaning scripts
+with schema validation, write zone manifests.
+
+\subsection{Milestone 2: Offline Modeling}
+Build features with temporal correctness, compute baselines, train initial odds and risk models,
+validate against thresholds, publish via two-phase publish.
+
+\subsection{Milestone 3: Live Replay}
+Create Kafka topic with explicit config, implement producer, verify point events published and
+consumed, verify dead-letter handling.
+
+\subsection{Milestone 4: Serving Layer}
+Create PostgreSQL schema with indexes and archival, implement writers with JDBC batch size,
+validate current match state updates.
+
+\subsection{Milestone 5: Frontend MVP}
+Build live match overview and odds board with cache headers.
+
+\subsection{Milestone 6: Risk Explorer}
+Add risk-event API and frontend risk explorer page.
+
+\subsection{Milestone 7: Benchmark and Report Assets}
+Run performance tests with warm-up excluded, export charts and tables.
+
+\subsection{Milestone 8: Final Demo Readiness}
+Run full end-to-end demo, clean repository, finalize report and presentation.
+
+% =============================================================================
+\section{MVP vs.\ Stretch Goals}
+% =============================================================================
+
+\subsection{MVP}
+
+S3 data lake with Iceberg on curated/features zones (Hadoop catalog); one Kafka topic with
+explicit partition config; one Spark streaming job with dead-letter handling; basic odds model
+with validation gate; basic risk score (z-score baseline); PostgreSQL serving tables with indexes
+and archival; FastAPI endpoints with auth; React dashboard with cache headers; benchmark evidence
+with warm-up documented.
+
+\subsection{Stretch Goals}
+
+Redis caching; Airflow multi-DAG orchestration; advanced model comparison; model version
+dashboard; larger synthetic load tests; richer match drill-down visualizations; automatic report
+exports; CloudWatch metrics integration.
+
+% =============================================================================
+\section{Explicit Coding Order}
+% =============================================================================
+
+\begin{enumerate}[nosep]
+  \item Define data contracts and write JSON schema files
+  \item Create S3 folder layout with \texttt{create\_layout.sh} and zone manifests
+  \item Write IAM role policies for EC2-1 and EC2-2
+  \item Configure SSM Parameter Store with all secrets
+  \item Build local sample data loader with schema validation
+  \item Build cleaning pipeline with Iceberg Hadoop catalog config
+  \item Build feature pipeline with temporal correctness
+  \item Create PostgreSQL schema with indexes and archival job
+  \item Configure Kafka topic with \texttt{kafka\_setup.sh}
+  \item Build replay producer
+  \item Build Spark streaming read from Kafka with dead-letter handling
+  \item Add rolling feature computation with watermark
+  \item Add odds and risk scoring with model readiness check
+  \item Add two-phase model publish with validation gate
+  \item Encode Airflow DAG dependencies (E $\to$ F)
+  \item Write outputs to PostgreSQL with JDBC batch size
+  \item Build FastAPI endpoints with auth middleware and cache headers
+  \item Build React dashboard
+  \item Run benchmarks with warm-up exclusion
+  \item Finalize report and demo
+\end{enumerate}
+
+% =============================================================================
+\section{Code Quality, Reproducibility, and CI}
+% =============================================================================
+
+\subsection{Quality Controls}
+
+\begin{itemize}[nosep]
+  \item Consistent Python formatting (ruff or black);
+  \item SSM-backed environment variable management;
+  \item schema validation on all raw ingestion;
+  \item unit tests for all core logic including dead-letter and auth;
+  \item clear README with Quick Start, schema change instructions, checkpoint clear procedure;
+  \item reproducible Docker Compose commands.
+\end{itemize}
+
+\subsection{Reproducibility Rules}
+
+\begin{itemize}[nosep]
+  \item Raw data must not be manually edited;
+  \item every pipeline output reproducible from source inputs;
+  \item model artifacts include version, training timestamp, and metrics;
+  \item benchmark runs record configuration values including warm-up window.
+\end{itemize}
+
+\subsection{CI Pipeline}
+
+\begin{importantbox}[--- Gap \#17 addressed: concrete CI toolchain]
+\textbf{GitHub Actions} (\texttt{.github/workflows/ci.yml}) with three jobs:
+
+\begin{lstlisting}[ caption={ci.yml}]
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install ruff
+      - run: ruff check spark/ api/ producer/
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -r requirements-test.txt
+      - run: pytest tests/unit/ --tb=short -q
+
+  compose-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose -f docker-compose.processing.yml config
+      - run: docker compose -f docker-compose.serving.yml config
+      - run: docker compose -f docker-compose.dev.yml config
+\end{lstlisting}
+
+This runs in under 3 minutes and catches formatting failures, broken unit tests, and invalid
+Docker Compose configs before they reach the EC2 instances.
+\end{importantbox}
+
+% =============================================================================
+\section{Environment Variables}
+% =============================================================================
+
+All secrets stored in AWS SSM Parameter Store. Non-secret configuration stored in \texttt{.env}
+files on each EC2 instance, bootstrapped from \texttt{.env.example}.
+
+\begin{lstlisting}[caption={.env.example}]
+# AWS
+AWS_REGION=us-east-1
+S3_BUCKET=tennis-big-data
+
+# Kafka (EC2-1 internal)
+KAFKA_BOOTSTRAP_SERVERS=localhost:9092
+KAFKA_TOPIC=tennis-point-events
+KAFKA_PARTITIONS=20
+KAFKA_CONSUMER_GROUP=spark-tennis
+
+# Spark tuning
+SPARK_MAX_OFFSETS=5000
+SPARK_TRIGGER_INTERVAL=2 seconds
+SPARK_SHUFFLE_PARTITIONS=4
+
+# PostgreSQL (read from SSM on EC2-2, referenced by private IP on EC2-1)
+POSTGRES_HOST=${SSM:/tennis/postgres_host}
+POSTGRES_PORT=5432
+POSTGRES_DB=tennis_serving
+POSTGRES_USER=tennis_user
+POSTGRES_PASSWORD=${SSM:/tennis/postgres_password}
+
+# Redis
+REDIS_HOST=${SSM:/tennis/redis_host}
+REDIS_PORT=6379
+
+# Models
+MODEL_ODDS_PATH=s3://tennis-big-data/models/odds/latest.json
+MODEL_RISK_PATH=s3://tennis-big-data/models/risk/latest.json
+
+# API
+API_BASE_URL=http://ec2-serving-elastic-ip:8000
+API_KEY=${SSM:/tennis/api_key}
+
+# Benchmark
+BENCHMARK_WARMUP_SECONDS=60
+BENCHMARK_MEASUREMENT_SECONDS=300
+\end{lstlisting}
+
+% =============================================================================
+\section{Milestone Gates}
+% =============================================================================
+
+\subsection{Gate 1}
+Data can be read from S3, schema-validated, and cleaned into Iceberg-managed curated Parquet.
+
+\subsection{Gate 2}
+Offline features (with temporal correctness) and model artifacts (passing validation thresholds)
+are generated and published via two-phase publish.
+
+\subsection{Gate 3}
+Kafka topic created with explicit config; replay and Spark streaming produce scored outputs;
+dead-letter handling verified with malformed test message.
+
+\subsection{Gate 4}
+Dashboard displays live odds and risk events from serving tables; archival job confirmed running;
+API auth verified.
+
+% =============================================================================
+\section{Course Presentation Strategy}
+% =============================================================================
+
+The presentation focuses on architecture first, then demonstrates evidence. The strongest story
+is that one event stream powers two analytical products: live odds and integrity monitoring. The
+system is explained as a practical Lambda-style architecture where S3 stores durable data, EC2-1
+performs batch and streaming computation, and EC2-2 serves low-latency application views.
+
+Emphasize the gap-resolution decisions as evidence of engineering rigor: explicit Kafka topic
+sizing, validated model publish, dead-letter handling, IAM separation, and temporal feature
+correctness.
+
+% =============================================================================
+\section{Limitations}
+% =============================================================================
+
+\begin{itemize}[nosep]
+  \item The system uses simulated live streams, not actual live tennis feeds.
+  \item Risk scores are statistical indicators, not evidence of misconduct.
+  \item The two-EC2 deployment is not production scale.
+  \item Model accuracy depends on available historical data quality.
+  \item Synthetic amplification is useful for systems testing but does not create new
+    real-world evidence.
+  \item The Hadoop Iceberg catalog is not suitable for concurrent multi-writer production
+    workloads; for production, AWS Glue catalog would replace it.
+  \item The static bearer token API auth is sufficient for demo purposes only; production
+    would use OAuth~2.0 or API gateway-level auth.
+\end{itemize}
+
+% =============================================================================
+\appendix
+\section*{Appendix A: AI Coding Agent Execution Notes}
+\addcontentsline{toc}{section}{Appendix A: AI Coding Agent Execution Notes}
+% =============================================================================
+
+When using an AI coding assistant, request small, testable components rather than the full system
+at once. Each generated module must be validated with unit tests or sample input/output checks.
+The AI assistant must not change architecture decisions unless the team explicitly approves.
+
+Recommended sequence: data contracts and schemas; cleaning functions; producer logic; Spark
+transformations (batch then streaming with dead-letter); API endpoints with auth; frontend
+components; deployment scripts.
+
+% =============================================================================
+\section*{Appendix B: Architecture and Flow Diagrams}
+\addcontentsline{toc}{section}{Appendix B: Architecture and Flow Diagrams}
+% =============================================================================
+
+\subsection*{B.1 Corrected High-Level System Architecture}
+
+\begin{center}
+\begin{tabular}{|c|}
+\hline
+\textbf{Amazon S3 Data Lake}\\
+raw / cleaned (Iceberg) / features (Iceberg) / baselines / models / stream\_archive / results\\
+\hline
+\end{tabular}
+
+\vspace{6pt}
+$\updownarrow$ features, models, outputs \hspace{2cm} $\updownarrow$ scored results
+
+\vspace{6pt}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{EC2-1 Processing Node} & $\longrightarrow$ & \textbf{EC2-2 Serving/App Node}\\
+Kafka + Spark + Airflow + ML & scored outputs & PostgreSQL + Redis + API + React\\
+\hline
+\end{tabular}
+
+\vspace{6pt}
+$\uparrow$ Replay Producer \hspace{4cm} $\downarrow$ Dashboard users (Live Odds + Risk Explorer)
+\end{center}
+
+\subsection*{B.2 Corrected Data Lifecycle and Storage Flow}
+
+\begin{enumerate}[nosep]
+  \item Raw data uploaded to S3 raw zone (schema-validated).
+  \item Cleaning jobs produce curated Iceberg tables.
+  \item Feature jobs produce feature Iceberg tables (temporally correct).
+  \item Baseline jobs produce player profiles.
+  \item Model training jobs publish artifacts via two-phase validated publish.
+  \item Replay jobs create live-like events.
+  \item Streaming outputs archived back to S3 stream\_archive zone.
+\end{enumerate}
+
+\subsection*{B.3 Offline Training and Model Publication Flow}
+
+Cleaned Data (S3 Iceberg) $\to$ Feature Build (Spark Batch) $\to$ Baseline Build $\to$
+Model Training $\to$ Validation Gate (AUC $\geq 0.55$) $\to$ Publish to S3 + update
+\texttt{latest.json} $\to$ Airflow notifies replay prep.
+
+\subsection*{B.4 Real-Time Streaming and Scoring Flow}
+
+Producer $\to$ Kafka (\texttt{tennis-point-events}, 20 partitions) $\to$
+Spark Structured Streaming (dead-letter split) $\to$ rolling features (watermark 30s) $\to$
+model load from \texttt{latest.json} $\to$ PostgreSQL upserts (JDBC batch 500) $\to$
+optional Redis TTL cache.
+
+\subsection*{B.5 MVP vs.\ Stretch Architecture Scope}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{L{4cm}L{5cm}X}
+\toprule
+\textbf{Area} & \textbf{MVP} & \textbf{Stretch} \\
+\midrule
+Data Lake & S3 zones + Iceberg (Hadoop catalog) + zone manifests & Glue catalog, richer partitioning \\
+Streaming & One Kafka topic, 20 partitions, dead-letter & Multiple topics, retry queues \\
+Processing & One Spark streaming job & Separate odds and risk streams \\
+Models & Baseline odds/risk with validation gate & Advanced model comparison \\
+Serving & PostgreSQL + indexes + archival & PostgreSQL + optimized Redis cache \\
+Frontend & Dashboard MVP + cache headers & Rich drill-down and explainability \\
+Orchestration & Single Airflow DAG with explicit dependencies & Multi-DAG pipeline suite \\
+Auth & Static bearer token & OAuth 2.0 \\
+Secrets & AWS SSM Parameter Store & HashiCorp Vault \\
+\bottomrule
+\end{tabularx}
+\caption{MVP vs.\ stretch architecture comparison}
+\end{table}
+
+\subsection*{B.6 Gap Resolution Summary}
+
+\begin{longtable}{L{1cm}L{3.5cm}L{2.5cm}L{7cm}}
+\toprule
+\textbf{Gap} & \textbf{Title} & \textbf{Severity} & \textbf{Section Addressed} \\
+\midrule
+\endhead
+\#01 & Kafka topic config & Critical & Section~18.2 \\
+\#02 & Spark micro-batch tuning & Critical & Section~18.2 \\
+\#03 & PostgreSQL write bottleneck & Critical & Section~12.1 \\
+\#04 & Dead-letter queue & Critical & Section~18.5 \\
+\#05 & IAM role separation & Critical & Section~8.3 \\
+\#06 & Airflow DAG dependency & Critical & Section~17.10 \\
+\#07 & Point-in-time feature correctness & Critical & Section~15.2 \\
+\#08 & Ingestion trigger & Important & Section~17.1 \\
+\#09 & Iceberg catalog backend & Important & Section~7.2 \\
+\#10 & EC2-1 OOM risk & Important & Section~8.2 \\
+\#11 & Watermark interval & Important & Section~18.3 \\
+\#12 & Checkpoint location & Important & Section~18.4 \\
+\#13 & Two-phase model publish & Important & Section~14.4 \\
+\#14 & FastAPI auth & Important & Section~19.3 \\
+\#15 & odds\_history size & Important & Section~12.3 \\
+\#16 & Anomaly training strategy & Important & Section~13.2 \\
+\#17 & CI toolchain & Important & Section~30.3 \\
+\#18 & Shared secrets management & Important & Section~8.4 \\
+\#19 & S3 zone manifests & Minor & Section~10.2 \\
+\#20 & Model evaluation thresholds & Minor & Section~14.4 \\
+\#21 & Benchmark warm-up period & Minor & Section~24.3 \\
+\#22 & API cache headers & Minor & Section~20.7 \\
+\#23 & Docker Compose network & Minor & Section~8.1 \\
+\#24 & Parquet schema evolution & Minor & Section~9.4 \\
+\bottomrule
+\caption{Complete gap resolution index}
+\end{longtable}
+
+\end{document}

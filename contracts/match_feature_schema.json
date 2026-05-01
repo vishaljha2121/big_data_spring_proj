@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "avg_serve_speed_kmh": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "elapsed_seconds_total": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "elapsed_time_available_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "feature_schema_version": {
+      "type": "string"
+    },
+    "has_unknown_player": {
+      "type": "boolean"
+    },
+    "match_id": {
+      "type": "string"
+    },
+    "match_winner_is_player_a": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "match_winner_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "missing_point_winner_count": {
+      "type": "integer"
+    },
+    "missing_server_count": {
+      "type": "integer"
+    },
+    "player_a": {
+      "type": "string"
+    },
+    "player_a_aces": {
+      "type": "integer"
+    },
+    "player_a_double_faults": {
+      "type": "integer"
+    },
+    "player_a_point_win_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "player_a_points_won": {
+      "type": "integer"
+    },
+    "player_b": {
+      "type": "string"
+    },
+    "player_b_aces": {
+      "type": "integer"
+    },
+    "player_b_double_faults": {
+      "type": "integer"
+    },
+    "player_b_point_win_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "player_b_points_won": {
+      "type": "integer"
+    },
+    "rally_length_available_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "total_points": {
+      "type": "integer"
+    },
+    "valid_points": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "match_id",
+    "player_a",
+    "player_b",
+    "total_points",
+    "valid_points",
+    "missing_point_winner_count",
+    "missing_server_count",
+    "player_a_points_won",
+    "player_b_points_won",
+    "player_a_point_win_pct",
+    "player_b_point_win_pct",
+    "player_a_aces",
+    "player_b_aces",
+    "player_a_double_faults",
+    "player_b_double_faults",
+    "avg_serve_speed_kmh",
+    "elapsed_seconds_total",
+    "rally_length_available_pct",
+    "elapsed_time_available_pct",
+    "match_winner_player",
+    "match_winner_is_player_a",
+    "has_unknown_player",
+    "feature_schema_version"
+  ],
+  "title": "MatchFeature",
+  "type": "object"
+}

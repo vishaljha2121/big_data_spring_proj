@@ -1,0 +1,146 @@
+\BOOKMARK [1][]{section.1}{1 Purpose of This Document}{}% 1
+\BOOKMARK [1][]{section.2}{2 Project Thesis and Big Data Justification}{}% 2
+\BOOKMARK [2][]{subsection.2.1}{2.1 Project Thesis}{section.2}% 3
+\BOOKMARK [2][]{subsection.2.2}{2.2 Why This Is a Data Engineering Problem}{section.2}% 4
+\BOOKMARK [2][]{subsection.2.3}{2.3 Why This Is a Big Data Project Rather Than a Small Local Script}{section.2}% 5
+\BOOKMARK [2][]{subsection.2.4}{2.4 Target Scale Envelope}{section.2}% 6
+\BOOKMARK [2][]{subsection.2.5}{2.5 Numerical Benchmark Targets}{section.2}% 7
+\BOOKMARK [1][]{section.3}{3 Executive Architecture Decision}{}% 8
+\BOOKMARK [2][]{subsection.3.1}{3.1 Final Architectural Choice}{section.3}% 9
+\BOOKMARK [2][]{subsection.3.2}{3.2 Why This Choice Was Made}{section.3}% 10
+\BOOKMARK [1][]{section.4}{4 System Overview}{}% 11
+\BOOKMARK [2][]{subsection.4.1}{4.1 High-Level Components}{section.4}% 12
+\BOOKMARK [2][]{subsection.4.2}{4.2 Canonical Flow}{section.4}% 13
+\BOOKMARK [1][]{section.5}{5 Scope Definition}{}% 14
+\BOOKMARK [2][]{subsection.5.1}{5.1 What Will Be Real}{section.5}% 15
+\BOOKMARK [2][]{subsection.5.2}{5.2 What May Be Simplified}{section.5}% 16
+\BOOKMARK [2][]{subsection.5.3}{5.3 What Will Not Be Claimed}{section.5}% 17
+\BOOKMARK [1][]{section.6}{6 Repository Structure}{}% 18
+\BOOKMARK [1][]{section.7}{7 Technology Decisions}{}% 19
+\BOOKMARK [2][]{subsection.7.1}{7.1 Core Stack}{section.7}% 20
+\BOOKMARK [2][]{subsection.7.2}{7.2 Iceberg Catalog Configuration}{section.7}% 21
+\BOOKMARK [2][]{subsection.7.3}{7.3 Explicit Technology Rejections}{section.7}% 22
+\BOOKMARK [1][]{section.8}{8 Environment Split}{}% 23
+\BOOKMARK [2][]{subsection.8.1}{8.1 Local Development}{section.8}% 24
+\BOOKMARK [2][]{subsection.8.2}{8.2 Cloud Deployment}{section.8}% 25
+\BOOKMARK [2][]{subsection.8.3}{8.3 Networking and Security Group Setup}{section.8}% 26
+\BOOKMARK [2][]{subsection.8.4}{8.4 Shared Secrets Management}{section.8}% 27
+\BOOKMARK [1][]{section.9}{9 Data Contracts}{}% 28
+\BOOKMARK [2][]{subsection.9.1}{9.1 Point Event Contract}{section.9}% 29
+\BOOKMARK [2][]{subsection.9.2}{9.2 Current Match State Contract}{section.9}% 30
+\BOOKMARK [2][]{subsection.9.3}{9.3 Risk Event Contract}{section.9}% 31
+\BOOKMARK [2][]{subsection.9.4}{9.4 Schema Governance Rules}{section.9}% 32
+\BOOKMARK [1][]{section.10}{10 Data Lake Design}{}% 33
+\BOOKMARK [2][]{subsection.10.1}{10.1 Zones}{section.10}% 34
+\BOOKMARK [2][]{subsection.10.2}{10.2 Storage Layout}{section.10}% 35
+\BOOKMARK [2][]{subsection.10.3}{10.3 Partitioning}{section.10}% 36
+\BOOKMARK [2][]{subsection.10.4}{10.4 File Formats}{section.10}% 37
+\BOOKMARK [1][]{section.11}{11 Lake vs. Serving Responsibilities}{}% 38
+\BOOKMARK [2][]{subsection.11.1}{11.1 Data Lake Responsibilities}{section.11}% 39
+\BOOKMARK [2][]{subsection.11.2}{11.2 Serving Layer Responsibilities}{section.11}% 40
+\BOOKMARK [2][]{subsection.11.3}{11.3 Design Rule}{section.11}% 41
+\BOOKMARK [1][]{section.12}{12 Serving Data Model}{}% 42
+\BOOKMARK [2][]{subsection.12.1}{12.1 PostgreSQL Tables}{section.12}% 43
+\BOOKMARK [2][]{subsection.12.2}{12.2 Redis Keys \(Optional\)}{section.12}% 44
+\BOOKMARK [2][]{subsection.12.3}{12.3 Serving Retention Strategy}{section.12}% 45
+\BOOKMARK [1][]{section.13}{13 Synthetic Data Strategy}{}% 46
+\BOOKMARK [2][]{subsection.13.1}{13.1 Core Principle}{section.13}% 47
+\BOOKMARK [2][]{subsection.13.2}{13.2 Allowed Methods}{section.13}% 48
+\BOOKMARK [2][]{subsection.13.3}{13.3 Disallowed Methods}{section.13}% 49
+\BOOKMARK [2][]{subsection.13.4}{13.4 Documentation Requirement}{section.13}% 50
+\BOOKMARK [1][]{section.14}{14 Modeling Plan}{}% 51
+\BOOKMARK [2][]{subsection.14.1}{14.1 Predictive Odds Model}{section.14}% 52
+\BOOKMARK [2][]{subsection.14.2}{14.2 Risk / Anomaly Model}{section.14}% 53
+\BOOKMARK [2][]{subsection.14.3}{14.3 Why Spark MLlib Is Not the Sole Path}{section.14}% 54
+\BOOKMARK [2][]{subsection.14.4}{14.4 Model Governance Rules}{section.14}% 55
+\BOOKMARK [1][]{section.15}{15 Feature Design}{}% 56
+\BOOKMARK [2][]{subsection.15.1}{15.1 Feature Families}{section.15}% 57
+\BOOKMARK [2][]{subsection.15.2}{15.2 Rules for Feature Correctness}{section.15}% 58
+\BOOKMARK [1][]{section.16}{16 Data Quality Plan}{}% 59
+\BOOKMARK [2][]{subsection.16.1}{16.1 Core Data Quality Checks}{section.16}% 60
+\BOOKMARK [2][]{subsection.16.2}{16.2 DQ Failure Policy}{section.16}% 61
+\BOOKMARK [1][]{section.17}{17 Pipelines}{}% 62
+\BOOKMARK [2][]{subsection.17.1}{17.1 Pipeline A: Historical Ingestion}{section.17}% 63
+\BOOKMARK [2][]{subsection.17.2}{17.2 Pipeline B: Curated Dataset Build}{section.17}% 64
+\BOOKMARK [2][]{subsection.17.3}{17.3 Pipeline C: Feature Build}{section.17}% 65
+\BOOKMARK [2][]{subsection.17.4}{17.4 Pipeline D: Baseline Build}{section.17}% 66
+\BOOKMARK [2][]{subsection.17.5}{17.5 Pipeline E: Model Training}{section.17}% 67
+\BOOKMARK [2][]{subsection.17.6}{17.6 Pipeline F: Replay Preparation}{section.17}% 68
+\BOOKMARK [2][]{subsection.17.7}{17.7 Pipeline G: Live Replay and Streaming}{section.17}% 69
+\BOOKMARK [2][]{subsection.17.8}{17.8 Pipeline H: Serving API}{section.17}% 70
+\BOOKMARK [2][]{subsection.17.9}{17.9 Pipeline I: Reporting and Evidence Export}{section.17}% 71
+\BOOKMARK [2][]{subsection.17.10}{17.10 Airflow DAG \204 Explicit Dependency Graph}{section.17}% 72
+\BOOKMARK [1][]{section.18}{18 Streaming Correctness and Reliability Semantics}{}% 73
+\BOOKMARK [2][]{subsection.18.1}{18.1 Core Streaming Assumptions}{section.18}% 74
+\BOOKMARK [2][]{subsection.18.2}{18.2 Kafka Topic Configuration}{section.18}% 75
+\BOOKMARK [2][]{subsection.18.3}{18.3 Spark Micro-Batch Tuning}{section.18}% 76
+\BOOKMARK [2][]{subsection.18.4}{18.4 Watermarking and Late Data}{section.18}% 77
+\BOOKMARK [2][]{subsection.18.5}{18.5 Checkpoint Storage}{section.18}% 78
+\BOOKMARK [2][]{subsection.18.6}{18.6 Dead-Letter Queue for Malformed Messages}{section.18}% 79
+\BOOKMARK [2][]{subsection.18.7}{18.7 Idempotency and Deduplication}{section.18}% 80
+\BOOKMARK [2][]{subsection.18.8}{18.8 State TTL and Cleanup}{section.18}% 81
+\BOOKMARK [2][]{subsection.18.9}{18.9 Failure Handling}{section.18}% 82
+\BOOKMARK [1][]{section.19}{19 Backend Service Plan}{}% 83
+\BOOKMARK [2][]{subsection.19.1}{19.1 Replay Producer}{section.19}% 84
+\BOOKMARK [2][]{subsection.19.2}{19.2 Streaming Processor}{section.19}% 85
+\BOOKMARK [2][]{subsection.19.3}{19.3 API Service}{section.19}% 86
+\BOOKMARK [1][]{section.20}{20 Frontend Build Plan}{}% 87
+\BOOKMARK [2][]{subsection.20.1}{20.1 Pages}{section.20}% 88
+\BOOKMARK [2][]{subsection.20.2}{20.2 Overview Dashboard Components}{section.20}% 89
+\BOOKMARK [2][]{subsection.20.3}{20.3 Live Odds Board Components}{section.20}% 90
+\BOOKMARK [2][]{subsection.20.4}{20.4 Match Drill-Down Components}{section.20}% 91
+\BOOKMARK [2][]{subsection.20.5}{20.5 Risk Explorer Components}{section.20}% 92
+\BOOKMARK [2][]{subsection.20.6}{20.6 System Benchmark View}{section.20}% 93
+\BOOKMARK [2][]{subsection.20.7}{20.7 Frontend Refresh Policy}{section.20}% 94
+\BOOKMARK [1][]{section.21}{21 API Contracts}{}% 95
+\BOOKMARK [2][]{subsection.21.1}{21.1 Required Endpoints}{section.21}% 96
+\BOOKMARK [2][]{subsection.21.2}{21.2 API Correctness Rules}{section.21}% 97
+\BOOKMARK [1][]{section.22}{22 Observability Plan}{}% 98
+\BOOKMARK [2][]{subsection.22.1}{22.1 Metrics to Capture}{section.22}% 99
+\BOOKMARK [2][]{subsection.22.2}{22.2 Logs to Capture}{section.22}% 100
+\BOOKMARK [2][]{subsection.22.3}{22.3 Operational Dashboards}{section.22}% 101
+\BOOKMARK [1][]{section.23}{23 Testing Strategy}{}% 102
+\BOOKMARK [2][]{subsection.23.1}{23.1 Unit Tests}{section.23}% 103
+\BOOKMARK [2][]{subsection.23.2}{23.2 Integration Tests}{section.23}% 104
+\BOOKMARK [2][]{subsection.23.3}{23.3 End-to-End Tests}{section.23}% 105
+\BOOKMARK [2][]{subsection.23.4}{23.4 Performance Tests}{section.23}% 106
+\BOOKMARK [1][]{section.24}{24 Benchmarking Plan}{}% 107
+\BOOKMARK [2][]{subsection.24.1}{24.1 Benchmark Scenarios}{section.24}% 108
+\BOOKMARK [2][]{subsection.24.2}{24.2 Metrics Reported}{section.24}% 109
+\BOOKMARK [2][]{subsection.24.3}{24.3 Benchmark Success Criteria}{section.24}% 110
+\BOOKMARK [1][]{section.25}{25 Analytical Output Plan}{}% 111
+\BOOKMARK [2][]{subsection.25.1}{25.1 Required Analytical Questions}{section.25}% 112
+\BOOKMARK [2][]{subsection.25.2}{25.2 Required Charts and Tables}{section.25}% 113
+\BOOKMARK [2][]{subsection.25.3}{25.3 Business Interpretation Requirement}{section.25}% 114
+\BOOKMARK [1][]{section.26}{26 Report, Presentation, and Deliverables Plan}{}% 115
+\BOOKMARK [2][]{subsection.26.1}{26.1 Required Final Deliverables}{section.26}% 116
+\BOOKMARK [2][]{subsection.26.2}{26.2 Project Report Structure}{section.26}% 117
+\BOOKMARK [2][]{subsection.26.3}{26.3 Presentation Slide Structure}{section.26}% 118
+\BOOKMARK [2][]{subsection.26.4}{26.4 Executive Audience Standard}{section.26}% 119
+\BOOKMARK [1][]{section.27}{27 Milestones}{}% 120
+\BOOKMARK [2][]{subsection.27.1}{27.1 Milestone 1: Data Foundation}{section.27}% 121
+\BOOKMARK [2][]{subsection.27.2}{27.2 Milestone 2: Offline Modeling}{section.27}% 122
+\BOOKMARK [2][]{subsection.27.3}{27.3 Milestone 3: Live Replay}{section.27}% 123
+\BOOKMARK [2][]{subsection.27.4}{27.4 Milestone 4: Serving Layer}{section.27}% 124
+\BOOKMARK [2][]{subsection.27.5}{27.5 Milestone 5: Frontend MVP}{section.27}% 125
+\BOOKMARK [2][]{subsection.27.6}{27.6 Milestone 6: Risk Explorer}{section.27}% 126
+\BOOKMARK [2][]{subsection.27.7}{27.7 Milestone 7: Benchmark and Report Assets}{section.27}% 127
+\BOOKMARK [2][]{subsection.27.8}{27.8 Milestone 8: Final Demo Readiness}{section.27}% 128
+\BOOKMARK [1][]{section.28}{28 MVP vs. Stretch Goals}{}% 129
+\BOOKMARK [2][]{subsection.28.1}{28.1 MVP}{section.28}% 130
+\BOOKMARK [2][]{subsection.28.2}{28.2 Stretch Goals}{section.28}% 131
+\BOOKMARK [1][]{section.29}{29 Explicit Coding Order}{}% 132
+\BOOKMARK [1][]{section.30}{30 Code Quality, Reproducibility, and CI}{}% 133
+\BOOKMARK [2][]{subsection.30.1}{30.1 Quality Controls}{section.30}% 134
+\BOOKMARK [2][]{subsection.30.2}{30.2 Reproducibility Rules}{section.30}% 135
+\BOOKMARK [2][]{subsection.30.3}{30.3 CI Pipeline}{section.30}% 136
+\BOOKMARK [1][]{section.31}{31 Environment Variables}{}% 137
+\BOOKMARK [1][]{section.32}{32 Milestone Gates}{}% 138
+\BOOKMARK [2][]{subsection.32.1}{32.1 Gate 1}{section.32}% 139
+\BOOKMARK [2][]{subsection.32.2}{32.2 Gate 2}{section.32}% 140
+\BOOKMARK [2][]{subsection.32.3}{32.3 Gate 3}{section.32}% 141
+\BOOKMARK [2][]{subsection.32.4}{32.4 Gate 4}{section.32}% 142
+\BOOKMARK [1][]{section.33}{33 Course Presentation Strategy}{}% 143
+\BOOKMARK [1][]{section.34}{34 Limitations}{}% 144
+\BOOKMARK [1][]{section.34}{Appendix A: AI Coding Agent Execution Notes}{}% 145
+\BOOKMARK [1][]{section.34}{Appendix B: Architecture and Flow Diagrams}{}% 146

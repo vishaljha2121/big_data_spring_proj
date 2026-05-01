@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "elapsed_seconds": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "event_index": {
+      "type": "integer"
+    },
+    "event_ts": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "game_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "is_ace": {
+      "type": "boolean"
+    },
+    "is_break_point": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "is_double_fault": {
+      "type": "boolean"
+    },
+    "match_id": {
+      "type": "string"
+    },
+    "p1_games_won": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "p1_score": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "p2_games_won": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "p2_score": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "player_a": {
+      "type": "string"
+    },
+    "player_b": {
+      "type": "string"
+    },
+    "point_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "point_winner_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "rally_length": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "receiver_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "replay_session_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "serve_speed_kmh": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "serve_speed_mph": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "server_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "set_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "slam": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_file": {
+      "type": "string"
+    },
+    "source_match_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "surface": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "synthetic_match_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tournament": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "year": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "event_id",
+    "match_id",
+    "source_match_id",
+    "event_index",
+    "year",
+    "slam",
+    "tournament",
+    "surface",
+    "player_a",
+    "player_b",
+    "server_player",
+    "receiver_player",
+    "point_winner_player",
+    "set_number",
+    "game_number",
+    "point_number",
+    "p1_score",
+    "p2_score",
+    "p1_games_won",
+    "p2_games_won",
+    "rally_length",
+    "serve_speed_kmh",
+    "serve_speed_mph",
+    "is_ace",
+    "is_double_fault",
+    "is_break_point",
+    "elapsed_seconds",
+    "source_file",
+    "schema_version",
+    "replay_session_id",
+    "synthetic_match_id",
+    "event_ts"
+  ],
+  "title": "CuratedSinglesPoint",
+  "type": "object"
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "match_id": {
+      "type": "string"
+    },
+    "player1": {
+      "type": "string"
+    },
+    "player2": {
+      "type": "string"
+    },
+    "slam": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_file": {
+      "type": "string"
+    },
+    "year": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "match_id",
+    "year",
+    "slam",
+    "player1",
+    "player2",
+    "source_file"
+  ],
+  "title": "MatchMetadata",
+  "type": "object"
+}

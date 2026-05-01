@@ -1,0 +1,11 @@
+{
+  "datasets": {
+    "replay_candidates_parts": 1,
+    "singles_matches_parts": 1,
+    "singles_points_parts": 49
+  },
+  "format": "parquet",
+  "generated_at": "2026-04-29T22:42:20Z",
+  "schema_version": "1.0.0",
+  "zone": "curated"
+}

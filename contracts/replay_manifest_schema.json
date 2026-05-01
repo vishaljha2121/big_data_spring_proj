@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "event_index": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "event_ts": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "game_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "is_ace": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "is_break_point": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "is_double_fault": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "p1_score": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "p2_score": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "player_a": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "player_b": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "point_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "point_winner_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "receiver_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "replay_offset_seconds": {
+      "type": "number"
+    },
+    "replay_order": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "replay_schema_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "replay_session_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "server_player": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "set_number": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "source_file": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_match_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "synthetic_event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "synthetic_match_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "replay_session_id",
+    "synthetic_match_id",
+    "source_match_id",
+    "event_id",
+    "synthetic_event_id",
+    "event_index",
+    "replay_order",
+    "replay_offset_seconds",
+    "event_ts",
+    "player_a",
+    "player_b",
+    "server_player",
+    "receiver_player",
+    "point_winner_player",
+    "set_number",
+    "game_number",
+    "point_number",
+    "p1_score",
+    "p2_score",
+    "is_ace",
+    "is_double_fault",
+    "is_break_point",
+    "source_file",
+    "replay_schema_version"
+  ],
+  "title": "ReplayManifestV1",
+  "type": "object"
+}
