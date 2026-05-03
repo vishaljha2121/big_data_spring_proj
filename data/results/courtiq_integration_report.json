@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-05-03T19:59:12Z",
+  "courtiq_repo_url": "https://github.com/Yashu2903/CourtIQ",
+  "canonical_repo_url": "https://github.com/vishaljha2121/big_data_spring_proj",
+  "files_seen": 17,
+  "directly_reusable_count": 0,
+  "adaptation_count": 4,
+  "reference_only_count": 3,
+  "conflicting_count": 10,
+  "unknown_count": 0,
+  "merge_actions": [
+    {
+      "action": "preserve_reference",
+      "source": "producer/replay_producer.py",
+      "destination": "external_review/courtiq/preserved_reference/producer/replay_producer.py",
+      "reason": "Useful replay/Kafka logic but not compatible with canonical frozen event contract yet."
+    },
+    {
+      "action": "preserve_reference",
+      "source": "scripts/validate_replay_producer.py",
+      "destination": "external_review/courtiq/preserved_reference/scripts/validate_replay_producer.py",
+      "reason": "Useful validation consumer pattern but requires Kafka runtime and topic adaptation."
+    },
+    {
+      "action": "preserve_reference",
+      "source": "infra/local/kafka_setup.sh",
+      "destination": "external_review/courtiq/preserved_reference/infra/local/kafka_setup.sh",
+      "reason": "Useful topic creation reference but topic names differ from canonical config."
+    },
+    {
+      "action": "preserve_reference",
+      "source": "docker-compose.processing.yml",
+      "destination": "external_review/courtiq/preserved_reference/docker-compose.processing.yml",
+      "reason": "Useful single-node Kafka reference but Kafka runtime is not started in Milestone 2.6."
+    },
+    {
+      "action": "preserve_reference",
+      "source": "docs/replay_producer_audit.md",
+      "destination": "external_review/courtiq/preserved_reference/docs/replay_producer_audit.md",
+      "reason": "Useful writing reference but claims non-canonical Kafka validation results."
+    },
+    {
+      "action": "preserve_reference",
+      "source": "contracts/point_event_schema.json",
+      "destination": "external_review/courtiq/preserved_reference/contracts/point_event_schema.json",
+      "reason": "Preserved as evidence of event contract mismatch."
+    }
+  ],
+  "skipped_files": [
+    ".gitignore",
+    "LICENSE",
+    "contracts/curated_point_schema.json",
+    "contracts/data_quality_report_schema.json",
+    "contracts/match_feature_schema.json",
+    "contracts/match_metadata_schema.json",
+    "contracts/player_baseline_schema.json",
+    "contracts/point_feature_schema.json",
+    "contracts/replay_manifest_schema.json",
+    "data/quarantine/README.md",
+    "data/staging/cleaned_csv/README.md"
+  ],
+  "warnings": [
+    "CourtIQ replay producer is useful reference but emits a broader point event payload than the canonical frozen contract.",
+    "CourtIQ audit claims Kafka validation results that are not canonical.",
+    "CourtIQ topic names differ from canonical infra/kafka/topic_config.json."
+  ],
+  "blocking_errors": [],
+  "final_status": "PASSED"
+}

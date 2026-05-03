@@ -1,12 +1,13 @@
 # Tennis Point-Level Analytics Project
 
-This repository contains the validated data and feature foundation for a tennis point-level analytics pipeline. Milestone 2.5 freezes contracts and splits the remaining work into two independent implementation tracks: model artifacts and Kafka replay infrastructure.
+This repository contains the validated data and feature foundation for a tennis point-level analytics pipeline. Milestone 2.6 audited teammate CourtIQ assets and preserved useful replay/Kafka references without changing the canonical architecture.
 
 ## Current Status
 
 - Milestone 1B: PASSED
 - Milestone 2A: PASSED
 - Milestone 2.5: PASSED after running `scripts/validate_parallel_readiness.py`
+- Milestone 2.6: PASSED after CourtIQ integration audit and guardrail validation
 - Milestone 2B: NOT STARTED in this branch; prepared for Track A
 - Milestone 3A: NOT STARTED in this branch; prepared for Track B
 
@@ -23,6 +24,7 @@ This repository contains the validated data and feature foundation for a tennis 
 - [x] Added validation reports, schema contracts, tests, and audit docs through Milestone 2A.
 - [x] Froze Track A and Track B contracts for parallel implementation.
 - [x] Added paste-ready Codex prompts for both tracks.
+- [x] Audited CourtIQ teammate repo and preserved compatible reference assets under `external_review/courtiq/`.
 
 ## Remaining Checklist
 
@@ -46,6 +48,21 @@ This repository contains the validated data and feature foundation for a tennis 
 - Surface coverage is `0.0%`; surface-based features remain blocked.
 - Rally length coverage is about `5.96%`; rally length is not a primary MVP feature.
 - ATP bridge remains unvalidated; ATP-derived labels/features remain blocked.
+- CourtIQ had useful replay/Kafka reference code, but it did not contain model code or frontend assets.
+- CourtIQ replay code is not canonical yet because it requires adaptation to frozen contracts and topic config.
+
+## CourtIQ Integration Audit
+
+CourtIQ was inspected during Milestone 2.6. Useful files were preserved as reference-only under `external_review/courtiq/preserved_reference/`.
+
+| Result | Summary |
+| --- | --- |
+| Files seen | `17` |
+| Direct runtime merges | `0` |
+| Preserved reference assets | replay producer, validation consumer, Kafka setup, Compose fragment, replay audit, point-event schema mismatch evidence |
+| Rejected assets | duplicate/obsolete contracts, staging data notes, non-canonical completion claims |
+
+Use `docs/courtiq_integration_audit.md`, `docs/courtiq_file_inventory.md`, and `docs/post_merge_next_phase_plan.md` before adapting any CourtIQ asset.
 
 ## Workstream Split
 
@@ -71,6 +88,13 @@ contracts/
 Do not use `cleaned_data/` or staging CSV.GZ files for future modeling or replay work.
 
 ## Validate Parallel Readiness
+
+```bash
+.venv/bin/python scripts/validate_parallel_readiness.py
+.venv/bin/python -m pytest tests
+```
+
+## Validate CourtIQ Integration Guardrails
 
 ```bash
 .venv/bin/python scripts/validate_parallel_readiness.py

@@ -6,16 +6,18 @@ Build a tennis point-level analytics platform with validated batch data, model a
 
 ## Current Priority
 
-Current milestone: **Milestone 2.5 — Parallelization Readiness, Contract Freeze, and Workstream Split**.
+Current completed milestone: **Milestone 2.6 — Teammate Repo Integration, Asset Audit, and Canonical Merge**.
 
-Milestone 1B and Milestone 2A are complete and validated. Milestone 2B and Milestone 3A are intentionally not implemented in this milestone.
+Milestone 1B, Milestone 2A, Milestone 2.5, and Milestone 2.6 are complete and validated. Milestone 2B and Milestone 3A are intentionally not implemented in this branch.
 
-After Milestone 2.5, the next priorities split into:
+After Milestone 2.6, the next allowed priorities split into:
 
 - Track A: **Milestone 2B Model Artifact Track** on branch `feature/milestone-2b-model-artifacts`
 - Track B: **Milestone 3A Replay / Kafka Infra Track** on branch `feature/milestone-3a-replay-producer`
 
 Do not start Spark Structured Streaming, FastAPI, React, PostgreSQL serving, or frontend work until both tracks pass and merge.
+
+Do not use CourtIQ assets unless they were merged or listed as approved reference in `docs/courtiq_integration_audit.md`.
 
 ## Stable Source Data
 
@@ -61,13 +63,15 @@ Neither track may modify Milestone 1B/2A generated Parquet outputs without expli
 
 Risk scores are statistical anomaly signals only. Do not claim match-fixing detection, proof of misconduct, or injury detection.
 
+CourtIQ replay producer files under `external_review/courtiq/` are reference-only. Do not treat them as canonical Kafka completion evidence.
+
 ## Deprecated Plan
 
 `2_week_execution_plan.md` is historical. Do not follow it as current implementation source of truth.
 
 ## Validation Gate
 
-Milestone 2.5 is done only when:
+Milestone 2.6 is done only when:
 
 ```bash
 .venv/bin/python scripts/validate_parallel_readiness.py
