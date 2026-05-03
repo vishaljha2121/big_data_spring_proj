@@ -1,0 +1,22 @@
+{
+  "blocking_errors": [],
+  "generated_at": "2026-05-03T20:25:11Z",
+  "metrics": {
+    "bucket_counts": {
+      "low": 100
+    },
+    "fake_labels_used": false,
+    "fixture_rows": 100
+  },
+  "model_type": "risk",
+  "quality_gates": {
+    "artifact_loads": true,
+    "fake_labels_used_must_be_false": true,
+    "fixture_scoring_works": true
+  },
+  "schema_version": "model_eval_report_v1",
+  "status": "PASSED",
+  "warnings": [
+    "Risk scores are statistical anomaly signals only."
+  ]
+}

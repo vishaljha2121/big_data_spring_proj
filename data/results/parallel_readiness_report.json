@@ -1,12 +1,12 @@
 {
   "blocking_errors": [],
-  "generated_at": "2026-05-03T20:06:15Z",
+  "generated_at": "2026-05-03T20:36:23Z",
   "milestone_1b_detected": true,
   "milestone_2a_detected": true,
   "next_steps": [
-    "Team Member A creates feature/milestone-2b-model-artifacts and uses docs/codex_prompt_milestone_2b.md",
-    "Team Member B creates feature/milestone-3a-replay-producer and uses docs/codex_prompt_milestone_3a.md",
-    "Merge validated Track A and Track B branches before starting feature/milestone-3b-streaming-scorer"
+    "After Milestone 2.7, create feature/milestone-3b-streaming-scorer",
+    "Milestone 3B consumes tennis-point-events and writes scored local JSONL/Parquet output",
+    "Keep API/frontend work blocked until streaming scorer validation passes"
   ],
   "required_contracts_present": true,
   "required_docs_present": true,

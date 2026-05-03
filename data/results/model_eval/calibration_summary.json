@@ -1,0 +1,7 @@
+{
+  "model_type": "odds",
+  "schema_version": "calibration_summary_v1",
+  "selected_model_type": "hist_gradient_boosting",
+  "test_brier_score": 0.2346526207800247,
+  "validation_brier_score": 0.23509465864335471
+}

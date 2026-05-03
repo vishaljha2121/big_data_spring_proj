@@ -1,0 +1,31 @@
+{
+  "leakage_check_passed": true,
+  "seed": 42,
+  "target_column": "label_point_winner_is_player_a",
+  "target_distributions": {
+    "test": {
+      "negative_count": 141869,
+      "positive_count": 142999,
+      "positive_rate": 0.5019833747560274,
+      "rows": 284868
+    },
+    "train": {
+      "negative_count": 668702,
+      "positive_count": 669762,
+      "positive_rate": 0.500395976283262,
+      "rows": 1338464
+    },
+    "validation": {
+      "negative_count": 143653,
+      "positive_count": 143912,
+      "positive_rate": 0.5004503329681985,
+      "rows": 287565
+    }
+  },
+  "test_match_count": 1577,
+  "test_row_count": 284868,
+  "train_match_count": 7355,
+  "train_row_count": 1338464,
+  "validation_match_count": 1576,
+  "validation_row_count": 287565
+}

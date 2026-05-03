@@ -1,0 +1,33 @@
+{
+  "baseline_dataset": "data/baselines/player_baselines",
+  "bucket_rules": {
+    "high": "risk_score >= 0.70",
+    "low": "risk_score < 0.40",
+    "medium": "0.40 <= risk_score < 0.70"
+  },
+  "explanation_templates": {
+    "high": "High statistical deviation requiring review. Primary signal: {primary_signal}; score={risk_score}.",
+    "low": "Low statistical deviation. Primary signal: {primary_signal}; score={risk_score}.",
+    "medium": "Medium statistical deviation requiring review. Primary signal: {primary_signal}; score={risk_score}."
+  },
+  "fake_labels_used": false,
+  "features_used": [
+    "serve_point_win_pct",
+    "return_point_win_pct",
+    "ace_rate",
+    "double_fault_rate"
+  ],
+  "limitations": [
+    "This is not match-fixing detection and is not proof of misconduct.",
+    "Surface-specific baselines are blocked because surface metadata is unavailable.",
+    "Unknown placeholders are not treated as strong baselines."
+  ],
+  "model_type": "risk",
+  "risk_method": "baseline_deviation_score_v1",
+  "schema_version": "risk_model_metadata_v1",
+  "thresholds": {
+    "high": 0.7,
+    "medium": 0.4
+  },
+  "version": "v1"
+}

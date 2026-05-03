@@ -27,6 +27,7 @@
     "bucket_rules": {"type": "object", "required": ["low", "medium", "high"]},
     "fake_labels_used": {"type": "boolean", "const": false},
     "explanation_templates": {"type": "object", "required": ["low", "medium", "high"]},
-    "limitations": {"type": "array", "items": {"type": "string"}}
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "baseline_expectations": {"type": "object"}
   }
 }

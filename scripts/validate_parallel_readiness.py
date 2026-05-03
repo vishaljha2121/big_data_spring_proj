@@ -130,11 +130,12 @@ def main() -> None:
             artifact_path = Path(payload.get("artifact_path", ""))
             if payload.get("status") == "published" and not artifact_path.exists():
                 errors.append(f"{latest} claims published model without artifact: {artifact_path}")
-            elif payload.get("status") == "published":
+            elif payload.get("status") == "published" and not Path("data/results/model_eval/model_artifact_validation_report.json").exists():
                 warnings.append(f"{latest} already exists; Milestone 2.5 expected Track A to own model publication")
 
     docs_text = "\n".join(path.read_text(encoding="utf-8") for path in [Path("README.md"), Path("CODEX.md"), Path("docs/parallel_workstream_handoff.md")] if path.exists())
-    if "Milestone 3A: PASSED" in docs_text or "Kafka replay producer complete" in docs_text:
+    replay_validated = Path("data/results/replay_dry_run/validation_report.json").exists()
+    if ("Milestone 3A: PASSED" in docs_text or "Kafka replay producer complete" in docs_text) and not replay_validated:
         errors.append("documentation claims Kafka replay producer is complete before Milestone 3A")
 
     for path in [Path("data/models"), Path("data/results"), Path("producer"), Path("infra/kafka"), Path("infra/docker")]:
@@ -162,15 +163,18 @@ def main() -> None:
         "blocking_errors": errors,
         "warnings": warnings,
         "next_steps": [
-            "Team Member A creates feature/milestone-2b-model-artifacts and uses docs/codex_prompt_milestone_2b.md",
-            "Team Member B creates feature/milestone-3a-replay-producer and uses docs/codex_prompt_milestone_3a.md",
-            "Merge validated Track A and Track B branches before starting feature/milestone-3b-streaming-scorer",
+            "After Milestone 2.7, create feature/milestone-3b-streaming-scorer",
+            "Milestone 3B consumes tennis-point-events and writes scored local JSONL/Parquet output",
+            "Keep API/frontend work blocked until streaming scorer validation passes",
         ],
     }
     write_json(args.out, report)
     if errors:
         raise SystemExit(json.dumps(report, indent=2, sort_keys=True))
-    print("Milestone 2.5 PASSED: repo is ready for Track A / Track B parallel implementation")
+    if Path("data/models/odds/latest.json").exists() and Path("data/results/replay_dry_run/validation_report.json").exists():
+        print("Milestone 2.7 PASSED: model artifacts and replay dry-run are ready for Milestone 3B")
+    else:
+        print("Milestone 2.5 PASSED: repo is ready for Track A / Track B parallel implementation")
 
 
 if __name__ == "__main__":

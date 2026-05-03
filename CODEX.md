@@ -6,16 +6,15 @@ Build a tennis point-level analytics platform with validated batch data, model a
 
 ## Current Priority
 
-Current completed milestone: **Milestone 2.6 — Teammate Repo Integration, Asset Audit, and Canonical Merge**.
+Current completed milestone: **Milestone 2.7 — Model Artifacts + Replay/Kafka Producer Implementation**.
 
-Milestone 1B, Milestone 2A, Milestone 2.5, and Milestone 2.6 are complete and validated. Milestone 2B and Milestone 3A are intentionally not implemented in this branch.
+Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, and Milestone 2.7 are complete and validated. Milestone 2B model artifacts are published and Milestone 3A replay dry-run implementation is complete. Kafka runtime code exists, but Kafka was not executed locally.
 
-After Milestone 2.6, the next allowed priorities split into:
+The next allowed priority is:
 
-- Track A: **Milestone 2B Model Artifact Track** on branch `feature/milestone-2b-model-artifacts`
-- Track B: **Milestone 3A Replay / Kafka Infra Track** on branch `feature/milestone-3a-replay-producer`
+- **Milestone 3B Streaming Scorer Integration** on branch `feature/milestone-3b-streaming-scorer`
 
-Do not start Spark Structured Streaming, FastAPI, React, PostgreSQL serving, or frontend work until both tracks pass and merge.
+Do not start FastAPI, React, PostgreSQL serving, or frontend work until the streaming scorer consumes replay events, computes online features, loads odds/risk artifacts, and writes scored output.
 
 Do not use CourtIQ assets unless they were merged or listed as approved reference in `docs/courtiq_integration_audit.md`.
 
@@ -32,6 +31,10 @@ Allowed stable inputs for the next tracks:
 - `data/baselines/baseline_quality_report.json`
 - `data/replay/replay_manifest_report.json`
 - `contracts/`
+- `data/models/odds/latest.json`
+- `data/models/risk/latest.json`
+- `infra/kafka/topic_config.json`
+- `producer/replay_producer.py`
 
 Do not use staging CSV.GZ files directly.
 
@@ -53,11 +56,11 @@ Do not change frozen contracts without team agreement:
 
 ## Track Boundaries
 
-Track A owns model scripts, model artifacts, model evaluation outputs, and model docs.
+Track A model artifact work is complete.
 
-Track B owns Kafka/replay producer code, Kafka config, replay validation, and replay producer docs.
+Track B replay dry-run and Kafka setup work is complete except Kafka runtime execution.
 
-Neither track may modify Milestone 1B/2A generated Parquet outputs without explicit team agreement.
+Future streaming scorer work may not modify Milestone 1B/2A generated Parquet outputs.
 
 ## No Overclaiming
 
@@ -71,10 +74,12 @@ CourtIQ replay producer files under `external_review/courtiq/` are reference-onl
 
 ## Validation Gate
 
-Milestone 2.6 is done only when:
+Milestone 2.7 is done only when:
 
 ```bash
 .venv/bin/python scripts/validate_parallel_readiness.py
+.venv/bin/python scripts/validate_model_artifacts.py --models data/models --contracts contracts --results data/results/model_eval
+.venv/bin/python scripts/validate_replay_producer.py --events data/results/replay_dry_run/sample_events.jsonl --schema contracts/point_event_schema.json
 .venv/bin/python -m pytest tests
 ```
 

@@ -1,0 +1,32 @@
+{
+  "feature_columns": [
+    "points_played_before",
+    "player_a_points_won_before",
+    "player_b_points_won_before",
+    "player_a_point_win_pct_before",
+    "player_b_point_win_pct_before",
+    "server_points_played_before",
+    "server_points_won_before",
+    "server_point_win_pct_before",
+    "receiver_points_played_before",
+    "receiver_points_won_before",
+    "receiver_point_win_pct_before",
+    "player_a_recent_5_win_pct_before",
+    "player_b_recent_5_win_pct_before",
+    "player_a_recent_10_win_pct_before",
+    "player_b_recent_10_win_pct_before",
+    "player_a_aces_before",
+    "player_b_aces_before",
+    "player_a_double_faults_before",
+    "player_b_double_faults_before",
+    "elapsed_seconds_before",
+    "elapsed_seconds_delta_from_prev",
+    "is_server_player_a",
+    "is_receiver_player_a",
+    "has_valid_point_winner",
+    "has_valid_server",
+    "has_elapsed_seconds"
+  ],
+  "feature_importance_note": "selected model does not expose native coefficients",
+  "model_type": "hist_gradient_boosting"
+}

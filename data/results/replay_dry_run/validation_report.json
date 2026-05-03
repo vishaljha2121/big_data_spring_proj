@@ -1,0 +1,7 @@
+{
+  "blocking_errors": [],
+  "event_count": 1000,
+  "partition_key": "synthetic_match_id",
+  "status": "PASSED",
+  "unique_synthetic_event_ids": 1000
+}

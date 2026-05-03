@@ -1,6 +1,12 @@
-"""Replay producer configuration constants for Milestone 3A."""
+#!/usr/bin/env python3
+"""Replay producer configuration helpers."""
 
-DEFAULT_TOPIC_CONFIG = "infra/kafka/topic_config.json"
-DEFAULT_REPLAY_MANIFEST = "data/replay/manifests/replay_manifest_v1.parquet"
-DEFAULT_EVENT_SCHEMA = "contracts/point_event_schema.json"
-DEFAULT_DEAD_LETTER_TOPIC = "tennis-point-events-dlq"
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any, Dict
+
+
+def load_topic_config(path: Path) -> Dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))

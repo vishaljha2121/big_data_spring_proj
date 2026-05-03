@@ -1,0 +1,18 @@
+{
+  "artifact_path": "data/models/risk/v1/risk_config.json",
+  "eval_report_path": "data/models/risk/v1/eval_report.json",
+  "feature_schema_hash": "30db3233173e0d4f25880d68c55e4e387bbe1f4766b78ed67ccb91e4fe8a5647",
+  "feature_schema_path": "data/models/risk/v1/risk_config.json",
+  "limitations": [
+    "This is not match-fixing detection and is not proof of misconduct.",
+    "Surface-specific baselines are blocked because surface metadata is unavailable.",
+    "Unknown placeholders are not treated as strong baselines."
+  ],
+  "metadata_path": "data/models/risk/v1/metadata.json",
+  "model_type": "risk",
+  "published_at": "2026-05-03T20:25:26Z",
+  "schema_version": "model_registry_v1",
+  "status": "published",
+  "validation_status": "passed",
+  "version": "v1"
+}

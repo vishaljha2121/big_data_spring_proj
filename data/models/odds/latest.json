@@ -1,0 +1,18 @@
+{
+  "artifact_path": "data/models/odds/v1/model.joblib",
+  "eval_report_path": "data/models/odds/v1/eval_report.json",
+  "feature_schema_hash": "b6ee9d5a6a4c6357487a29c1e66293b390d76b471f76610f4fe9232313d4d738",
+  "feature_schema_path": "data/models/odds/v1/feature_schema.json",
+  "limitations": [
+    "Surface features excluded because surface coverage is unavailable.",
+    "Rally-length features excluded from the primary MVP model because coverage is sparse.",
+    "ATP-derived labels/features excluded because no reliable bridge is validated."
+  ],
+  "metadata_path": "data/models/odds/v1/metadata.json",
+  "model_type": "odds",
+  "published_at": "2026-05-03T20:25:21Z",
+  "schema_version": "model_registry_v1",
+  "status": "published",
+  "validation_status": "passed",
+  "version": "v1"
+}

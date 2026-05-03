@@ -1,0 +1,704 @@
+{
+  "scores": [
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0523.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05230046248650219
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0249.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.02486175732431755
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0276.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.027613617713140113
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0197.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.019694903726085948
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0515.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05147344909728397
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0574.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.057397933695521035
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0544.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.0544105883198292
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0148.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.014793896062755305
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0315.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03152045096194932
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0305.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.030512524653320876
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0617.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.061653449039329546
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0474.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04740074664313744
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0299.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.02992079785412214
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0272.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.02715659645318775
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0257.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.02569670823402992
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.038.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03803707388373309
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: ace_rate; score=0.0207.",
+      "missing_feature_warnings": [],
+      "primary_signal": "ace_rate",
+      "risk_bucket": "low",
+      "risk_score": 0.02071225594108314
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0733.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.07327775696918153
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0361.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03609222006797244
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0259.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.025889529342655617
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0618.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.0617644023089642
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0444.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04441061823103197
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0555.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.055493773243032216
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.031.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03101926118840635
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: ace_rate; score=0.0077.",
+      "missing_feature_warnings": [],
+      "primary_signal": "ace_rate",
+      "risk_bucket": "low",
+      "risk_score": 0.007677817395000192
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.033.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03299507405457052
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0303.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03032998064605405
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0151.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.015110526959029823
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0305.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.030503508128689474
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0501.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05014572607422179
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.053.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.053003115920911316
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0349.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03488319836482122
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0478.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.047780792223375466
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: ace_rate; score=0.0313.",
+      "missing_feature_warnings": [],
+      "primary_signal": "ace_rate",
+      "risk_bucket": "low",
+      "risk_score": 0.03130699277322136
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0434.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.043388020966592875
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0437.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04367010927467489
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0528.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.052756725789439164
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0232.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.02316531614752513
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0573.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05729230290688408
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0758.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.07582651947093498
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0694.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.06937243532556159
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0668.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.06684060348215752
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0202.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.020153643642873822
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0397.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03969760471496249
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.023.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.023026661534135632
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0295.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.029545101972015396
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0355.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03554527657180087
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0608.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.06078177471714644
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0597.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05968178310651934
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: ace_rate; score=0.0225.",
+      "missing_feature_warnings": [],
+      "primary_signal": "ace_rate",
+      "risk_bucket": "low",
+      "risk_score": 0.022544558918904646
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0927.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.09272337943644256
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0304.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.030433909673806773
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0433.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04331313979772475
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0356.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03560289342056366
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0535.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.053515297799308525
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0627.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.0626972941594342
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0759.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.07593414215492894
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0556.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05562004213740025
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0574.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05742636509144787
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0526.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.0525952706778132
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0241.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.02413948787554937
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: double_fault_rate; score=0.0185.",
+      "missing_feature_warnings": [],
+      "primary_signal": "double_fault_rate",
+      "risk_bucket": "low",
+      "risk_score": 0.01849882947198924
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0413.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04126071279854671
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0556.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.055593517258197556
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0699.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.06991205254258297
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0473.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.047307657997626366
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0305.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.030471440090167848
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0384.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.038397370857016694
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0339.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03388417676983134
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0613.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.06130558308395206
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0421.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04206852434889778
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0438.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04382265881130391
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.025.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.02496037519532484
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.031.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.030976422759136146
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0317.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.031673098771964336
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0586.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.058565444348274896
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0323.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.032347493924248405
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0454.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04535246199366165
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0247.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.024701170233883612
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: ace_rate; score=0.0524.",
+      "missing_feature_warnings": [],
+      "primary_signal": "ace_rate",
+      "risk_bucket": "low",
+      "risk_score": 0.05235800170650457
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0313.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03130088145111724
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0603.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.06033648318440491
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0315.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.03150216252378195
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0415.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04153877707149045
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.051.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.051043850330309934
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0283.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.02830175221711289
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0415.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.041482502873585375
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0665.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.06650879784355433
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0499.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.049929791514940244
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0357.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.0356757376718657
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0439.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04387225780422427
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0453.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04530910876862889
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: ace_rate; score=0.024.",
+      "missing_feature_warnings": [],
+      "primary_signal": "ace_rate",
+      "risk_bucket": "low",
+      "risk_score": 0.023981404937704818
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.054.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05398820274758931
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0487.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.048661895865022134
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0311.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.031051072692272343
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0573.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05731200455780114
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: serve_point_win_pct; score=0.0575.",
+      "missing_feature_warnings": [],
+      "primary_signal": "serve_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.05753086026430279
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0771.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.07710933076561662
+    },
+    {
+      "explanation": "Low statistical deviation. Primary signal: return_point_win_pct; score=0.0495.",
+      "missing_feature_warnings": [],
+      "primary_signal": "return_point_win_pct",
+      "risk_bucket": "low",
+      "risk_score": 0.04946924455872008
+    }
+  ]
+}

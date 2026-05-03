@@ -1,6 +1,6 @@
 # Tennis Point-Level Analytics Project
 
-This repository contains the validated data and feature foundation for a tennis point-level analytics pipeline. Milestone 2.6 audited teammate CourtIQ assets and preserved useful replay/Kafka references without changing the canonical architecture.
+This repository contains the validated data, model artifact, and replay foundation for a tennis point-level analytics pipeline. Milestone 2.7 adds real MVP model artifacts and a canonical replay producer dry-run path.
 
 ## Current Status
 
@@ -8,8 +8,9 @@ This repository contains the validated data and feature foundation for a tennis 
 - Milestone 2A: PASSED
 - Milestone 2.5: PASSED after running `scripts/validate_parallel_readiness.py`
 - Milestone 2.6: PASSED after CourtIQ integration audit and guardrail validation
-- Milestone 2B: NOT STARTED in this branch; prepared for Track A
-- Milestone 3A: NOT STARTED in this branch; prepared for Track B
+- Milestone 2.7: PASSED for model artifacts and replay dry-run validation
+- Milestone 2B: PASSED as part of Milestone 2.7
+- Milestone 3A: PASSED for dry-run replay implementation; Kafka runtime was not executed locally
 
 ## Completed Checklist
 
@@ -25,15 +26,15 @@ This repository contains the validated data and feature foundation for a tennis 
 - [x] Froze Track A and Track B contracts for parallel implementation.
 - [x] Added paste-ready Codex prompts for both tracks.
 - [x] Audited CourtIQ teammate repo and preserved compatible reference assets under `external_review/courtiq/`.
+- [x] Trained and published an MVP odds model under `data/models/odds/v1/`.
+- [x] Built and published a conservative risk config under `data/models/risk/v1/`.
+- [x] Implemented canonical replay JSONL dry-run producer and validator.
+- [x] Added local Kafka Compose and topic setup files.
 
 ## Remaining Checklist
 
-- [ ] Track A / Milestone 2B: train odds model and create risk config.
-- [ ] Track A / Milestone 2B: publish validated model artifacts through staging to `v1`.
-- [ ] Track B / Milestone 3A: implement local Kafka setup and replay producer.
-- [ ] Track B / Milestone 3A: validate Kafka point-event contract and replay ordering.
-- [ ] Future Milestone 3B: integrate streaming scorer after both tracks merge.
-- [ ] Do not start Spark Structured Streaming, FastAPI, React, or serving DB work until both tracks pass.
+- [ ] Milestone 3B: integrate streaming scorer using Kafka point events and published model artifacts.
+- [ ] Do not start FastAPI, React, PostgreSQL serving, or frontend work until streaming scorer writes scored output.
 
 ## Key Findings So Far
 
@@ -50,6 +51,12 @@ This repository contains the validated data and feature foundation for a tennis 
 - ATP bridge remains unvalidated; ATP-derived labels/features remain blocked.
 - CourtIQ had useful replay/Kafka reference code, but it did not contain model code or frontend assets.
 - CourtIQ replay code is not canonical yet because it requires adaptation to frozen contracts and topic config.
+- Published odds model target: `label_point_winner_is_player_a`.
+- Published odds model type: `HistGradientBoostingClassifier`.
+- Odds validation/test AUC: `0.6395` / `0.6415`.
+- Odds validation/test Brier score: `0.2351` / `0.2347`.
+- Risk artifact uses baseline deviation rules with `fake_labels_used=false`.
+- Replay dry-run validation passed for `1000` canonical point events.
 
 ## CourtIQ Integration Audit
 
@@ -64,7 +71,55 @@ CourtIQ was inspected during Milestone 2.6. Useful files were preserved as refer
 
 Use `docs/courtiq_integration_audit.md`, `docs/courtiq_file_inventory.md`, and `docs/post_merge_next_phase_plan.md` before adapting any CourtIQ asset.
 
-## Workstream Split
+## Model Artifacts
+
+```text
+data/models/odds/latest.json
+data/models/odds/v1/model.joblib
+data/models/odds/v1/feature_schema.json
+data/models/risk/latest.json
+data/models/risk/v1/risk_config.json
+```
+
+## Replay Producer
+
+Dry-run:
+
+```bash
+.venv/bin/python producer/replay_producer.py \
+  --manifest data/replay/manifests/replay_manifest_v1.parquet \
+  --config infra/kafka/topic_config.json \
+  --dry-run \
+  --dry-run-output data/results/replay_dry_run/sample_events.jsonl \
+  --max-events 1000
+
+.venv/bin/python scripts/validate_replay_producer.py \
+  --events data/results/replay_dry_run/sample_events.jsonl \
+  --schema contracts/point_event_schema.json
+```
+
+Kafka local:
+
+```bash
+docker compose -f infra/docker/docker-compose.kafka.yml up -d
+bash infra/kafka/kafka_setup.sh
+```
+
+Kafka runtime was not executed in the current validation environment.
+
+## Next Milestone
+
+Milestone 3B: streaming scorer integration.
+
+Scope:
+
+- consume `tennis-point-events`
+- build online features compatible with `data/models/odds/v1/feature_schema.json`
+- load `data/models/odds/latest.json`
+- load `data/models/risk/latest.json`
+- write scored output to local JSONL/Parquet first
+
+## Historical Workstream Split
 
 | Track | Branch | Owner Scope | Prompt |
 | --- | --- | --- | --- |
@@ -91,6 +146,15 @@ Do not use `cleaned_data/` or staging CSV.GZ files for future modeling or replay
 
 ```bash
 .venv/bin/python scripts/validate_parallel_readiness.py
+.venv/bin/python -m pytest tests
+```
+
+## Validate Milestone 2.7
+
+```bash
+.venv/bin/python scripts/validate_model_artifacts.py --models data/models --contracts contracts --results data/results/model_eval
+.venv/bin/python scripts/validate_replay_producer.py --events data/results/replay_dry_run/sample_events.jsonl --schema contracts/point_event_schema.json
+.venv/bin/python scripts/validate_feature_layer.py --curated data/curated --features data/features --baselines data/baselines --replay data/replay --contracts contracts
 .venv/bin/python -m pytest tests
 ```
 
