@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ModelEvalReportV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model_type",
+    "generated_at",
+    "status",
+    "metrics",
+    "quality_gates",
+    "blocking_errors",
+    "warnings"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "model_eval_report_v1"},
+    "model_type": {"type": "string", "enum": ["odds", "risk"]},
+    "generated_at": {"type": "string"},
+    "status": {"type": "string", "enum": ["PASSED", "PARTIAL", "FAILED"]},
+    "metrics": {"type": "object"},
+    "quality_gates": {"type": "object"},
+    "blocking_errors": {"type": "array", "items": {"type": "string"}},
+    "warnings": {"type": "array", "items": {"type": "string"}}
+  }
+}

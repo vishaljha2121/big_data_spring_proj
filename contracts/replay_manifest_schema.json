@@ -1,149 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "additionalProperties": true,
-  "properties": {
-    "event_id": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "event_index": {
-      "type": [
-        "integer",
-        "null"
-      ]
-    },
-    "event_ts": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "game_number": {
-      "type": [
-        "integer",
-        "null"
-      ]
-    },
-    "is_ace": {
-      "type": [
-        "boolean",
-        "null"
-      ]
-    },
-    "is_break_point": {
-      "type": [
-        "boolean",
-        "null"
-      ]
-    },
-    "is_double_fault": {
-      "type": [
-        "boolean",
-        "null"
-      ]
-    },
-    "p1_score": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "p2_score": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "player_a": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "player_b": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "point_number": {
-      "type": [
-        "integer",
-        "null"
-      ]
-    },
-    "point_winner_player": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "receiver_player": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "replay_offset_seconds": {
-      "type": "number"
-    },
-    "replay_order": {
-      "type": [
-        "integer",
-        "null"
-      ]
-    },
-    "replay_schema_version": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "replay_session_id": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "server_player": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "set_number": {
-      "type": [
-        "integer",
-        "null"
-      ]
-    },
-    "source_file": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "source_match_id": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "synthetic_event_id": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "synthetic_match_id": {
-      "type": [
-        "string",
-        "null"
-      ]
-    }
-  },
+  "title": "ReplayManifestV1",
+  "description": "Frozen Parquet row contract consumed by the future replay producer.",
+  "type": "object",
+  "additionalProperties": false,
   "required": [
     "replay_session_id",
     "synthetic_match_id",
@@ -170,6 +30,30 @@
     "source_file",
     "replay_schema_version"
   ],
-  "title": "ReplayManifestV1",
-  "type": "object"
+  "properties": {
+    "replay_session_id": {"type": "string"},
+    "synthetic_match_id": {"type": "string"},
+    "source_match_id": {"type": "string"},
+    "event_id": {"type": "string"},
+    "synthetic_event_id": {"type": "string"},
+    "event_index": {"type": "integer", "minimum": 0},
+    "replay_order": {"type": "integer", "minimum": 0},
+    "replay_offset_seconds": {"type": "number", "minimum": 0},
+    "event_ts": {"type": ["string", "null"]},
+    "player_a": {"type": "string"},
+    "player_b": {"type": "string"},
+    "server_player": {"type": ["string", "null"]},
+    "receiver_player": {"type": ["string", "null"]},
+    "point_winner_player": {"type": ["string", "null"]},
+    "set_number": {"type": ["integer", "null"]},
+    "game_number": {"type": ["integer", "null"]},
+    "point_number": {"type": ["integer", "null"]},
+    "p1_score": {"type": ["string", "null"]},
+    "p2_score": {"type": ["string", "null"]},
+    "is_ace": {"type": ["boolean", "null"]},
+    "is_double_fault": {"type": ["boolean", "null"]},
+    "is_break_point": {"type": ["boolean", "null"]},
+    "source_file": {"type": ["string", "null"]},
+    "replay_schema_version": {"type": "string"}
+  }
 }

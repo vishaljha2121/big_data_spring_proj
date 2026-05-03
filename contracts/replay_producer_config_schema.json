@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReplayProducerConfigV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_path",
+    "topic",
+    "bootstrap_servers",
+    "partition_key",
+    "default_speed_multiplier",
+    "dead_letter_topic",
+    "event_schema_path"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "replay_producer_config_v1"},
+    "manifest_path": {"type": "string"},
+    "topic": {"type": "string"},
+    "bootstrap_servers": {"type": "string"},
+    "partition_key": {"type": "string", "const": "synthetic_match_id"},
+    "default_speed_multiplier": {"type": "number", "exclusiveMinimum": 0},
+    "dead_letter_topic": {"type": "string"},
+    "event_schema_path": {"type": "string"}
+  }
+}

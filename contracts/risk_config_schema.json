@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RiskConfigV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model_type",
+    "version",
+    "risk_method",
+    "features_used",
+    "baseline_dataset",
+    "thresholds",
+    "bucket_rules",
+    "fake_labels_used",
+    "explanation_templates",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "risk_config_v1"},
+    "model_type": {"type": "string", "const": "risk"},
+    "version": {"type": "string"},
+    "risk_method": {"type": "string"},
+    "features_used": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "baseline_dataset": {"type": "string"},
+    "thresholds": {"type": "object", "required": ["medium", "high"]},
+    "bucket_rules": {"type": "object", "required": ["low", "medium", "high"]},
+    "fake_labels_used": {"type": "boolean", "const": false},
+    "explanation_templates": {"type": "object", "required": ["low", "medium", "high"]},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

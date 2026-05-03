@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ParallelWorkstreamReadinessReportV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "generated_at",
+    "status",
+    "milestone_1b_detected",
+    "milestone_2a_detected",
+    "required_contracts_present",
+    "required_docs_present",
+    "track_a_ready",
+    "track_b_ready",
+    "blocking_errors",
+    "warnings",
+    "next_steps"
+  ],
+  "properties": {
+    "generated_at": {"type": "string"},
+    "status": {"type": "string", "enum": ["PASSED", "FAILED"]},
+    "milestone_1b_detected": {"type": "boolean"},
+    "milestone_2a_detected": {"type": "boolean"},
+    "required_contracts_present": {"type": "boolean"},
+    "required_docs_present": {"type": "boolean"},
+    "track_a_ready": {"type": "boolean"},
+    "track_b_ready": {"type": "boolean"},
+    "blocking_errors": {"type": "array", "items": {"type": "string"}},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "next_steps": {"type": "array", "items": {"type": "string"}}
+  }
+}

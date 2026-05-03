@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OddsModelFeatureSchemaV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "feature_schema_hash",
+    "feature_columns",
+    "excluded_columns",
+    "target_column",
+    "null_handling",
+    "leakage_guards"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "odds_model_feature_schema_v1"},
+    "feature_schema_hash": {"type": "string"},
+    "feature_columns": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "excluded_columns": {"type": "array", "items": {"type": "string"}},
+    "target_column": {"type": "string"},
+    "null_handling": {"type": "string"},
+    "leakage_guards": {"type": "array", "items": {"type": "string"}}
+  }
+}

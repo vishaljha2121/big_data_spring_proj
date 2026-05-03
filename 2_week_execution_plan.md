@@ -1,4 +1,8 @@
+# DEPRECATED PLAN NOTICE: This document is historical and should not be used as the current implementation source of truth. Use README.md, CODEX.md, docs/parallel_workstream_handoff.md, and the current milestone docs instead.
+
 # 14-Day (2-Week) End-to-End Project Execution Plan
+
+> Deprecated planning note: this document is not the current implementation source of truth. It references older Cassandra, Elasticsearch, 50M-record, 25K events/sec, Grafana, and Kibana goals that are not part of the active milestone path. Use `README.md`, `docs/next_implementation_steps.md`, and the current milestone audit documents instead.
 
 This document outlines a high-intensity, detailed 14-day pipeline to fully realize the **Real-Time Tennis Oddsmaking & Integrity Monitoring** Big Data project. Given the complexity of the Lambda Architecture, tasks are heavily parallelized across the team.
 

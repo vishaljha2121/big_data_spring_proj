@@ -1,0 +1,3 @@
+# Milestone 3A placeholder only.
+# Track B will replace this with a runnable local Kafka compose stack.
+services: {}

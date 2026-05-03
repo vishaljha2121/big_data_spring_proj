@@ -1,0 +1,11 @@
+{
+  "schema_version": "kafka_topic_config_v1",
+  "topic": "tennis-point-events",
+  "partitions": 20,
+  "replication_factor": 1,
+  "retention_ms": 86400000,
+  "cleanup_policy": "delete",
+  "max_message_bytes": 1048576,
+  "partition_key": "synthetic_match_id",
+  "consumer_group": "spark-tennis"
+}
