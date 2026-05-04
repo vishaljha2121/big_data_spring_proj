@@ -2,7 +2,7 @@
 
 ## Verdict
 
-The project has a validated local end-to-end demo path from curated tennis point data to model-scored events, a file-backed API, a minimal dashboard, and final preflight/demo launcher scripts.
+The project has a validated local end-to-end demo path from curated tennis point data to model-scored events, a file-backed API, a presentation-ready tennis dashboard, and final preflight/demo launcher scripts.
 
 ## Completed Milestones
 
@@ -15,6 +15,7 @@ The project has a validated local end-to-end demo path from curated tennis point
 - Milestone 4A: file-backed FastAPI serving layer
 - Milestone 4B: minimal dashboard/frontend
 - Milestone 4C: final build freeze, preflight, smoke test, and one-command demo
+- Milestone 4D: frontend presentation redesign and demo polish
 
 ## Demo Path
 
@@ -35,6 +36,7 @@ replay JSONL
 - Odds model: `v1`
 - Risk config: `v1`
 - Frontend build: see `data/results/frontend_validation/frontend_validation_report.json`
+- Frontend theme system: clay, hard, grass, neutral
 - Backend validation: see `data/results/api_validation/api_validation_report.json`
 - Final preflight: see `data/results/final_demo/final_preflight_report.json`
 - Demo smoke test: see `data/results/final_demo/full_demo_smoke_report.json`

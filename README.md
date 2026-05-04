@@ -1,6 +1,6 @@
 # Tennis Point-Level Analytics Project
 
-This repository contains the validated data, model artifact, replay, scoring, local serving, and dashboard foundation for a tennis point-level analytics pipeline. Milestone 4C freezes the final local demo path and adds one-command launch and preflight checks.
+This repository contains the validated data, model artifact, replay, scoring, local serving, and dashboard foundation for a tennis point-level analytics pipeline. Milestone 4D adds the final presentation-ready dashboard redesign and visual polish.
 
 ## Current Status
 
@@ -15,6 +15,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Milestone 4A: PASSED for local file-backed FastAPI serving layer
 - Milestone 4B: PASSED for minimal dashboard/frontend over documented API
 - Milestone 4C: PASSED for final build freeze, full preflight, and one-command demo runner
+- Milestone 4D: PASSED for frontend presentation redesign and demo polish
 
 ## Completed Checklist
 
@@ -41,6 +42,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - [x] Added minimal dashboard frontend over the documented FastAPI API.
 - [x] Added final demo runbook, submission checklist, and frontend build validation.
 - [x] Added final preflight checks and one-command local demo launcher.
+- [x] Redesigned the dashboard with a clay-court presentation theme, theme switcher, polished chart, KPI strip, insight rail, and readable tables.
 
 ## Remaining Checklist
 
@@ -74,6 +76,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Streaming benchmark: `974.13` events/sec, average latency `0.9635` ms/event, p95 latency `1.5229` ms/event, model load time `3.2619` seconds.
 - API validation passed with `1000` scored events and `6` unique matches exposed.
 - Frontend build validation passed with local Node/npm.
+- Dashboard theme system supports clay, hard, grass, and neutral themes. Clay is the default demo theme because source surface metadata is unavailable.
 
 ## CourtIQ Integration Audit
 
@@ -268,7 +271,13 @@ GET /api/models/current
 GET /api/benchmarks/latest
 ```
 
-Dashboard sections include system summary, scored events table, match list, match detail, risk summary, model metadata, and benchmark evidence. The UI states that probabilities are point-level probabilities, not betting odds, and risk scores are statistical anomaly signals, not proof of misconduct.
+Dashboard sections include a clay-court hero, KPI strip, selected match analytics, point probability timeline, risk summary, model metadata, benchmark evidence, match table, and scored events table. The UI states that probabilities are point-level probabilities, not betting odds, and risk scores are statistical anomaly signals, not proof of misconduct.
+
+Theme notes:
+
+- Default: clay-court demo theme.
+- Available themes: clay, hard court, grass court, neutral.
+- Surface metadata is unavailable in the current sample, so the theme switcher is frontend-only and does not imply true surface labels.
 
 ## Final Demo Sequence
 

@@ -1,27 +1,40 @@
 import React from "react";
-import BenchmarkPanel from "../components/BenchmarkPanel.jsx";
+import BenchmarkEvidencePanel from "../components/BenchmarkEvidencePanel.jsx";
+import HeroHeader from "../components/HeroHeader.jsx";
+import KpiStrip from "../components/KpiStrip.jsx";
 import Layout from "../components/Layout.jsx";
-import MatchDetail from "../components/MatchDetail.jsx";
+import MatchAnalyticsPanel from "../components/MatchAnalyticsPanel.jsx";
 import MatchesTable from "../components/MatchesTable.jsx";
-import ModelInfo from "../components/ModelInfo.jsx";
-import RiskSummary from "../components/RiskSummary.jsx";
+import ModelArtifactPanel from "../components/ModelArtifactPanel.jsx";
+import RiskOverviewPanel from "../components/RiskOverviewPanel.jsx";
 import ScoredEventsTable from "../components/ScoredEventsTable.jsx";
-import StatusBanner from "../components/StatusBanner.jsx";
-import SummaryCards from "../components/SummaryCards.jsx";
 
-export default function DashboardPage({ data, onSelectMatch }) {
+export default function DashboardPage({ data, theme, onThemeChange, onSelectMatch }) {
+  const selectedSurface = data?.matchDetail?.summary?.surface || data?.matchDetail?.surface;
+  const surfaceUnavailable = !selectedSurface;
   return (
-    <Layout>
-      <StatusBanner health={data.health} ready={data.ready} summary={data.summary} />
-      <SummaryCards summary={data.summary} benchmarks={data.benchmarks} />
-      <div className="grid-two">
-        <RiskSummary riskSummary={data.riskSummary} riskEvents={data.riskEvents} />
-        <ModelInfo models={data.models} />
+    <Layout theme={theme}>
+      <HeroHeader
+        health={data.health}
+        ready={data.ready}
+        summary={data.summary}
+        theme={theme}
+        onThemeChange={onThemeChange}
+        surfaceUnavailable={surfaceUnavailable}
+      />
+      <KpiStrip summary={data.summary} benchmarks={data.benchmarks} />
+      <div className="insight-grid">
+        <MatchAnalyticsPanel matchDetail={data.matchDetail} matchEvents={data.matchEvents} />
+        <aside className="insight-rail">
+          <RiskOverviewPanel riskSummary={data.riskSummary} riskEvents={data.riskEvents} />
+          <ModelArtifactPanel models={data.models} />
+          <BenchmarkEvidencePanel benchmarks={data.benchmarks} />
+        </aside>
       </div>
-      <BenchmarkPanel benchmarks={data.benchmarks} />
-      <MatchesTable matches={data.matches} selectedMatchId={data.selectedMatchId} onSelectMatch={onSelectMatch} />
-      <MatchDetail matchDetail={data.matchDetail} matchEvents={data.matchEvents} />
-      <ScoredEventsTable scoredEvents={data.scoredEvents} />
+      <section className="data-grid" id="matches">
+        <MatchesTable matches={data.matches} selectedMatchId={data.selectedMatchId} onSelectMatch={onSelectMatch} />
+        <ScoredEventsTable scoredEvents={data.scoredEvents} />
+      </section>
     </Layout>
   );
 }

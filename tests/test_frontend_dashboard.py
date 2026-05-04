@@ -12,6 +12,15 @@ def test_frontend_dashboard_files_exist():
         "frontend/src/main.jsx",
         "frontend/src/App.jsx",
         "frontend/src/api/client.js",
+        "frontend/src/theme/surfaceThemes.js",
+        "frontend/src/components/HeroHeader.jsx",
+        "frontend/src/components/KpiStrip.jsx",
+        "frontend/src/components/MatchAnalyticsPanel.jsx",
+        "frontend/src/components/ProbabilityTimeline.jsx",
+        "frontend/src/components/RiskOverviewPanel.jsx",
+        "frontend/src/components/ModelArtifactPanel.jsx",
+        "frontend/src/components/BenchmarkEvidencePanel.jsx",
+        "frontend/src/components/ThemeSwitcher.jsx",
         "frontend/src/components/SummaryCards.jsx",
         "frontend/src/components/ScoredEventsTable.jsx",
         "frontend/src/components/MatchesTable.jsx",
@@ -30,7 +39,7 @@ def test_frontend_uses_documented_api_and_safe_language():
         path.read_text(encoding="utf-8")
         for path in [
             ROOT / "frontend/src/components/ScoredEventsTable.jsx",
-            ROOT / "frontend/src/components/RiskSummary.jsx",
+            ROOT / "frontend/src/components/RiskOverviewPanel.jsx",
         ]
     )
     for endpoint in [
@@ -47,6 +56,16 @@ def test_frontend_uses_documented_api_and_safe_language():
     assert "not betting odds" in app_text
     assert "not proof of misconduct" in app_text
     assert "match-fixing" in app_text
+
+
+def test_frontend_theme_system_exists():
+    theme_text = (ROOT / "frontend/src/theme/surfaceThemes.js").read_text(encoding="utf-8")
+    app_text = (ROOT / "frontend/src/App.jsx").read_text(encoding="utf-8")
+    css_text = (ROOT / "frontend/src/styles.css").read_text(encoding="utf-8")
+    for theme in ["clay", "hard", "grass", "neutral"]:
+        assert theme in theme_text
+        assert f'data-theme="{theme}"' in css_text or f'[data-theme="{theme}"]' in css_text
+    assert "normalizeSurfaceTheme" in app_text
 
 
 def test_frontend_validation_report_passed():

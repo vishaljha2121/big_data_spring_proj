@@ -1,12 +1,18 @@
 import React from "react";
-import { bucketClass, fixed, pct } from "../utils/formatting.js";
+import GlassCard from "./GlassCard.jsx";
+import ProbabilityBar from "./ProbabilityBar.jsx";
+import RiskBadge from "./RiskBadge.jsx";
+import { compactId } from "../utils/formatting.js";
 
 export default function ScoredEventsTable({ scoredEvents }) {
   const rows = (scoredEvents?.items || []).slice(0, 100);
   return (
-    <section className="section">
-      <div className="section-header">
-        <h2>Scored Events</h2>
+    <GlassCard className="table-card wide" id="events">
+      <div className="panel-heading compact">
+        <div>
+          <span className="section-kicker">Replay output</span>
+          <h2>Scored Events</h2>
+        </div>
         <p>Point probabilities are current-point estimates. They are not betting odds or match-win probabilities.</p>
       </div>
       <div className="table-wrap">
@@ -26,17 +32,17 @@ export default function ScoredEventsTable({ scoredEvents }) {
             {rows.map((event) => (
               <tr key={event.event_id}>
                 <td>{event.replay_order}</td>
-                <td><code>{event.synthetic_match_id}</code></td>
+                <td><code className="id-pill" title={event.synthetic_match_id}>{compactId(event.synthetic_match_id)}</code></td>
                 <td>{event.player_a} <span className="muted">vs</span> {event.player_b}</td>
-                <td>{pct(event.point_probability_player_a)}</td>
-                <td>{pct(event.point_probability_player_b)}</td>
-                <td><span className={`badge ${bucketClass(event.risk_bucket)}`}>{event.risk_bucket} {fixed(event.risk_score, 3)}</span></td>
-                <td>{event.primary_risk_signal}</td>
+                <td><ProbabilityBar value={event.point_probability_player_a} label="Player A point probability" /></td>
+                <td><ProbabilityBar value={event.point_probability_player_b} label="Player B point probability" /></td>
+                <td><RiskBadge bucket={event.risk_bucket} score={event.risk_score} /></td>
+                <td><span className="signal-chip">{event.primary_risk_signal || "none"}</span></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </section>
+    </GlassCard>
   );
 }
