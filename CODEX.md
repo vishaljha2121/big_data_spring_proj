@@ -6,9 +6,9 @@ Build a tennis point-level analytics platform with validated batch data, model a
 
 ## Current Priority
 
-Current completed milestone: **Milestone 4C — Final Build Freeze and Demo Readiness**.
+Current completed milestone: **Milestone 4D — Frontend Presentation Redesign and Demo Polish**.
 
-Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, and Milestone 4C are complete and validated. Milestone 4C freezes the local demo path with final preflight checks and a one-command launcher. Kafka runtime code exists, but Kafka was not executed locally.
+Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, Milestone 4C, and Milestone 4D are complete and validated. Milestone 4D polishes the frontend into a presentation-ready tennis analytics dashboard while preserving the local demo path. Kafka runtime code exists, but Kafka was not executed locally.
 
 The next allowed priority is:
 
@@ -16,7 +16,7 @@ The next allowed priority is:
 - **Screenshots and final submission cleanup**
 - **Bug fixes only if a validation or demo blocker appears**
 
-Do not add new architecture before submission. Do not introduce PostgreSQL, Redis, Kafka runtime requirements, authentication, deployment work, or frontend redesign work for the final packaging pass.
+Do not add new architecture before submission. Do not introduce PostgreSQL, Redis, Kafka runtime requirements, authentication, deployment work, or another broad frontend redesign for the final packaging pass.
 
 Do not use CourtIQ assets unless they were merged or listed as approved reference in `docs/courtiq_integration_audit.md`.
 
@@ -48,6 +48,7 @@ Allowed stable inputs for the next tracks:
 - `scripts/stop_full_demo.sh`
 - `scripts/final_preflight_check.py`
 - `data/results/final_demo/final_preflight_report.json`
+- `frontend/src/theme/surfaceThemes.js`
 
 Do not use staging CSV.GZ files directly.
 
@@ -87,7 +88,7 @@ CourtIQ replay producer files under `external_review/courtiq/` are reference-onl
 
 ## Validation Gate
 
-Milestone 4C is done only when:
+Milestone 4D is done only when:
 
 ```bash
 .venv/bin/python scripts/final_preflight_check.py

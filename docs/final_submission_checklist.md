@@ -39,12 +39,15 @@ Run before submission:
 
 ## Screenshots Needed
 
-- [ ] Dashboard status and summary cards
-- [ ] Scored events table
-- [ ] Match detail probability timeline
+- [ ] Hero + KPI strip
+- [ ] Theme switcher states
+- [ ] Selected match analytics panel
+- [ ] Point probability timeline
 - [ ] Risk summary
 - [ ] Model metadata panel
-- [ ] Benchmark panel
+- [ ] Benchmark evidence panel
+- [ ] Matches table
+- [ ] Scored events table
 - [ ] FastAPI `/docs`
 - [ ] Terminal showing final validation pass
 

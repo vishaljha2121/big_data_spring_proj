@@ -83,14 +83,15 @@ cd ..
 
 ## Presentation Path
 
-1. Start with the dashboard status banner and summary cards.
-2. Show `1000` scored local replay events and the match count.
-3. Open the scored events table and explain the probability fields as point-level probabilities.
-4. Select a match and show the match detail probability timeline.
-5. Show the risk summary and top risk events.
-6. Show model metadata, including odds model version, feature count, and `fake_labels_used=false` for risk.
-7. Show benchmark metrics for throughput and latency.
-8. Open `/docs` briefly to show that the frontend is backed by documented API endpoints.
+1. Start with the clay-court hero, readiness badge, disclaimer chips, and KPI strip.
+2. Use the court theme switcher to show Clay, Hard, Grass, and Neutral themes. Explain that clay is the default demo theme because surface metadata is unavailable.
+3. Show `1000` scored local replay events and the match count in the KPI strip.
+4. Select a match and show the large point probability timeline.
+5. Show recent point events with probability bars and risk badges.
+6. Show the risk summary and top risk events.
+7. Show model metadata, including odds model version, feature count, and `fake_labels_used=false` for risk.
+8. Show benchmark metrics for throughput and latency.
+9. Open `/docs` briefly to show that the frontend is backed by documented API endpoints.
 
 ## Suggested Talk Track
 
