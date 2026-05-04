@@ -163,16 +163,16 @@ def main() -> None:
         "blocking_errors": errors,
         "warnings": warnings,
         "next_steps": [
-            "After Milestone 2.7, create feature/milestone-3b-streaming-scorer",
-            "Milestone 3B consumes tennis-point-events and writes scored local JSONL/Parquet output",
-            "Keep API/frontend work blocked until streaming scorer validation passes",
+            "Milestones 3B, 4A, and 4B now build on this parallel-readiness foundation.",
+            "Use docs/final_demo_runbook.md for the final demo path.",
+            "Do not add new architecture during final report and presentation packaging.",
         ],
     }
     write_json(args.out, report)
     if errors:
         raise SystemExit(json.dumps(report, indent=2, sort_keys=True))
     if Path("data/models/odds/latest.json").exists() and Path("data/results/replay_dry_run/validation_report.json").exists():
-        print("Milestone 2.7 PASSED: model artifacts and replay dry-run are ready for Milestone 3B")
+        print("Parallel readiness PASSED: downstream model, replay, scoring, API, and dashboard milestones are supported")
     else:
         print("Milestone 2.5 PASSED: repo is ready for Track A / Track B parallel implementation")
 

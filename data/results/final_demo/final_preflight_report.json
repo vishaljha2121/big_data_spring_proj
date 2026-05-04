@@ -1,0 +1,159 @@
+{
+  "api_checks": {
+    "api/app/main.py": {
+      "exists": true,
+      "type": "file"
+    },
+    "contracts/api_openapi_snapshot.json": {
+      "exists": true,
+      "type": "file"
+    },
+    "contracts/api_response_examples.json": {
+      "exists": true,
+      "type": "file"
+    },
+    "data/results/api_validation/api_validation_report.json": {
+      "exists": true,
+      "type": "file"
+    }
+  },
+  "artifact_checks": {
+    "data/baselines/player_baselines": {
+      "exists": true,
+      "type": "dir"
+    },
+    "data/features/point_features": {
+      "exists": true,
+      "type": "dir"
+    },
+    "data/models/odds/latest.json": {
+      "exists": true,
+      "type": "file"
+    },
+    "data/models/risk/latest.json": {
+      "exists": true,
+      "type": "file"
+    },
+    "data/replay/manifests/replay_manifest_v1.parquet": {
+      "exists": true,
+      "type": "file"
+    },
+    "data/results/replay_dry_run/sample_events.jsonl": {
+      "exists": true,
+      "type": "file"
+    },
+    "data/results/streaming_scoring/scored_events_sample.jsonl": {
+      "exists": true,
+      "type": "file"
+    },
+    "data/results/streaming_scoring/scoring_validation_report.json": {
+      "exists": true,
+      "type": "file"
+    }
+  },
+  "blocking_errors": [],
+  "demo_commands": [
+    "bash scripts/run_full_demo.sh",
+    "bash scripts/stop_full_demo.sh"
+  ],
+  "documentation_checks": {
+    "codex_mentions_4c": true,
+    "readme_mentions_4b_passed": true,
+    "required_docs": {
+      "CODEX.md": {
+        "exists": true,
+        "type": "file"
+      },
+      "README.md": {
+        "exists": true,
+        "type": "file"
+      },
+      "docs/api_contract.md": {
+        "exists": true,
+        "type": "file"
+      },
+      "docs/final_demo_runbook.md": {
+        "exists": true,
+        "type": "file"
+      },
+      "docs/final_project_status.md": {
+        "exists": true,
+        "type": "file"
+      },
+      "docs/final_submission_checklist.md": {
+        "exists": true,
+        "type": "file"
+      },
+      "docs/frontend_dashboard_audit.md": {
+        "exists": true,
+        "type": "file"
+      }
+    },
+    "stale_status_hits": []
+  },
+  "frontend_checks": {
+    "data/results/frontend_validation/frontend_validation_report.json": {
+      "exists": true,
+      "type": "file"
+    },
+    "frontend/.env.example": {
+      "exists": true,
+      "type": "file"
+    },
+    "frontend/index.html": {
+      "exists": true,
+      "type": "file"
+    },
+    "frontend/package.json": {
+      "exists": true,
+      "type": "file"
+    },
+    "frontend/src/App.jsx": {
+      "exists": true,
+      "type": "file"
+    },
+    "frontend/src/main.jsx": {
+      "exists": true,
+      "type": "file"
+    },
+    "frontend/vite.config.js": {
+      "exists": true,
+      "type": "file"
+    }
+  },
+  "generated_at": "2026-05-04T17:48:40Z",
+  "next_steps": [
+    "Capture dashboard screenshots.",
+    "Prepare final report and slides.",
+    "Do not add new architecture before submission unless fixing a blocker."
+  ],
+  "status": "PASSED",
+  "validation_checks": {
+    "api_validation": {
+      "passed": true,
+      "path": "data/results/api_validation/api_validation_report.json",
+      "status": "PASSED"
+    },
+    "feature_validation": {
+      "passed": true,
+      "path": "data/features/validation_report.json",
+      "status": "PASSED"
+    },
+    "frontend_validation": {
+      "passed": true,
+      "path": "data/results/frontend_validation/frontend_validation_report.json",
+      "status": "PASSED"
+    },
+    "parallel_readiness": {
+      "passed": true,
+      "path": "data/results/parallel_readiness_report.json",
+      "status": "PASSED"
+    },
+    "scoring_validation": {
+      "passed": true,
+      "path": "data/results/streaming_scoring/scoring_validation_report.json",
+      "status": "PASSED"
+    }
+  },
+  "warnings": []
+}

@@ -6,15 +6,17 @@ Build a tennis point-level analytics platform with validated batch data, model a
 
 ## Current Priority
 
-Current completed milestone: **Milestone 4A — Local Serving Layer**.
+Current completed milestone: **Milestone 4C — Final Build Freeze and Demo Readiness**.
 
-Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, and Milestone 4A are complete and validated. Milestone 4A exposes the validated scored local JSONL/Parquet output through a file-backed FastAPI service. Kafka runtime code exists, but Kafka was not executed locally.
+Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, and Milestone 4C are complete and validated. Milestone 4C freezes the local demo path with final preflight checks and a one-command launcher. Kafka runtime code exists, but Kafka was not executed locally.
 
 The next allowed priority is:
 
-- **Milestone 4B Minimal Dashboard/Frontend** on branch `feature/milestone-4b-minimal-dashboard`
+- **Final report and presentation packaging**
+- **Screenshots and final submission cleanup**
+- **Bug fixes only if a validation or demo blocker appears**
 
-Frontend work may now start only against the documented API contract in `docs/api_contract.md`. Do not introduce PostgreSQL or Redis unless explicitly required; the current deadline-safe backend is file-backed.
+Do not add new architecture before submission. Do not introduce PostgreSQL, Redis, Kafka runtime requirements, authentication, deployment work, or frontend redesign work for the final packaging pass.
 
 Do not use CourtIQ assets unless they were merged or listed as approved reference in `docs/courtiq_integration_audit.md`.
 
@@ -40,6 +42,12 @@ Allowed stable inputs for the next tracks:
 - `api/app/main.py`
 - `docs/api_contract.md`
 - `contracts/api_openapi_snapshot.json`
+- `frontend/`
+- `data/results/frontend_validation/frontend_validation_report.json`
+- `scripts/run_full_demo.sh`
+- `scripts/stop_full_demo.sh`
+- `scripts/final_preflight_check.py`
+- `data/results/final_demo/final_preflight_report.json`
 
 Do not use staging CSV.GZ files directly.
 
@@ -65,7 +73,7 @@ Track A model artifact work is complete.
 
 Track B replay dry-run and Kafka setup work is complete except Kafka runtime execution.
 
-Future frontend work may not modify Milestone 1B/2A generated Parquet outputs, retrain Milestone 2.7 artifacts, or change the API contract without updating docs/tests.
+Future final packaging work may not modify Milestone 1B/2A generated Parquet outputs, retrain Milestone 2.7 artifacts, or change the API contract without updating docs/tests.
 
 ## No Overclaiming
 
@@ -79,15 +87,32 @@ CourtIQ replay producer files under `external_review/courtiq/` are reference-onl
 
 ## Validation Gate
 
-Milestone 4A is done only when:
+Milestone 4C is done only when:
 
 ```bash
+.venv/bin/python scripts/final_preflight_check.py
+.venv/bin/python scripts/smoke_test_full_demo.py
 .venv/bin/python scripts/validate_parallel_readiness.py
 .venv/bin/python scripts/validate_model_artifacts.py --models data/models --contracts contracts --results data/results/model_eval
 .venv/bin/python scripts/validate_replay_producer.py --events data/results/replay_dry_run/sample_events.jsonl --schema contracts/point_event_schema.json
 .venv/bin/python scripts/validate_scored_events.py --events data/results/streaming_scoring/scored_events_sample.jsonl --schema contracts/scored_event_schema.json --odds-latest data/models/odds/latest.json --report data/results/streaming_scoring/scoring_validation_report.json --expected-count 1000
 .venv/bin/python scripts/validate_api_contract.py
+.venv/bin/python scripts/validate_frontend_build.py
 .venv/bin/python -m pytest tests
 ```
 
 all pass.
+
+## Demo Runner
+
+Use this as the primary local product launch path:
+
+```bash
+bash scripts/run_full_demo.sh
+```
+
+It starts FastAPI on `http://127.0.0.1:8000`, the API docs on `http://127.0.0.1:8000/docs`, and the frontend dashboard on `http://127.0.0.1:5173`. Stop remaining demo processes with:
+
+```bash
+bash scripts/stop_full_demo.sh
+```

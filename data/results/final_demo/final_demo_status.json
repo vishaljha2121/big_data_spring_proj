@@ -1,0 +1,26 @@
+{
+  "api_ready": true,
+  "frontend_build_status": "PASSED",
+  "final_preflight_status": "PASSED",
+  "full_demo_smoke_status": "PASSED",
+  "known_limitations": [
+    "Kafka runtime is not required for the local demo path.",
+    "The API is file-backed over validated scored sample output.",
+    "Risk scores are statistical anomaly signals only, not proof of misconduct."
+  ],
+  "milestones": {
+    "1B": "PASSED",
+    "2A": "PASSED",
+    "2.5": "PASSED",
+    "2.6": "PASSED",
+    "2.7": "PASSED",
+    "3B": "PASSED",
+    "4A": "PASSED",
+    "4B": "PASSED",
+    "4C": "PASSED"
+  },
+  "scored_events_count": 1000,
+  "tests_status": "PASSED",
+  "one_command_demo": "bash scripts/run_full_demo.sh",
+  "updated_at": "2026-05-04T17:45:00Z"
+}

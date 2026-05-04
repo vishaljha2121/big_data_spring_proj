@@ -6,3 +6,5 @@ __pycache__/
 *.pyo
 *.pyd
 external_sources/
+data/results/final_demo/logs/
+data/results/final_demo/pids/
