@@ -10,7 +10,7 @@
     "/api/models/current",
     "/api/benchmarks/latest"
   ],
-  "generated_at": "2026-05-04T18:35:53Z",
+  "generated_at": "2026-05-04T18:42:36Z",
   "scored_event_count": 1000,
   "status": "PASSED",
   "unique_match_count": 6
