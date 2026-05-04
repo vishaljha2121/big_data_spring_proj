@@ -1,6 +1,6 @@
 # Tennis Point-Level Analytics Project
 
-This repository contains the validated data, model artifact, replay, scoring, local serving, and dashboard foundation for a tennis point-level analytics pipeline. Milestone 4D adds the final presentation-ready dashboard redesign and visual polish.
+This repository contains the validated data, model artifact, replay, scoring, local serving, and dashboard foundation for a tennis point-level analytics pipeline. Milestone 4E adds the final frontend narrative polish including KPI reordering, humanized labels, model comparison context, and replay ID handling.
 
 ## Current Status
 
@@ -16,6 +16,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Milestone 4B: PASSED for minimal dashboard/frontend over documented API
 - Milestone 4C: PASSED for final build freeze, full preflight, and one-command demo runner
 - Milestone 4D: PASSED for frontend presentation redesign and demo polish
+- Milestone 4E: PASSED for final frontend narrative polish, KPI reordering, humanized labels, and model comparison panel
 
 ## Completed Checklist
 
@@ -43,6 +44,11 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - [x] Added final demo runbook, submission checklist, and frontend build validation.
 - [x] Added final preflight checks and one-command local demo launcher.
 - [x] Redesigned the dashboard with a clay-court presentation theme, theme switcher, polished chart, KPI strip, insight rail, and readable tables.
+- [x] Reordered KPI strip with model quality metrics (AUC, Brier) and removed Risk Config from top KPIs.
+- [x] Humanized all underscore/raw technical labels across the dashboard.
+- [x] Made player names primary and synthetic IDs secondary throughout the UI.
+- [x] Added Model Comparison Context panel with honest public reference benchmark context.
+- [x] Created `docs/model_comparison_analysis.md` documenting fair comparison analysis.
 
 ## Remaining Checklist
 
@@ -77,6 +83,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - API validation passed with `1000` scored events and `6` unique matches exposed.
 - Frontend build validation passed with local Node/npm.
 - Dashboard theme system supports clay, hard, grass, and neutral themes. Clay is the default demo theme because source surface metadata is unavailable.
+- Model comparison note: our model is a point-level predictor (test AUC 0.6415, test Brier 0.2347). Public tennis prediction references operate at match-level and use different metrics. Direct comparison is not valid without building a match-level predictor on the same evaluation set.
 
 ## CourtIQ Integration Audit
 
@@ -173,6 +180,7 @@ Scope:
 - prepare slides/report
 - rehearse the runbook
 - avoid new backend architecture unless a blocker appears
+- bug fixes only if a validation or demo blocker appears
 
 ## Streaming Scorer
 

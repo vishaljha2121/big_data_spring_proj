@@ -2,7 +2,7 @@ import React from "react";
 import GlassCard from "./GlassCard.jsx";
 import ProbabilityBar from "./ProbabilityBar.jsx";
 import RiskBadge from "./RiskBadge.jsx";
-import { compactId, fixed } from "../utils/formatting.js";
+import { displayMatchTitle, displayReplayId, hasRealPlayers, fixed } from "../utils/formatting.js";
 
 export default function MatchesTable({ matches, selectedMatchId, onSelectMatch }) {
   const rows = matches?.items || [];
@@ -19,12 +19,12 @@ export default function MatchesTable({ matches, selectedMatchId, onSelectMatch }
         <table>
           <thead>
             <tr>
-              <th>Match</th>
-              <th>Players</th>
+              <th>Matchup</th>
+              <th>Replay ID</th>
               <th>Events</th>
               <th>Avg P(A)</th>
-              <th>Max risk</th>
-              <th>High-risk events</th>
+              <th>Max Risk</th>
+              <th>High‑Risk Events</th>
             </tr>
           </thead>
           <tbody>
@@ -35,11 +35,13 @@ export default function MatchesTable({ matches, selectedMatchId, onSelectMatch }
                 onClick={() => onSelectMatch(match.synthetic_match_id)}
               >
                 <td>
-                  <button className="id-pill table-id" title={match.synthetic_match_id} onClick={() => onSelectMatch(match.synthetic_match_id)}>
-                    {compactId(match.synthetic_match_id)}
+                  <strong>{hasRealPlayers(match) ? `${match.player_a} vs ${match.player_b}` : displayReplayId(match.synthetic_match_id)}</strong>
+                </td>
+                <td>
+                  <button className="id-pill table-id" title={match.synthetic_match_id} onClick={(e) => { e.stopPropagation(); onSelectMatch(match.synthetic_match_id); }}>
+                    {displayReplayId(match.synthetic_match_id)}
                   </button>
                 </td>
-                <td>{match.player_a} <span className="muted">vs</span> {match.player_b}</td>
                 <td>{match.event_count}</td>
                 <td><ProbabilityBar value={match.avg_point_probability_player_a} label="Average Player A point probability" /></td>
                 <td><RiskBadge bucket={Number(match.max_risk_score || 0) >= 0.7 ? "high" : Number(match.max_risk_score || 0) >= 0.4 ? "medium" : "low"} score={match.max_risk_score} /></td>

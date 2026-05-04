@@ -84,20 +84,28 @@ cd ..
 ## Presentation Path
 
 1. Start with the clay-court hero, readiness badge, disclaimer chips, and KPI strip.
-2. Use the court theme switcher to show Clay, Hard, Grass, and Neutral themes. Explain that clay is the default demo theme because surface metadata is unavailable.
-3. Show `1000` scored local replay events and the match count in the KPI strip.
-4. Select a match and show the large point probability timeline.
-5. Show recent point events with probability bars and risk badges.
-6. Show the risk summary and top risk events.
-7. Show model metadata, including odds model version, feature count, and `fake_labels_used=false` for risk.
-8. Show benchmark metrics for throughput and latency.
-9. Open `/docs` briefly to show that the frontend is backed by documented API endpoints.
+2. Highlight model quality KPIs: Point Model AUC and Calibration (Brier score) are now visible in the top KPI strip.
+3. Use the court theme switcher to show Clay, Hard, Grass, and Neutral themes. Explain that clay is the default demo theme because surface metadata is unavailable.
+4. Show `1000` scored local replay events and the match count in the KPI strip.
+5. Select a match and show the large point probability timeline. Note that player names are now the primary match title.
+6. Show recent point events with probability bars, risk badges, and humanized signal labels.
+7. Show the risk summary and top risk events. Note that all labels are human-readable.
+8. Show the **Model Comparison Context** panel. Walk through:
+   - Our point-level model metrics (AUC, Brier, throughput)
+   - Three public reference benchmarks
+   - Fair comparison verdict
+   - What would make the comparison fair
+9. Show model metadata, including humanized target label, model type, feature chips, and "No fake labels used" for risk.
+10. Show benchmark metrics for throughput and latency.
+11. Open `/docs` briefly to show that the frontend is backed by documented API endpoints.
 
 ## Suggested Talk Track
 
 This project starts from curated tennis point data, builds point-in-time-safe features, trains a lightweight point-outcome model, prepares replay events, scores those replay events locally, serves the scored output through FastAPI, and displays it in a dashboard. The dashboard is intentionally local and file-backed for a reliable deadline demo.
 
 The probability shown is the model's point-level probability for Player A or Player B on the current point. It is not a betting odd and it is not a match-win probability. The risk score is a conservative statistical anomaly signal for review, not proof of misconduct or match-fixing.
+
+Our model is point-level, so it should not be directly compared to match-level betting accuracy. The Model Comparison Context panel explains this honestly and shows what would be needed for a fair head-to-head comparison.
 
 ## What Not To Claim
 
@@ -106,3 +114,6 @@ The probability shown is the model's point-level probability for Player A or Pla
 - Do not claim risk score proves match-fixing, misconduct, or injury.
 - Do not claim Kafka runtime was required or executed for the local dashboard demo.
 - Do not claim this is production deployed.
+- Do not claim our point-level model is better than match-level prediction systems.
+- Do not claim point-level AUC is directly comparable to match-level accuracy.
+

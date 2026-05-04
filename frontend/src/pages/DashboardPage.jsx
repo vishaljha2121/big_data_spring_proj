@@ -6,6 +6,7 @@ import Layout from "../components/Layout.jsx";
 import MatchAnalyticsPanel from "../components/MatchAnalyticsPanel.jsx";
 import MatchesTable from "../components/MatchesTable.jsx";
 import ModelArtifactPanel from "../components/ModelArtifactPanel.jsx";
+import ModelComparisonPanel from "../components/ModelComparisonPanel.jsx";
 import RiskOverviewPanel from "../components/RiskOverviewPanel.jsx";
 import ScoredEventsTable from "../components/ScoredEventsTable.jsx";
 
@@ -27,6 +28,7 @@ export default function DashboardPage({ data, theme, onThemeChange, onSelectMatc
         <MatchAnalyticsPanel matchDetail={data.matchDetail} matchEvents={data.matchEvents} />
         <aside className="insight-rail">
           <RiskOverviewPanel riskSummary={data.riskSummary} riskEvents={data.riskEvents} />
+          <ModelComparisonPanel models={data.models} benchmarks={data.benchmarks} />
           <ModelArtifactPanel models={data.models} />
           <BenchmarkEvidencePanel benchmarks={data.benchmarks} />
         </aside>

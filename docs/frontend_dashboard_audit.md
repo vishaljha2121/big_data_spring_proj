@@ -120,9 +120,61 @@ The script checks required files, runs `npm run build`, and writes `data/results
 - Risk scores are statistical anomaly signals for review only. They are not proof of misconduct or match-fixing.
 - Surface metadata is unavailable in the current sample, so the clay-court visual theme is a demo presentation theme, not a data claim.
 
+## Milestone 4E — Narrative Polish
+
+Milestone 4E adds the final frontend narrative polish pass:
+
+### KPI Strip Reordering
+
+The top KPI strip was reordered from an engineering-debug layout to a meaningful demo narrative:
+
+| Old Order | New Order |
+|---|---|
+| Scored Events | Validated Scored Events |
+| Unique Matches | Matches in Demo |
+| Odds Model | Point Model AUC |
+| Risk Config | Calibration (Brier) |
+| Events/sec | Scoring Throughput |
+| p95 Latency | p95 Latency |
+
+Risk Config was removed from the top KPI strip and remains visible in the Model Metadata panel.
+
+### Humanized Labels
+
+All underscore/raw technical labels have been replaced with human-readable equivalents:
+
+- `return_point_win_pct` → "Return point win %"
+- `serve_point_win_pct` → "Serve point win %"
+- `label_point_winner_is_player_a` → "Player A point winner label"
+- `fake_labels_used=false` → "No fake labels used"
+- `baseline_deviation_score_v1` → "Baseline deviation score"
+- `HistGradientBoostingClassifier` → "HistGradientBoosting classifier"
+
+Humanization utilities are implemented in `frontend/src/utils/formatting.js`.
+
+### Replay ID Handling
+
+Synthetic match IDs are now secondary when real player names exist:
+
+- Match titles show "Player A vs Player B" as primary
+- Replay IDs appear as small labeled pills: "Replay: synthetic_ma…692463"
+- Applies to: matches table, scored events table, match analytics panel, risk overview
+
+### Model Comparison Panel
+
+A new `ModelComparisonPanel.jsx` component provides honest context comparing our point-level model to public tennis prediction references. It includes:
+
+- Our validated metrics (test AUC, Brier, throughput)
+- Three public reference benchmarks (TennisBets-style, SportBot-style, CourtCruncher-style)
+- A fair comparison verdict explaining why direct comparison is not valid
+- A "what would make it comparable" roadmap
+
+Full analysis documented in `docs/model_comparison_analysis.md`.
+
 ## Limitations
 
 - The dashboard reads the static local scored sample through the API.
 - No authentication or production deployment is included.
 - Kafka runtime remains optional and was not required for this demo path.
 - The court-surface theme switcher is frontend-only because reliable surface metadata is unavailable.
+

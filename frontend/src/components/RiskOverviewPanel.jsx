@@ -1,7 +1,7 @@
 import React from "react";
 import GlassCard from "./GlassCard.jsx";
 import RiskBadge from "./RiskBadge.jsx";
-import { compactId, fixed } from "../utils/formatting.js";
+import { displayReplayId, hasRealPlayers, fixed, humanizeSignal } from "../utils/formatting.js";
 
 export default function RiskOverviewPanel({ riskSummary, riskEvents }) {
   const counts = riskSummary?.count_by_bucket || riskSummary?.bucket_counts || {};
@@ -28,9 +28,16 @@ export default function RiskOverviewPanel({ riskSummary, riskEvents }) {
           <article key={event.event_id} className="ranked-risk-row">
             <span className="rank">#{index + 1}</span>
             <div>
-              <strong>{event.player_a} vs {event.player_b}</strong>
-              <small title={event.synthetic_match_id}>{compactId(event.synthetic_match_id)}</small>
-              <em>{event.primary_risk_signal || "baseline deviation"}</em>
+              <strong>
+                {hasRealPlayers(event)
+                  ? `${event.player_a} vs ${event.player_b}`
+                  : displayReplayId(event.synthetic_match_id)
+                }
+              </strong>
+              {hasRealPlayers(event) && (
+                <small title={event.synthetic_match_id}>Replay: {displayReplayId(event.synthetic_match_id)}</small>
+              )}
+              <em>{humanizeSignal(event.primary_risk_signal)}</em>
             </div>
             <RiskBadge bucket={event.risk_bucket} score={event.risk_score} />
           </article>

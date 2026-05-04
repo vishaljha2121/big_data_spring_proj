@@ -39,15 +39,16 @@ Run before submission:
 
 ## Screenshots Needed
 
-- [ ] Hero + KPI strip
+- [ ] Hero + KPI strip (updated with model quality KPIs)
 - [ ] Theme switcher states
-- [ ] Selected match analytics panel
+- [ ] Selected match analytics panel (with humanized labels)
 - [ ] Point probability timeline
-- [ ] Risk summary
-- [ ] Model metadata panel
+- [ ] Risk summary (with humanized signal names)
+- [ ] Model Comparison Context panel
+- [ ] Model metadata panel (with humanized labels, "No fake labels used")
 - [ ] Benchmark evidence panel
-- [ ] Matches table
-- [ ] Scored events table
+- [ ] Matches table (player names primary, replay ID secondary)
+- [ ] Scored events table (humanized column headers)
 - [ ] FastAPI `/docs`
 - [ ] Terminal showing final validation pass
 

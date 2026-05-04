@@ -13,14 +13,45 @@ function Kpi({ label, value, detail }) {
 
 export default function KpiStrip({ summary, benchmarks }) {
   const bench = benchmarks?.scoring_benchmark_report || {};
+  const evalReport = benchmarks?.eval_report || summary?.eval_report || {};
+  const candidate = evalReport?.metrics?.candidate_metrics?.hist_gradient_boosting || {};
+
+  // Prefer test metrics, fall back to validation, then summary-level
+  const testAuc = candidate.test_auc || summary?.test_auc || summary?.validation_auc;
+  const testBrier = candidate.test_brier_score || summary?.test_brier_score || summary?.validation_brier_score;
+
   return (
     <section className="kpi-strip" aria-label="System summary KPIs">
-      <Kpi label="Scored Events" value={(summary?.scored_event_count || 0).toLocaleString()} detail="validated sample" />
-      <Kpi label="Unique Matches" value={(summary?.unique_match_count || 0).toLocaleString()} detail="API-visible" />
-      <Kpi label="Odds Model" value={summary?.odds_model_version || "n/a"} detail="published artifact" />
-      <Kpi label="Risk Config" value={summary?.risk_model_version || "n/a"} detail="fake_labels_used=false" />
-      <Kpi label="Events/sec" value={fixed(summary?.benchmark_events_per_second || bench.events_per_second, 1)} detail="JSONL scoring" />
-      <Kpi label="p95 Latency" value={`${fixed(summary?.p95_latency_ms || bench.p95_latency_ms, 3)} ms`} detail="per event" />
+      <Kpi
+        label="Validated Scored Events"
+        value={(summary?.scored_event_count || 0).toLocaleString()}
+        detail="local scored sample"
+      />
+      <Kpi
+        label="Matches in Demo"
+        value={(summary?.unique_match_count || 0).toLocaleString()}
+        detail="API-visible matches"
+      />
+      <Kpi
+        label="Point Model AUC"
+        value={fixed(testAuc, 4) || "n/a"}
+        detail="held-out point-level AUC"
+      />
+      <Kpi
+        label="Calibration (Brier)"
+        value={fixed(testBrier, 4) || "n/a"}
+        detail="lower is better"
+      />
+      <Kpi
+        label="Scoring Throughput"
+        value={`${fixed(summary?.benchmark_events_per_second || bench.events_per_second, 1)} ev/s`}
+        detail="local JSONL benchmark"
+      />
+      <Kpi
+        label="p95 Latency"
+        value={`${fixed(summary?.p95_latency_ms || bench.p95_latency_ms, 3)} ms`}
+        detail="per event"
+      />
     </section>
   );
 }

@@ -6,14 +6,14 @@ Build a tennis point-level analytics platform with validated batch data, model a
 
 ## Current Priority
 
-Current completed milestone: **Milestone 4D — Frontend Presentation Redesign and Demo Polish**.
+Current completed milestone: **Milestone 4E — Final Frontend Narrative Polish, KPI Reordering, Humanized Labels, and Model Comparison Panel**.
 
-Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, Milestone 4C, and Milestone 4D are complete and validated. Milestone 4D polishes the frontend into a presentation-ready tennis analytics dashboard while preserving the local demo path. Kafka runtime code exists, but Kafka was not executed locally.
+Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, Milestone 4C, Milestone 4D, and Milestone 4E are complete and validated. Milestone 4E adds the final frontend narrative polish: KPI reordering with model quality metrics, humanized labels replacing all underscore/raw technical labels, player names as primary match identifiers, and a Model Comparison Context panel with honest public reference benchmarks. Kafka runtime code exists, but Kafka was not executed locally.
 
 The next allowed priority is:
 
-- **Final report and presentation packaging**
-- **Screenshots and final submission cleanup**
+- **Screenshots, report, and slides only**
+- **Final submission cleanup**
 - **Bug fixes only if a validation or demo blocker appears**
 
 Do not add new architecture before submission. Do not introduce PostgreSQL, Redis, Kafka runtime requirements, authentication, deployment work, or another broad frontend redesign for the final packaging pass.
@@ -88,7 +88,7 @@ CourtIQ replay producer files under `external_review/courtiq/` are reference-onl
 
 ## Validation Gate
 
-Milestone 4D is done only when:
+Milestone 4E is done only when:
 
 ```bash
 .venv/bin/python scripts/final_preflight_check.py
