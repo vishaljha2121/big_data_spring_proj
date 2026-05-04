@@ -201,15 +201,17 @@ def main() -> None:
     }
     write_json(args.features / "validation_report.json", result)
     Path("docs").mkdir(parents=True, exist_ok=True)
-    blockers_text = (
-        "\n".join(f"- {error}" for error in errors)
-        if errors
-        else "- Surface-specific features and baselines remain blocked until metadata improves.\n"
-        "- Rally-length features remain sparse and should not be primary MVP model inputs.\n"
-        "- ATP match bridge features remain blocked until a reliable point-to-match join is validated."
-    )
-    Path("docs/next_implementation_steps.md").write_text(
-        f"""# Next Implementation Steps
+    next_steps_path = Path("docs/next_implementation_steps.md")
+    if not next_steps_path.exists():
+        blockers_text = (
+            "\n".join(f"- {error}" for error in errors)
+            if errors
+            else "- Surface-specific features and baselines remain blocked until metadata improves.\n"
+            "- Rally-length features remain sparse and should not be primary MVP model inputs.\n"
+            "- ATP match bridge features remain blocked until a reliable point-to-match join is validated."
+        )
+        next_steps_path.write_text(
+            f"""# Next Implementation Steps
 
 Milestone 2A status: **{result['status']}**.
 
@@ -229,8 +231,8 @@ Milestone 2A status: **{result['status']}**.
 
 Proceed to **Milestone 2B: model training and model artifact publication** after reviewing the generated feature quality report. Kafka replay producer work can follow from the prepared manifest, but should not replace model-training validation.
 """,
-        encoding="utf-8",
-    )
+            encoding="utf-8",
+        )
     if errors:
         raise SystemExit(json.dumps(result, indent=2, sort_keys=True))
     print(

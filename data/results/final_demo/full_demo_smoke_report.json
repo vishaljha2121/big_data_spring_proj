@@ -1,0 +1,50 @@
+{
+  "api_command": "/Users/vishaljha/Desktop/Homeworks/BigData/Project/.venv/bin/python /Users/vishaljha/Desktop/Homeworks/BigData/Project/scripts/run_api.py --host 127.0.0.1 --port 18000",
+  "api_stderr_tail": "INFO:     Started server process [27433]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Uvicorn running on http://127.0.0.1:18000 (Press CTRL+C to quit)\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [27433]\n",
+  "api_stdout_tail": "INFO:     127.0.0.1:60996 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:60997 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:60998 - \"GET /ready HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:60999 - \"GET /api/summary HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:61000 - \"GET /api/summary HTTP/1.1\" 200 OK\n",
+  "blocking_errors": [],
+  "checks": {
+    "/api/summary": {
+      "payload_keys": [
+        "average_latency_ms",
+        "benchmark_events_per_second",
+        "odds_model_version",
+        "p95_latency_ms",
+        "risk_disclaimer",
+        "risk_model_version",
+        "scored_event_count",
+        "unique_match_count",
+        "warnings"
+      ],
+      "status_code": 200
+    },
+    "/health": {
+      "payload_keys": [
+        "service",
+        "status",
+        "timestamp",
+        "version"
+      ],
+      "status_code": 200
+    },
+    "/ready": {
+      "payload_keys": [
+        "checks",
+        "status",
+        "timestamp"
+      ],
+      "status_code": 200
+    },
+    "cors": {
+      "access_control_allow_origin": "http://127.0.0.1:5173",
+      "status_code": 200
+    },
+    "frontend_dist": {
+      "exists": true,
+      "path": "/Users/vishaljha/Desktop/Homeworks/BigData/Project/frontend/dist/index.html"
+    }
+  },
+  "generated_at": "2026-05-04T17:47:47Z",
+  "status": "PASSED",
+  "warnings": []
+}

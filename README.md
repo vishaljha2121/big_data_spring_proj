@@ -1,6 +1,6 @@
 # Tennis Point-Level Analytics Project
 
-This repository contains the validated data, model artifact, replay, scoring, and local serving foundation for a tennis point-level analytics pipeline. Milestone 4A adds a file-backed FastAPI service over validated scored output.
+This repository contains the validated data, model artifact, replay, scoring, local serving, and dashboard foundation for a tennis point-level analytics pipeline. Milestone 4C freezes the final local demo path and adds one-command launch and preflight checks.
 
 ## Current Status
 
@@ -13,6 +13,8 @@ This repository contains the validated data, model artifact, replay, scoring, an
 - Milestone 3A: PASSED for dry-run replay implementation; Kafka runtime was not executed locally
 - Milestone 3B: VERIFIED PASSED for local JSONL streaming scorer integration
 - Milestone 4A: PASSED for local file-backed FastAPI serving layer
+- Milestone 4B: PASSED for minimal dashboard/frontend over documented API
+- Milestone 4C: PASSED for final build freeze, full preflight, and one-command demo runner
 
 ## Completed Checklist
 
@@ -36,11 +38,16 @@ This repository contains the validated data, model artifact, replay, scoring, an
 - [x] Added online feature builder, model loader, risk scorer, scored event contract, validation, benchmark, and tests.
 - [x] Added file-backed FastAPI serving layer over scored output.
 - [x] Exported OpenAPI snapshot and API sample responses for frontend handoff.
+- [x] Added minimal dashboard frontend over the documented FastAPI API.
+- [x] Added final demo runbook, submission checklist, and frontend build validation.
+- [x] Added final preflight checks and one-command local demo launcher.
 
 ## Remaining Checklist
 
-- [ ] Milestone 4B: minimal dashboard/frontend using the documented API contract.
-- [ ] Do not add production PostgreSQL/Redis unless explicitly required.
+- [ ] Final report and presentation packaging.
+- [ ] Capture manual screenshots from the running dashboard.
+- [ ] Prepare final slides from the validated runbook and screenshots.
+- [ ] Do not add new architecture unless fixing a demo blocker.
 
 ## Key Findings So Far
 
@@ -66,6 +73,7 @@ This repository contains the validated data, model artifact, replay, scoring, an
 - Streaming scorer validated `1000` scored events with `0` invalid events.
 - Streaming benchmark: `974.13` events/sec, average latency `0.9635` ms/event, p95 latency `1.5229` ms/event, model load time `3.2619` seconds.
 - API validation passed with `1000` scored events and `6` unique matches exposed.
+- Frontend build validation passed with local Node/npm.
 
 ## CourtIQ Integration Audit
 
@@ -116,15 +124,52 @@ bash infra/kafka/kafka_setup.sh
 
 Kafka runtime was not executed in the current validation environment.
 
+## One-Command Demo
+
+Run the complete local demo stack:
+
+```bash
+bash scripts/run_full_demo.sh
+```
+
+The script validates the API contract, starts FastAPI, waits for `/health` and `/ready`, starts the Vite dashboard, and prints:
+
+```text
+Backend:  http://127.0.0.1:8000
+API docs: http://127.0.0.1:8000/docs
+Frontend: http://127.0.0.1:5173
+```
+
+Logs and PID files are written under:
+
+```text
+data/results/final_demo/logs/
+data/results/final_demo/pids/
+```
+
+Stop any remaining demo processes:
+
+```bash
+bash scripts/stop_full_demo.sh
+```
+
+Fast preflight:
+
+```bash
+.venv/bin/python scripts/final_preflight_check.py
+.venv/bin/python scripts/smoke_test_full_demo.py
+```
+
 ## Next Milestone
 
-Milestone 4B: minimal dashboard/frontend over the documented API.
+Final report and presentation packaging.
 
 Scope:
 
-- build a simple dashboard against `docs/api_contract.md`
-- show system summary, scored events, match detail, risk summary, and model metadata
-- do not change the backend architecture unless a blocker is found
+- capture screenshots
+- prepare slides/report
+- rehearse the runbook
+- avoid new backend architecture unless a blocker appears
 
 ## Streaming Scorer
 
@@ -181,6 +226,69 @@ contracts/api_response_examples.json
 data/results/api_validation/api_validation_report.json
 data/results/api_validation/sample_responses.json
 ```
+
+## Frontend Dashboard
+
+Run the frontend:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open:
+
+```text
+http://127.0.0.1:5173
+```
+
+Build/validate:
+
+```bash
+cd frontend
+npm run build
+cd ..
+.venv/bin/python scripts/validate_frontend_build.py
+```
+
+The dashboard consumes:
+
+```text
+GET /health
+GET /ready
+GET /api/summary
+GET /api/scored-events
+GET /api/matches
+GET /api/matches/{synthetic_match_id}
+GET /api/matches/{synthetic_match_id}/events
+GET /api/risk/summary
+GET /api/risk/events
+GET /api/models/current
+GET /api/benchmarks/latest
+```
+
+Dashboard sections include system summary, scored events table, match list, match detail, risk summary, model metadata, and benchmark evidence. The UI states that probabilities are point-level probabilities, not betting odds, and risk scores are statistical anomaly signals, not proof of misconduct.
+
+## Final Demo Sequence
+
+```bash
+.venv/bin/python scripts/final_preflight_check.py
+.venv/bin/python scripts/validate_api_contract.py
+.venv/bin/python scripts/validate_frontend_build.py
+bash scripts/run_full_demo.sh
+```
+
+Manual fallback, if you do not use the one-command runner:
+
+```bash
+.venv/bin/python scripts/run_api.py --host 127.0.0.1 --port 8000
+cd frontend
+npm install
+npm run dev
+```
+
+Then open `http://127.0.0.1:5173`.
 
 Validate and benchmark:
 

@@ -1,0 +1,17 @@
+{
+  "name": "tennis-scoring-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173",
+    "build": "vite build",
+    "test": "node -e \"console.log('frontend smoke test: package scripts available')\""
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "1.3.2",
+    "vite": "2.9.16",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {}
+}
