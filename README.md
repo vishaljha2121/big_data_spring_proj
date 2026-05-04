@@ -1,6 +1,6 @@
 # Tennis Point-Level Analytics Project
 
-This repository contains the validated data, model artifact, and replay foundation for a tennis point-level analytics pipeline. Milestone 2.7 adds real MVP model artifacts and a canonical replay producer dry-run path.
+This repository contains the validated data, model artifact, replay, scoring, and local serving foundation for a tennis point-level analytics pipeline. Milestone 4A adds a file-backed FastAPI service over validated scored output.
 
 ## Current Status
 
@@ -11,6 +11,8 @@ This repository contains the validated data, model artifact, and replay foundati
 - Milestone 2.7: PASSED for model artifacts and replay dry-run validation
 - Milestone 2B: PASSED as part of Milestone 2.7
 - Milestone 3A: PASSED for dry-run replay implementation; Kafka runtime was not executed locally
+- Milestone 3B: VERIFIED PASSED for local JSONL streaming scorer integration
+- Milestone 4A: PASSED for local file-backed FastAPI serving layer
 
 ## Completed Checklist
 
@@ -30,11 +32,15 @@ This repository contains the validated data, model artifact, and replay foundati
 - [x] Built and published a conservative risk config under `data/models/risk/v1/`.
 - [x] Implemented canonical replay JSONL dry-run producer and validator.
 - [x] Added local Kafka Compose and topic setup files.
+- [x] Implemented local streaming scorer integration from replay JSONL to scored JSONL/Parquet.
+- [x] Added online feature builder, model loader, risk scorer, scored event contract, validation, benchmark, and tests.
+- [x] Added file-backed FastAPI serving layer over scored output.
+- [x] Exported OpenAPI snapshot and API sample responses for frontend handoff.
 
 ## Remaining Checklist
 
-- [ ] Milestone 3B: integrate streaming scorer using Kafka point events and published model artifacts.
-- [ ] Do not start FastAPI, React, PostgreSQL serving, or frontend work until streaming scorer writes scored output.
+- [ ] Milestone 4B: minimal dashboard/frontend using the documented API contract.
+- [ ] Do not add production PostgreSQL/Redis unless explicitly required.
 
 ## Key Findings So Far
 
@@ -57,6 +63,9 @@ This repository contains the validated data, model artifact, and replay foundati
 - Odds validation/test Brier score: `0.2351` / `0.2347`.
 - Risk artifact uses baseline deviation rules with `fake_labels_used=false`.
 - Replay dry-run validation passed for `1000` canonical point events.
+- Streaming scorer validated `1000` scored events with `0` invalid events.
+- Streaming benchmark: `974.13` events/sec, average latency `0.9635` ms/event, p95 latency `1.5229` ms/event, model load time `3.2619` seconds.
+- API validation passed with `1000` scored events and `6` unique matches exposed.
 
 ## CourtIQ Integration Audit
 
@@ -109,15 +118,97 @@ Kafka runtime was not executed in the current validation environment.
 
 ## Next Milestone
 
-Milestone 3B: streaming scorer integration.
+Milestone 4B: minimal dashboard/frontend over the documented API.
 
 Scope:
 
-- consume `tennis-point-events`
-- build online features compatible with `data/models/odds/v1/feature_schema.json`
-- load `data/models/odds/latest.json`
-- load `data/models/risk/latest.json`
-- write scored output to local JSONL/Parquet first
+- build a simple dashboard against `docs/api_contract.md`
+- show system summary, scored events, match detail, risk summary, and model metadata
+- do not change the backend architecture unless a blocker is found
+
+## Streaming Scorer
+
+Run the local JSONL scorer:
+
+```bash
+.venv/bin/python scripts/run_scoring_from_jsonl.py \
+  --input-events data/results/replay_dry_run/sample_events.jsonl \
+  --odds-latest data/models/odds/latest.json \
+  --risk-latest data/models/risk/latest.json \
+  --output-jsonl data/results/streaming_scoring/scored_events_sample.jsonl \
+  --output-parquet data/results/streaming_scoring/scored_events_sample.parquet \
+  --max-events 1000 \
+  --report data/results/streaming_scoring/scoring_run_report.json
+```
+
+## Local API
+
+Validate the API contract:
+
+```bash
+.venv/bin/python scripts/validate_api_contract.py
+```
+
+Run locally:
+
+```bash
+.venv/bin/python scripts/run_api.py --host 127.0.0.1 --port 8000
+```
+
+Key endpoints:
+
+```text
+GET /health
+GET /ready
+GET /api/summary
+GET /api/scored-events
+GET /api/scored-events/{event_id}
+GET /api/matches
+GET /api/matches/{synthetic_match_id}
+GET /api/matches/{synthetic_match_id}/events
+GET /api/risk/summary
+GET /api/risk/events
+GET /api/models/current
+GET /api/benchmarks/latest
+```
+
+Contract artifacts:
+
+```text
+docs/api_contract.md
+contracts/api_openapi_snapshot.json
+contracts/api_response_examples.json
+data/results/api_validation/api_validation_report.json
+data/results/api_validation/sample_responses.json
+```
+
+Validate and benchmark:
+
+```bash
+.venv/bin/python scripts/validate_scored_events.py \
+  --events data/results/streaming_scoring/scored_events_sample.jsonl \
+  --schema contracts/scored_event_schema.json \
+  --odds-latest data/models/odds/latest.json \
+  --report data/results/streaming_scoring/scoring_validation_report.json \
+  --expected-count 1000
+
+.venv/bin/python scripts/benchmark_scoring_pipeline.py \
+  --input-events data/results/replay_dry_run/sample_events.jsonl \
+  --odds-latest data/models/odds/latest.json \
+  --risk-latest data/models/risk/latest.json \
+  --max-events 1000 \
+  --report data/results/streaming_scoring/scoring_benchmark_report.json
+```
+
+Scored outputs:
+
+```text
+data/results/streaming_scoring/scored_events_sample.jsonl
+data/results/streaming_scoring/scored_events_sample.parquet
+data/results/streaming_scoring/scoring_run_report.json
+data/results/streaming_scoring/scoring_validation_report.json
+data/results/streaming_scoring/scoring_benchmark_report.json
+```
 
 ## Historical Workstream Split
 
@@ -155,6 +246,24 @@ Do not use `cleaned_data/` or staging CSV.GZ files for future modeling or replay
 .venv/bin/python scripts/validate_model_artifacts.py --models data/models --contracts contracts --results data/results/model_eval
 .venv/bin/python scripts/validate_replay_producer.py --events data/results/replay_dry_run/sample_events.jsonl --schema contracts/point_event_schema.json
 .venv/bin/python scripts/validate_feature_layer.py --curated data/curated --features data/features --baselines data/baselines --replay data/replay --contracts contracts
+.venv/bin/python -m pytest tests
+```
+
+## Validate Milestone 3B
+
+```bash
+.venv/bin/python scripts/validate_scored_events.py --events data/results/streaming_scoring/scored_events_sample.jsonl --schema contracts/scored_event_schema.json --odds-latest data/models/odds/latest.json --report data/results/streaming_scoring/scoring_validation_report.json --expected-count 1000
+.venv/bin/python scripts/validate_model_artifacts.py --models data/models --contracts contracts --results data/results/model_eval
+.venv/bin/python scripts/validate_replay_producer.py --events data/results/replay_dry_run/sample_events.jsonl --schema contracts/point_event_schema.json
+.venv/bin/python scripts/validate_feature_layer.py --curated data/curated --features data/features --baselines data/baselines --replay data/replay --contracts contracts
+.venv/bin/python scripts/validate_parallel_readiness.py
+.venv/bin/python -m pytest tests
+```
+
+## Validate Milestone 4A
+
+```bash
+.venv/bin/python scripts/validate_api_contract.py
 .venv/bin/python -m pytest tests
 ```
 

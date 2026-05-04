@@ -1,21 +1,71 @@
 # Next Implementation Steps
 
-Milestone 2A status: **PASSED**.
+## Current Status
 
-## Proceed To Model Training
+- Milestone 1B: **PASSED**
+- Milestone 2A: **PASSED**
+- Milestone 2.5: **PASSED**
+- Milestone 2.6: **PASSED**
+- Milestone 2.7: **PASSED**
+- Milestone 3B: **VERIFIED PASSED** for local JSONL streaming scorer integration
+- Milestone 4A: **PASSED** for local file-backed FastAPI serving layer
 
-Yes. The point-in-time-safe feature layer, player baselines, replay manifest, reports, contracts, and validation checks are present.
+## Working Demo Path
 
-## Proceed To Replay Producer
+The project now has a reliable local demo path:
 
-Yes, but only as the next implementation milestone. Kafka was not started here; `data/replay/manifests/replay_manifest_v1.parquet` is ready for a producer to consume.
+```text
+canonical replay JSONL events
+  -> online feature builder
+  -> published odds model
+  -> published risk config
+  -> scored JSONL/Parquet output
+  -> file-backed FastAPI service
+```
+
+Primary scoring outputs:
+
+```text
+data/results/streaming_scoring/scored_events_sample.jsonl
+data/results/streaming_scoring/scored_events_sample.parquet
+data/results/streaming_scoring/scoring_run_report.json
+data/results/streaming_scoring/scoring_validation_report.json
+data/results/streaming_scoring/scoring_benchmark_report.json
+```
+
+Primary API outputs:
+
+```text
+api/app/main.py
+contracts/api_openapi_snapshot.json
+contracts/api_response_examples.json
+data/results/api_validation/api_validation_report.json
+data/results/api_validation/sample_responses.json
+```
+
+## Next Recommended Milestone
+
+Proceed to:
+
+**Milestone 4B: minimal dashboard/frontend over documented API**
+
+Recommended scope:
+
+- build a minimal dashboard against `docs/api_contract.md`
+- show system summary, scored events, match detail, risk summary, and model metadata
+- avoid backend architecture changes unless a blocker is found
+- keep PostgreSQL/Redis out of scope unless explicitly required
 
 ## Blockers
 
-- Surface-specific features and baselines remain blocked until metadata improves.
-- Rally-length features remain sparse and should not be primary MVP model inputs.
-- ATP match bridge features remain blocked until a reliable point-to-match join is validated.
+- Kafka runtime has not been executed locally, although dry-run replay and JSONL scoring both pass.
+- Risk scoring is conservative and baseline-based; it must not be described as match-fixing detection.
+- Surface, rally-primary, and ATP-bridge features remain blocked by data limitations.
 
-## Exact Next Milestone Recommendation
+## Exact Next Branch
 
-Proceed to **Milestone 2B: model training and model artifact publication** after reviewing the generated feature quality report. Kafka replay producer work can follow from the prepared manifest, but should not replace model-training validation.
+Use:
+
+```text
+feature/milestone-4b-minimal-dashboard
+```

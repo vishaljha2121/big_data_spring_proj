@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ScoringRunReportV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "generated_at",
+    "input_event_count",
+    "scored_event_count",
+    "invalid_event_count",
+    "feature_schema_hash",
+    "odds_model_version",
+    "risk_model_version",
+    "defaulted_features",
+    "missing_features",
+    "average_scoring_latency_ms",
+    "p95_scoring_latency_ms",
+    "output_jsonl",
+    "output_parquet",
+    "status",
+    "warnings",
+    "blocking_errors"
+  ],
+  "properties": {
+    "generated_at": {"type": "string"},
+    "input_event_count": {"type": "integer", "minimum": 0},
+    "scored_event_count": {"type": "integer", "minimum": 0},
+    "invalid_event_count": {"type": "integer", "minimum": 0},
+    "feature_schema_hash": {"type": "string"},
+    "odds_model_version": {"type": "string"},
+    "risk_model_version": {"type": "string"},
+    "defaulted_features": {"type": "array", "items": {"type": "string"}},
+    "missing_features": {"type": "array", "items": {"type": "string"}},
+    "average_scoring_latency_ms": {"type": "number"},
+    "p95_scoring_latency_ms": {"type": "number"},
+    "output_jsonl": {"type": "string"},
+    "output_parquet": {"type": ["string", "null"]},
+    "status": {"type": "string", "enum": ["PASSED", "PARTIAL", "FAILED"]},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "blocking_errors": {"type": "array", "items": {"type": "string"}}
+  }
+}

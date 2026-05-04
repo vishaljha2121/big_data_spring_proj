@@ -1,0 +1,17 @@
+{
+  "blocking_errors": [],
+  "endpoints_checked": [
+    "/health",
+    "/ready",
+    "/api/summary",
+    "/api/scored-events?limit=5",
+    "/api/matches?limit=5",
+    "/api/risk/summary",
+    "/api/models/current",
+    "/api/benchmarks/latest"
+  ],
+  "generated_at": "2026-05-04T00:11:08Z",
+  "scored_event_count": 1000,
+  "status": "PASSED",
+  "unique_match_count": 6
+}
