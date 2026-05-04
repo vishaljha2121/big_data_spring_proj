@@ -1,0 +1,13 @@
+{
+  "average_latency_ms": 0.3843038330000046,
+  "events_per_second": 2454.173711259822,
+  "events_scored": 1000,
+  "generated_at": "2026-05-03T23:59:53Z",
+  "model_load_time_seconds": 1.70450448,
+  "output_path": "benchmark_no_event_output",
+  "p50_latency_ms": 0.35469562299989166,
+  "p95_latency_ms": 0.5754066229997652,
+  "p99_latency_ms": 0.6659696229998642,
+  "status": "PASSED",
+  "total_runtime_seconds": 0.40746911899999994
+}

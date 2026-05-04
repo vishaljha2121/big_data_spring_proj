@@ -1,0 +1,20 @@
+{
+  "average_scoring_latency_ms": 0.3923722489999997,
+  "blocking_errors": [],
+  "defaulted_features": [
+    "elapsed_seconds_delta_from_prev"
+  ],
+  "feature_schema_hash": "b6ee9d5a6a4c6357487a29c1e66293b390d76b471f76610f4fe9232313d4d738",
+  "generated_at": "2026-05-03T23:59:53Z",
+  "input_event_count": 1000,
+  "invalid_event_count": 0,
+  "missing_features": [],
+  "odds_model_version": "v1",
+  "output_jsonl": "data/results/streaming_scoring/scored_events_sample.jsonl",
+  "output_parquet": "data/results/streaming_scoring/scored_events_sample.parquet",
+  "p95_scoring_latency_ms": 0.5734891780000289,
+  "risk_model_version": "v1",
+  "scored_event_count": 1000,
+  "status": "PASSED",
+  "warnings": []
+}

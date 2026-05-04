@@ -6,15 +6,15 @@ Build a tennis point-level analytics platform with validated batch data, model a
 
 ## Current Priority
 
-Current completed milestone: **Milestone 2.7 — Model Artifacts + Replay/Kafka Producer Implementation**.
+Current completed milestone: **Milestone 4A — Local Serving Layer**.
 
-Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, and Milestone 2.7 are complete and validated. Milestone 2B model artifacts are published and Milestone 3A replay dry-run implementation is complete. Kafka runtime code exists, but Kafka was not executed locally.
+Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, and Milestone 4A are complete and validated. Milestone 4A exposes the validated scored local JSONL/Parquet output through a file-backed FastAPI service. Kafka runtime code exists, but Kafka was not executed locally.
 
 The next allowed priority is:
 
-- **Milestone 3B Streaming Scorer Integration** on branch `feature/milestone-3b-streaming-scorer`
+- **Milestone 4B Minimal Dashboard/Frontend** on branch `feature/milestone-4b-minimal-dashboard`
 
-Do not start FastAPI, React, PostgreSQL serving, or frontend work until the streaming scorer consumes replay events, computes online features, loads odds/risk artifacts, and writes scored output.
+Frontend work may now start only against the documented API contract in `docs/api_contract.md`. Do not introduce PostgreSQL or Redis unless explicitly required; the current deadline-safe backend is file-backed.
 
 Do not use CourtIQ assets unless they were merged or listed as approved reference in `docs/courtiq_integration_audit.md`.
 
@@ -35,6 +35,11 @@ Allowed stable inputs for the next tracks:
 - `data/models/risk/latest.json`
 - `infra/kafka/topic_config.json`
 - `producer/replay_producer.py`
+- `data/results/streaming_scoring/scored_events_sample.jsonl`
+- `data/results/streaming_scoring/scored_events_sample.parquet`
+- `api/app/main.py`
+- `docs/api_contract.md`
+- `contracts/api_openapi_snapshot.json`
 
 Do not use staging CSV.GZ files directly.
 
@@ -60,7 +65,7 @@ Track A model artifact work is complete.
 
 Track B replay dry-run and Kafka setup work is complete except Kafka runtime execution.
 
-Future streaming scorer work may not modify Milestone 1B/2A generated Parquet outputs.
+Future frontend work may not modify Milestone 1B/2A generated Parquet outputs, retrain Milestone 2.7 artifacts, or change the API contract without updating docs/tests.
 
 ## No Overclaiming
 
@@ -74,13 +79,15 @@ CourtIQ replay producer files under `external_review/courtiq/` are reference-onl
 
 ## Validation Gate
 
-Milestone 2.7 is done only when:
+Milestone 4A is done only when:
 
 ```bash
 .venv/bin/python scripts/validate_parallel_readiness.py
 .venv/bin/python scripts/validate_model_artifacts.py --models data/models --contracts contracts --results data/results/model_eval
 .venv/bin/python scripts/validate_replay_producer.py --events data/results/replay_dry_run/sample_events.jsonl --schema contracts/point_event_schema.json
+.venv/bin/python scripts/validate_scored_events.py --events data/results/streaming_scoring/scored_events_sample.jsonl --schema contracts/scored_event_schema.json --odds-latest data/models/odds/latest.json --report data/results/streaming_scoring/scoring_validation_report.json --expected-count 1000
+.venv/bin/python scripts/validate_api_contract.py
 .venv/bin/python -m pytest tests
 ```
 
-both pass.
+all pass.
