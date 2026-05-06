@@ -1,6 +1,6 @@
-# CourtIQ Tennis Scoring Dashboard
+# Centre Court Analytics Frontend
 
-Presentation-ready Vite/React dashboard for the file-backed FastAPI service. The default look is a clay-court inspired sports analytics control room with a frontend-only theme switcher for clay, hard, grass, and neutral themes.
+Presentation-ready Vite/React application for the file-backed FastAPI service. Milestone 4F pivots the single dashboard into a Centre Court Analytics product shell with sidebar navigation, multiple page modules, and a premium tennis analytics visual system.
 
 ## Run
 
@@ -29,17 +29,14 @@ cd frontend
 npm run build
 ```
 
-## Sections
+## Product Shell
 
-- Hero and readiness badge
-- Theme switcher
-- KPI strip
-- Selected match analytics
-- Point probability timeline
-- Risk summary
-- Model artifact metadata
-- Benchmark evidence
-- Matches and scored events tables
+- Analytics: Dashboard, Match Browser, Players, Player Comparison, Tournaments, Surface Analytics, Rankings
+- Replay: Replay Center, Point Timeline, Replay Manifest
+- ML Model: Prediction Center, Model Performance
+- Data Ops: Data Explorer, Validation, Pipeline Monitor, Reports
+
+Real data comes from the documented FastAPI endpoints. Pages that need unsupported backend data are clearly labeled as planned or sample-derived.
 
 ## Configuration
 
@@ -56,3 +53,4 @@ The dashboard uses only documented endpoints from `docs/api_contract.md`.
 - Point probabilities are not betting odds or match-win probabilities.
 - Risk scores are statistical anomaly signals only, not proof of misconduct or match-fixing.
 - Surface metadata is unavailable in the current sample, so the clay theme is a demo visual theme by default.
+- Player and ranking summaries are sample-derived from the local scored replay sample, not official ATP rankings.

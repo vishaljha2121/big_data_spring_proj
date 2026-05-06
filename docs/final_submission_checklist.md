@@ -14,6 +14,7 @@
 - [x] Minimal dashboard/frontend
 - [x] Final preflight checker
 - [x] One-command demo runner
+- [x] Centre Court Analytics sidebar product shell
 
 Run before submission:
 
@@ -39,6 +40,15 @@ Run before submission:
 
 ## Screenshots Needed
 
+- [ ] Full Centre Court app shell with sidebar groups
+- [ ] Dashboard overview with KPI grid and feature-scope banner
+- [ ] Match Browser with selected match detail
+- [ ] Replay Center court/replay panel
+- [ ] Point Timeline
+- [ ] Prediction Center / Point Scoring Center
+- [ ] Model Performance
+- [ ] Validation and Pipeline Monitor
+- [ ] Reports page
 - [ ] Hero + KPI strip (updated with model quality KPIs)
 - [ ] Theme switcher states
 - [ ] Selected match analytics panel (with humanized labels)
@@ -77,6 +87,7 @@ Run before submission:
 - Kafka runtime is optional for the local final demo and was not required.
 - The API and dashboard are file-backed over the current validated scored sample.
 - Surface, rally-primary, and ATP bridge features remain blocked by data limitations.
+- Centre Court pages for tournaments, surface analytics, and official rankings are planned or sample-derived unless backed by current API data.
 - Risk scores are statistical review signals only.
 - Point probabilities are not betting odds and not match-win probabilities.
 - `npm audit` reports dependency advisories in the lightweight Vite 2 toolchain; this is documented for the local demo and should be handled before any production deployment.

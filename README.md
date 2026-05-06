@@ -1,6 +1,6 @@
 # Tennis Point-Level Analytics Project
 
-This repository contains the validated data, model artifact, replay, scoring, local serving, and dashboard foundation for a tennis point-level analytics pipeline. Milestone 4E adds the final frontend narrative polish including KPI reordering, humanized labels, model comparison context, and replay ID handling.
+This repository contains the validated data, model artifact, replay, scoring, local serving, and dashboard foundation for a tennis point-level analytics pipeline. Milestone 4F pivots the frontend into a broader **Centre Court Analytics** product shell inspired by the local mockup reference while preserving the existing FastAPI-backed demo path.
 
 ## Current Status
 
@@ -17,6 +17,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Milestone 4C: PASSED for final build freeze, full preflight, and one-command demo runner
 - Milestone 4D: PASSED for frontend presentation redesign and demo polish
 - Milestone 4E: PASSED for final frontend narrative polish, KPI reordering, humanized labels, and model comparison panel
+- Milestone 4F: PASSED for Centre Court Analytics product pivot over the documented API
 
 ## Completed Checklist
 
@@ -49,6 +50,9 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - [x] Made player names primary and synthetic IDs secondary throughout the UI.
 - [x] Added Model Comparison Context panel with honest public reference benchmark context.
 - [x] Created `docs/model_comparison_analysis.md` documenting fair comparison analysis.
+- [x] Pivoted the frontend into a Centre Court Analytics app shell with grouped sidebar navigation and product pages.
+- [x] Added mockup analysis and API mapping docs for the product pivot.
+- [x] Clearly labeled sample-derived and planned modules for players, tournaments, surfaces, rankings, and replay manifest browsing.
 
 ## Remaining Checklist
 
@@ -84,6 +88,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Frontend build validation passed with local Node/npm.
 - Dashboard theme system supports clay, hard, grass, and neutral themes. Clay is the default demo theme because source surface metadata is unavailable.
 - Model comparison note: our model is a point-level predictor (test AUC 0.6415, test Brier 0.2347). Public tennis prediction references operate at match-level and use different metrics. Direct comparison is not valid without building a match-level predictor on the same evaluation set.
+- Centre Court pivot note: the frontend now exposes Analytics, Replay, ML Model, and Data Ops navigation groups. Real modules use the documented API; unsupported modules are labeled planned or sample-derived.
 
 ## CourtIQ Integration Audit
 
@@ -162,6 +167,17 @@ Stop any remaining demo processes:
 ```bash
 bash scripts/stop_full_demo.sh
 ```
+
+## Centre Court Analytics Frontend
+
+The current React dashboard uses a mockup-inspired product shell:
+
+- Analytics: Dashboard, Match Browser, Players, Player Comparison, Tournaments, Surface Analytics, Rankings
+- Replay: Replay Center, Point Timeline, Replay Manifest
+- ML Model: Prediction Center, Model Performance
+- Data Ops: Data Explorer, Validation, Pipeline Monitor, Reports
+
+Real API-backed pages use the FastAPI endpoints documented in `docs/api_contract.md`. Pages without current backend support are shown as planned or sample-derived and do not claim official tournament data, surface analytics, ATP rankings, match-winner prediction, betting odds, or proof of misconduct.
 
 Fast preflight:
 

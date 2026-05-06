@@ -83,20 +83,23 @@ cd ..
 
 ## Presentation Path
 
-1. Start with the clay-court hero, readiness badge, disclaimer chips, and KPI strip.
-2. Highlight model quality KPIs: Point Model AUC and Calibration (Brier score) are now visible in the top KPI strip.
-3. Use the court theme switcher to show Clay, Hard, Grass, and Neutral themes. Explain that clay is the default demo theme because surface metadata is unavailable.
-4. Show `1000` scored local replay events and the match count in the KPI strip.
-5. Select a match and show the large point probability timeline. Note that player names are now the primary match title.
-6. Show recent point events with probability bars, risk badges, and humanized signal labels.
-7. Show the risk summary and top risk events. Note that all labels are human-readable.
-8. Show the **Model Comparison Context** panel. Walk through:
+1. Start with the Centre Court Analytics app shell: left sidebar groups, sticky top header, API readiness badge, and feature-scope banner.
+2. On **Dashboard**, highlight the KPI grid, featured match, prediction preview, pipeline quality card, recent matches, risk signals, and reports.
+3. Open **Match Browser**. Search/select a match, show player names as the primary label, and point out that replay IDs are secondary.
+4. Open **Replay Center**. Explain that local replay dry-run is validated and Kafka runtime is not claimed as executed.
+5. Open **Point Timeline**. Show replay order, server, point probability bars, and risk buckets for individual points.
+6. Open **Prediction Center**. State that this is point-level scoring, not match-winner prediction and not betting odds.
+7. Open **Model Performance** and walk through:
    - Our point-level model metrics (AUC, Brier, throughput)
    - Three public reference benchmarks
    - Fair comparison verdict
    - What would make the comparison fair
-9. Show model metadata, including humanized target label, model type, feature chips, and "No fake labels used" for risk.
-10. Show benchmark metrics for throughput and latency.
+8. Open **Validation** and **Pipeline Monitor** to show final evidence, throughput, p95 latency, and local API status.
+9. Open **Reports** to show the submission documents and audit trail.
+10. Briefly visit the partial modules:
+   - **Players** and **Player Comparison** are sample-derived from local scored matches.
+   - **Surface Analytics** is blocked by unavailable surface metadata.
+   - **Rankings** are sample-derived and not official ATP rankings.
 11. Open `/docs` briefly to show that the frontend is backed by documented API endpoints.
 
 ## Suggested Talk Track
@@ -107,6 +110,8 @@ The probability shown is the model's point-level probability for Player A or Pla
 
 Our model is point-level, so it should not be directly compared to match-level betting accuracy. The Model Comparison Context panel explains this honestly and shows what would be needed for a fair head-to-head comparison.
 
+The Centre Court app shell is intentionally broader than the current API. Pages with unsupported backend data are clearly labeled as planned or sample-derived, so the demo shows product direction without pretending that official tournament, surface, or ATP-ranking integrations are already complete.
+
 ## What Not To Claim
 
 - Do not claim point probability is match-win probability.
@@ -116,4 +121,3 @@ Our model is point-level, so it should not be directly compared to match-level b
 - Do not claim this is production deployed.
 - Do not claim our point-level model is better than match-level prediction systems.
 - Do not claim point-level AUC is directly comparable to match-level accuracy.
-

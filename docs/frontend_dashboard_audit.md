@@ -4,6 +4,8 @@
 
 Milestone 4D turns the functional Milestone 4B dashboard into a presentation-ready tennis analytics interface over the documented FastAPI service. It keeps the same API contract and local file-backed demo path while improving visual hierarchy, spacing, chart readability, table quality, and demo language.
 
+Milestone 4F pivots that dashboard into a broader **Centre Court Analytics** product shell inspired by the local mockup reference in `docs/mockup_reference/mockup.html`. The pivot keeps the same backend and API data path while adding grouped sidebar navigation, page-level modules, and a premium tennis analytics app structure.
+
 ## Stack
 
 - Vite 2
@@ -56,17 +58,28 @@ The frontend uses `VITE_API_BASE_URL`, defaulting to `http://127.0.0.1:8000`, an
 
 ## Sections Implemented
 
-- Hero/status section
-- Theme switcher
-- KPI strip
-- Selected match analytics panel
-- Point probability timeline
-- Recent point events
-- Risk summary and top risk events
-- Model artifact panel
-- Benchmark evidence panel
-- Matches table
-- Scored events table
+- Centre Court app shell with deep-green sidebar and sticky top header
+- Feature-scope banner that changes with active page
+- Dashboard overview with KPI grid, featured match, prediction preview, risk signals, and reports
+- Match Browser with search, selected match detail, and point probability chart
+- Replay Center and Point Timeline over the selected match event stream
+- Replay Manifest artifact status page
+- Point Scoring Center, not match-winner prediction
+- Model Performance page with model metrics, schema details, and feature chips
+- Data Explorer, Validation, Pipeline Monitor, and Reports pages
+- Partial modules for Players, Player Comparison, Tournaments, Surface Analytics, and Rankings with clear sample-derived/planned labels
+
+## Milestone 4F — Centre Court Product Pivot
+
+The 4F pivot implements the mockup's product structure while preserving real API-backed data where available:
+
+- Sidebar groups: Analytics, Replay, ML Model, and Data Ops
+- Implemented pages: Dashboard, Match Browser, Replay Center, Point Timeline, Replay Manifest, Prediction Center, Model Performance, Data Explorer, Validation, Pipeline Monitor, Reports, Players, Player Comparison, Tournaments, Surface Analytics, and Rankings
+- New reusable components: `Card`, `MetricCard`, `DataTable`, `ProgressBar`, `MiniLineChart`, `StatusBadge`, and `EmptyState`
+- New app shell components: `AppShell`, `Sidebar`, `TopHeader`, and `FeatureScopeBanner`
+- New mapping docs: `docs/mockup_pivot_analysis.md` and `docs/mockup_to_api_mapping.md`
+
+Unsupported modules are not faked. Surface analytics is explicitly blocked by missing surface metadata, rankings are sample-derived and not official ATP rankings, and replay manifest browsing is identified as a validated repo artifact with a planned API endpoint.
 
 ## How To Run
 
@@ -177,4 +190,3 @@ Full analysis documented in `docs/model_comparison_analysis.md`.
 - No authentication or production deployment is included.
 - Kafka runtime remains optional and was not required for this demo path.
 - The court-surface theme switcher is frontend-only because reliable surface metadata is unavailable.
-

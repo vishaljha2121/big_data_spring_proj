@@ -6,9 +6,9 @@ Build a tennis point-level analytics platform with validated batch data, model a
 
 ## Current Priority
 
-Current completed milestone: **Milestone 4E — Final Frontend Narrative Polish, KPI Reordering, Humanized Labels, and Model Comparison Panel**.
+Current completed milestone: **Milestone 4F — Centre Court Analytics Product Pivot**.
 
-Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, Milestone 4C, Milestone 4D, and Milestone 4E are complete and validated. Milestone 4E adds the final frontend narrative polish: KPI reordering with model quality metrics, humanized labels replacing all underscore/raw technical labels, player names as primary match identifiers, and a Model Comparison Context panel with honest public reference benchmarks. Kafka runtime code exists, but Kafka was not executed locally.
+Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, Milestone 4C, Milestone 4D, Milestone 4E, and Milestone 4F are complete and validated. Milestone 4F pivots the frontend into a Centre Court Analytics product shell with Analytics, Replay, ML Model, and Data Ops navigation groups while preserving the existing FastAPI-backed local demo. Kafka runtime code exists, but Kafka was not executed locally.
 
 The next allowed priority is:
 
@@ -49,6 +49,9 @@ Allowed stable inputs for the next tracks:
 - `scripts/final_preflight_check.py`
 - `data/results/final_demo/final_preflight_report.json`
 - `frontend/src/theme/surfaceThemes.js`
+- `frontend/src/shell/navigation.js`
+- `docs/mockup_pivot_analysis.md`
+- `docs/mockup_to_api_mapping.md`
 
 Do not use staging CSV.GZ files directly.
 
@@ -88,7 +91,7 @@ CourtIQ replay producer files under `external_review/courtiq/` are reference-onl
 
 ## Validation Gate
 
-Milestone 4E is done only when:
+Milestone 4F is done only when:
 
 ```bash
 .venv/bin/python scripts/final_preflight_check.py

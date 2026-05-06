@@ -12,7 +12,17 @@ def test_frontend_dashboard_files_exist():
         "frontend/src/main.jsx",
         "frontend/src/App.jsx",
         "frontend/src/api/client.js",
+        "frontend/src/shell/AppShell.jsx",
+        "frontend/src/shell/Sidebar.jsx",
+        "frontend/src/shell/TopHeader.jsx",
+        "frontend/src/shell/FeatureScopeBanner.jsx",
+        "frontend/src/shell/navigation.js",
         "frontend/src/theme/surfaceThemes.js",
+        "frontend/src/components/Card.jsx",
+        "frontend/src/components/MetricCard.jsx",
+        "frontend/src/components/DataTable.jsx",
+        "frontend/src/components/ProgressBar.jsx",
+        "frontend/src/components/MiniLineChart.jsx",
         "frontend/src/components/HeroHeader.jsx",
         "frontend/src/components/KpiStrip.jsx",
         "frontend/src/components/MatchAnalyticsPanel.jsx",
@@ -28,6 +38,15 @@ def test_frontend_dashboard_files_exist():
         "frontend/src/components/RiskSummary.jsx",
         "frontend/src/components/ModelInfo.jsx",
         "frontend/src/components/BenchmarkPanel.jsx",
+        "frontend/src/pages/MatchBrowserPage.jsx",
+        "frontend/src/pages/ReplayCenterPage.jsx",
+        "frontend/src/pages/PointTimelinePage.jsx",
+        "frontend/src/pages/PredictionCenterPage.jsx",
+        "frontend/src/pages/ModelPerformancePage.jsx",
+        "frontend/src/pages/ValidationPage.jsx",
+        "frontend/src/pages/PipelineMonitorPage.jsx",
+        "frontend/src/pages/ReportsPage.jsx",
+        "frontend/src/utils/derivedMetrics.js",
     ]
     missing = [path for path in required if not (ROOT / path).exists()]
     assert not missing
@@ -40,6 +59,9 @@ def test_frontend_uses_documented_api_and_safe_language():
         for path in [
             ROOT / "frontend/src/components/ScoredEventsTable.jsx",
             ROOT / "frontend/src/components/RiskOverviewPanel.jsx",
+            ROOT / "frontend/src/shell/navigation.js",
+            ROOT / "frontend/src/pages/PredictionCenterPage.jsx",
+            ROOT / "frontend/src/pages/RankingsPage.jsx",
         ]
     )
     for endpoint in [
@@ -56,6 +78,25 @@ def test_frontend_uses_documented_api_and_safe_language():
     assert "not betting odds" in app_text
     assert "not proof of misconduct" in app_text
     assert "match-fixing" in app_text
+    assert "not official ATP rankings" in app_text
+
+
+def test_centre_court_navigation_groups_exist():
+    navigation = (ROOT / "frontend/src/shell/navigation.js").read_text(encoding="utf-8")
+    for group in ["Analytics", "Replay", "ML Model", "Data Ops"]:
+        assert group in navigation
+    for page in [
+        "Dashboard",
+        "Match Browser",
+        "Replay Center",
+        "Point Timeline",
+        "Prediction Center",
+        "Model Performance",
+        "Validation",
+        "Pipeline Monitor",
+        "Reports",
+    ]:
+        assert page in navigation
 
 
 def test_frontend_theme_system_exists():

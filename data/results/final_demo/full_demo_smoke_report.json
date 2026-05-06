@@ -1,7 +1,7 @@
 {
   "api_command": "/Users/vishaljha/Desktop/Homeworks/BigData/Project/.venv/bin/python /Users/vishaljha/Desktop/Homeworks/BigData/Project/scripts/run_api.py --host 127.0.0.1 --port 18000",
-  "api_stderr_tail": "INFO:     Started server process [58275]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Uvicorn running on http://127.0.0.1:18000 (Press CTRL+C to quit)\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [58275]\n",
-  "api_stdout_tail": "INFO:     127.0.0.1:61229 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:61230 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:61231 - \"GET /ready HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:61232 - \"GET /api/summary HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:61233 - \"GET /api/summary HTTP/1.1\" 200 OK\n",
+  "api_stderr_tail": "INFO:     Started server process [48978]\nINFO:     Waiting for application startup.\nINFO:     Application startup complete.\nINFO:     Uvicorn running on http://127.0.0.1:18000 (Press CTRL+C to quit)\nINFO:     Shutting down\nINFO:     Waiting for application shutdown.\nINFO:     Application shutdown complete.\nINFO:     Finished server process [48978]\n",
+  "api_stdout_tail": "INFO:     127.0.0.1:62339 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:62340 - \"GET /health HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:62341 - \"GET /ready HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:62342 - \"GET /api/summary HTTP/1.1\" 200 OK\nINFO:     127.0.0.1:62343 - \"GET /api/summary HTTP/1.1\" 200 OK\n",
   "blocking_errors": [],
   "checks": {
     "/api/summary": {
@@ -44,7 +44,7 @@
       "path": "/Users/vishaljha/Desktop/Homeworks/BigData/Project/frontend/dist/index.html"
     }
   },
-  "generated_at": "2026-05-04T19:40:37Z",
+  "generated_at": "2026-05-06T23:42:25Z",
   "status": "PASSED",
   "warnings": []
 }

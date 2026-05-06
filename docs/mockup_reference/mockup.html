@@ -1,0 +1,820 @@
+import React, { useMemo, useState } from "react";
+
+const NAV_GROUPS = [
+{
+title: "Analytics",
+items: ["Dashboard", "Match Browser", "Players", "Player Comparison", "Tournaments", "Surface Analytics", "Rankings"],
+},
+{
+title: "Replay",
+items: ["Replay Center", "Point Timeline", "Replay Manifest"],
+},
+{
+title: "ML Model",
+items: ["Prediction Center", "Model Performance"],
+},
+{
+title: "Data Ops",
+items: ["Data Explorer", "Validation", "Pipeline Monitor", "Reports"],
+},
+];
+
+const matches = [
+{ id: 1, date: "2025-05-18", tournament: "Rome Masters", round: "R16", players: "Sinner def. Alcaraz", surface: "Clay",
+score: "6-4, 3-6, 6-4", duration: "2h 28m", status: "Completed" },
+{ id: 2, date: "2025-05-17", tournament: "Madrid Open", round: "QF", players: "Zverev def. De Minaur", surface: "Clay",
+score: "6-4, 6-4", duration: "1h 37m", status: "Replay Ready" },
+{ id: 3, date: "2025-05-12", tournament: "Monte Carlo", round: "SF", players: "Alcaraz def. Rune", surface: "Clay",
+score: "7-6, 6-3", duration: "1h 58m", status: "Completed" },
+{ id: 4, date: "2025-04-04", tournament: "Miami Open", round: "F", players: "Sinner def. Dimitrov", surface: "Hard",
+score: "6-3, 6-1", duration: "1h 13m", status: "Completed" },
+{ id: 5, date: "2025-03-20", tournament: "Indian Wells", round: "F", players: "Alcaraz def. Medvedev", surface: "Hard",
+score: "7-6, 6-1", duration: "1h 42m", status: "Replay Ready" },
+];
+
+const players = [
+{ name: "Carlos Alcaraz", country: "Spain", bestSurface: "Clay", winRate: 82, matches: 86, wins: 71, losses: 15, style:
+"Aggressive baseliner" },
+{ name: "Jannik Sinner", country: "Italy", bestSurface: "Hard", winRate: 79, matches: 92, wins: 73, losses: 19, style:
+"Flat power hitter" },
+{ name: "Alexander Zverev", country: "Germany", bestSurface: "Hard", winRate: 74, matches: 78, wins: 58, losses: 20,
+style: "Serve + backhand" },
+{ name: "Novak Djokovic", country: "Serbia", bestSurface: "Hard", winRate: 84, matches: 101, wins: 85, losses: 16,
+style: "Return pressure" },
+{ name: "Daniil Medvedev", country: "Neutral", bestSurface: "Hard", winRate: 76, matches: 88, wins: 67, losses: 21,
+style: "Defensive counterpuncher" },
+];
+
+const tournaments = [
+{ name: "Roland Garros", level: "Grand Slam", surface: "Clay", years: "2000–2025", matches: 1420 },
+{ name: "Wimbledon", level: "Grand Slam", surface: "Grass", years: "2000–2025", matches: 1380 },
+{ name: "US Open", level: "Grand Slam", surface: "Hard", years: "2000–2025", matches: 1412 },
+{ name: "Australian Open", level: "Grand Slam", surface: "Hard", years: "2000–2025", matches: 1398 },
+{ name: "Rome Masters", level: "Masters 1000", surface: "Clay", years: "2000–2025", matches: 612 },
+];
+
+const reports = [
+{ name: "Weekly Data Quality Report", type: "PDF", size: "1.2 MB", date: "May 18, 2025" },
+{ name: "Model Performance Summary", type: "PDF", size: "1.6 MB", date: "May 18, 2025" },
+{ name: "Pipeline Health Report", type: "PDF", size: "1.1 MB", date: "May 18, 2025" },
+{ name: "Surface Analytics Overview", type: "PDF", size: "2.3 MB", date: "May 17, 2025" },
+];
+
+const pointEvents = [
+"00:12 · Point 184 · Zverev first serve in · rally length 7 · Alcaraz winner",
+"00:21 · Point 185 · Second serve · return error · Zverev point",
+"00:37 · Point 186 · Long rally · forced error · break point created",
+"00:52 · Point 187 · Ace wide · Zverev saves break point",
+"01:04 · Point 188 · Baseline exchange · Alcaraz backhand winner",
+"01:22 · Point 189 · Net approach · Zverev volley winner",
+];
+
+const replayManifest = [
+["replay_001", "Rome Masters", "points_rome_2025.csv", "valid", "12,842"],
+["replay_002", "Indian Wells", "points_iw_2025.csv", "valid", "10,124"],
+["replay_003", "Roland Garros", "points_rg_2024.csv", "valid", "18,203"],
+["replay_004", "US Open", "points_usopen_2024.csv", "warning", "14,778"],
+];
+
+const featureMap = {
+Dashboard: "System overview for dataset, replay, model, validation, pipeline, and reports.",
+"Match Browser": "Search and filter historical ATP matches by player, tournament, surface, round, year, and status.",
+Players: "Player profile pages built from match history and derived aggregates.",
+"Player Comparison": "Side-by-side comparison using win rate, surface splits, match history, and head-to-head records.",
+Tournaments: "Tournament explorer backed by tournament, level, surface, round, and yearly match records.",
+"Surface Analytics": "Surface-wise player and tournament analytics from match-level surface fields.",
+Rankings: "Dataset-derived rankings, not official ATP live rankings.",
+"Replay Center": "Historical match replay using replay producer and Kafka-compatible event streams.",
+"Point Timeline": "Point-by-point sequence view for replay-ready matches.",
+"Replay Manifest": "Replay manifest inspection and validation status.",
+"Prediction Center": "ML model page for predicting match winner from selected player and match context.",
+"Model Performance": "Evaluation dashboard for accuracy, precision, recall, F1, confusion matrix, and feature
+importance.",
+"Data Explorer": "Raw and cleaned dataset browser with schema and row-count summaries.",
+Validation: "Schema validation, failed record counts, and contract status.",
+"Pipeline Monitor": "Kafka replay feed health, lag, throughput, and producer/consumer status.",
+Reports: "Viewable and downloadable project reports.",
+};
+
+function classNames(...parts) {
+return parts.filter(Boolean).join(" ");
+}
+
+function AppShell({ active, setActive, children }) {
+return (
+<main className="min-h-screen bg-[#fbfaf6] text-[#1e293b]">
+    <div className="flex min-h-screen">
+        <aside className="hidden w-72 shrink-0 bg-[#064225] text-[#f8f5ea] lg:block">
+            <div className="flex h-full flex-col">
+                <div className="border-b border-white/10 p-6">
+                    <div
+                        className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full border border-[#d8b45d] text-2xl text-[#d8b45d]">
+                        ♘</div>
+                    <h1 className="text-center text-xl font-semibold tracking-tight">Centre Court</h1>
+                    <p className="text-center text-xs uppercase tracking-[0.28em] text-[#d8b45d]">Analytics</p>
+                </div>
+
+                <nav className="flex-1 overflow-y-auto px-4 py-5">
+                    {NAV_GROUPS.map((group) => (
+                    <div key={group.title} className="mb-6">
+                        <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">
+                            {group.title}</p>
+                        <div className="space-y-1">
+                            {group.items.map((item) => (
+                            <button key={item} onClick={()=> setActive(item)}
+                                className={classNames(
+                                "w-full rounded-xl px-3 py-2.5 text-left text-sm transition",
+                                active === item ? "bg-white/15 text-white shadow-inner ring-1 ring-white/10" :
+                                "text-white/75 hover:bg-white/10 hover:text-white"
+                                )}
+                                >
+                                <span className="mr-2 text-[#d8b45d]">{active === item ? "●" : "○"}</span>
+                                {item}
+                            </button>
+                            ))}
+                        </div>
+                    </div>
+                    ))}
+                </nav>
+
+                <div className="border-t border-white/10 p-4 text-xs text-white/55">
+                    <p>Project mode</p>
+                    <p className="mt-1 font-medium text-[#d8b45d]">Historical ATP + ML + Replay</p>
+                </div>
+            </div>
+        </aside>
+
+        <section className="flex-1">
+            <header className="sticky top-0 z-20 border-b border-[#e5dfd2] bg-[#fbfaf6]/90 px-5 py-4 backdrop-blur">
+                <div className="flex items-center justify-between gap-4">
+                    <div>
+                        <div className="flex items-center gap-2 text-xs text-slate-500">
+                            <button onClick={()=> setActive("Dashboard")} className="hover:text-[#5b2e91]">Home</button>
+                            <span>/</span>
+                            <span>{active}</span>
+                        </div>
+                        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-[#0f2f22]">{active}</h2>
+                    </div>
+                    <div className="hidden items-center gap-3 md:flex">
+                        <button
+                            className="rounded-xl border border-[#ded8c9] bg-white px-4 py-2 text-sm text-slate-600 shadow-sm">May
+                            12 – May 18, 2025 ▾</button>
+                        <button
+                            className="rounded-xl border border-[#ded8c9] bg-white px-3 py-2 text-sm shadow-sm">🔔</button>
+                        <button
+                            className="grid h-10 w-10 place-items-center rounded-full bg-[#064225] text-sm font-semibold text-white">AB</button>
+                    </div>
+                </div>
+            </header>
+
+            <div className="p-5 md:p-7">
+                <div className="mb-6 rounded-2xl border border-[#e5dfd2] bg-white p-4 text-sm text-slate-600 shadow-sm">
+                    <span className="font-semibold text-[#064225]">Feature scope:</span> {featureMap[active]}
+                </div>
+                {children}
+            </div>
+        </section>
+    </div>
+</main>
+);
+}
+
+function Card({ title, children, action }) {
+return (
+<section className="rounded-2xl border border-[#e5dfd2] bg-white p-5 shadow-sm">
+    <div className="mb-4 flex items-center justify-between gap-3">
+        <h3 className="text-base font-semibold text-[#0f2f22]">{title}</h3>
+        {action && <div>{action}</div>}
+    </div>
+    {children}
+</section>
+);
+}
+
+function MetricCard({ label, value, sub, accent = "purple" }) {
+return (
+<div className="rounded-2xl border border-[#e5dfd2] bg-white p-5 shadow-sm">
+    <div className="flex items-start justify-between">
+        <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</p>
+            <p className="mt-3 text-3xl font-semibold text-[#0f2f22]">{value}</p>
+            <p className="mt-2 text-sm text-slate-500">{sub}</p>
+        </div>
+        <span className={classNames("grid h-10 w-10 place-items-center rounded-full text-sm", accent==="gold"
+            ? "bg-[#f6eedb] text-[#a87c1d]" : accent==="green" ? "bg-[#e8f3ec] text-[#064225]"
+            : "bg-[#eee7f7] text-[#5b2e91]" )}>●</span>
+    </div>
+</div>
+);
+}
+
+function ProgressBar({ value, color = "#5b2e91" }) {
+return (
+<div className="h-2 overflow-hidden rounded-full bg-[#ebe5d8]">
+    <div className="h-full rounded-full" style={{ width: `${value}%`, backgroundColor: color }} />
+</div>
+);
+}
+
+function Table({ columns, rows, selectedIndex = -1, onSelect }) {
+return (
+<div className="overflow-hidden rounded-xl border border-[#e5dfd2]">
+    <table className="w-full text-left text-sm">
+        <thead className="bg-[#f6f2e9] text-xs uppercase tracking-[0.14em] text-slate-500">
+            <tr>{columns.map((col) => <th key={col} className="px-4 py-3 font-semibold">{col}</th>)}</tr>
+        </thead>
+        <tbody>
+            {rows.map((row, index) => (
+            <tr key={index} onClick={()=> onSelect && onSelect(index)}
+                className={classNames("border-t border-[#eee7db] transition", onSelect && "cursor-pointer
+                hover:bg-[#faf6ef]", selectedIndex === index && "bg-[#f4eef9]")}
+                >
+                {row.map((cell, cellIndex) => <td key={cellIndex} className="px-4 py-3 text-slate-700">{cell}</td>)}
+            </tr>
+            ))}
+        </tbody>
+    </table>
+</div>
+);
+}
+
+function DonutChart({ value = 58 }) {
+const circumference = 2 * Math.PI * 42;
+const strokeDasharray = `${(value / 100) * circumference} ${circumference}`;
+return (
+<div className="relative mx-auto h-44 w-44">
+    <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#e9e0d1" strokeWidth="12" />
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#5b2e91" strokeWidth="12" strokeDasharray={strokeDasharray}
+            strokeLinecap="round" />
+    </svg>
+    <div className="absolute inset-0 grid place-items-center text-center">
+        <div>
+            <p className="text-3xl font-semibold text-[#0f2f22]">{value}%</p>
+            <p className="text-xs text-slate-500">Avg Win %</p>
+        </div>
+    </div>
+</div>
+);
+}
+
+function MiniLineChart({ a = [20, 45, 34, 55, 72, 63, 81], b = [30, 38, 46, 42, 58, 49, 64] }) {
+const toPoints = (data) => data.map((v, i) => `${(i / (data.length - 1)) * 300},${110 - (v / 100) * 100}`).join(" ");
+return (
+<svg viewBox="0 0 300 120" className="h-44 w-full rounded-xl bg-[#fbfaf6] p-2">
+    {[25, 50, 75].map((y) =>
+    <line key={y} x1="0" x2="300" y1={120 - y} y2={120 - y} stroke="#eee7db" />)}
+    <polyline points={toPoints(b)} fill="none" stroke="#d8b45d" strokeWidth="3" strokeLinecap="round"
+        strokeLinejoin="round" />
+    <polyline points={toPoints(a)} fill="none" stroke="#5b2e91" strokeWidth="3" strokeLinecap="round"
+        strokeLinejoin="round" />
+</svg>
+);
+}
+
+function Dashboard({ setActive }) {
+return (
+<div className="space-y-6">
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
+        <MetricCard label="Total Matches" value="12,842" sub="match rows indexed" />
+        <MetricCard label="Point Events" value="3.21M" sub="point records parsed" />
+        <MetricCard label="Players" value="2,134" sub="profile candidates" />
+        <MetricCard label="Tournaments" value="48" sub="historical events" accent="gold" />
+        <MetricCard label="Model Accuracy" value="74.6%" sub="winner prediction" />
+        <MetricCard label="Pipeline Status" value="Healthy" sub="Kafka replay ready" accent="green" />
+    </div>
+
+    <div className="grid gap-6 xl:grid-cols-[1.45fr_1fr_1fr]">
+        <Card title="Featured Match" action={<button onClick={()=> setActive("Replay Center")} className="rounded-xl
+            bg-[#5b2e91] px-4 py-2 text-sm font-semibold text-white">View Replay</button>}>
+            <div className="mb-4 flex flex-wrap gap-2 text-xs text-slate-500"><span
+                    className="rounded-full bg-[#eee7f7] px-2 py-1 text-[#5b2e91]">ATP Masters 1000</span><span>Rome,
+                    Italy</span><span>• Clay</span><span>• Round of 16</span></div>
+            <div className="grid gap-4 md:grid-cols-[1fr_auto]">
+                <div className="space-y-4">
+                    <div>
+                        <p className="text-sm text-slate-500">Jannik</p>
+                        <p className="text-2xl font-semibold text-[#0f2f22]">Sinner</p>
+                        <p className="text-xs text-slate-500">ITA</p>
+                    </div>
+                    <div>
+                        <p className="text-sm text-slate-500">Carlos</p>
+                        <p className="text-2xl font-semibold text-[#0f2f22]">Alcaraz</p>
+                        <p className="text-xs text-slate-500">ESP</p>
+                    </div>
+                </div>
+                <div className="w-64 overflow-hidden rounded-xl border border-[#e5dfd2] text-center text-sm">
+                    <div className="grid grid-cols-4 bg-[#f6f2e9] text-xs uppercase text-slate-500"><span
+                            className="py-2">1</span><span className="py-2">2</span><span className="py-2">3</span><span
+                            className="py-2">Sets</span></div>
+                    <div className="grid grid-cols-4 border-t border-[#e5dfd2]"><span className="py-3">6</span><span
+                            className="py-3">3</span><span className="py-3">4</span><span
+                            className="py-3 font-semibold">1</span></div>
+                    <div className="grid grid-cols-4 border-t border-[#e5dfd2]"><span className="py-3">4</span><span
+                            className="py-3 text-[#5b2e91]">6</span><span className="py-3 text-[#5b2e91]">6</span><span
+                            className="py-3 font-semibold">2</span></div>
+                </div>
+            </div>
+        </Card>
+
+        <Card title="Prediction Preview" action={<button onClick={()=> setActive("Prediction Center")}
+            className="text-sm font-semibold text-[#5b2e91]">Open →</button>}>
+            <p className="text-sm text-slate-500">Upcoming Match</p>
+            <p className="mt-1 font-semibold text-[#0f2f22]">Zverev vs Rune</p>
+            <p className="mt-4 text-xs uppercase tracking-widest text-slate-500">Predicted Winner</p>
+            <p className="mt-2 text-2xl font-semibold text-[#0f2f22]">Alexander Zverev</p>
+            <p className="mt-4 text-sm text-slate-500">Confidence: 63.8%</p>
+            <div className="mt-2">
+                <ProgressBar value={63.8} />
+            </div>
+        </Card>
+
+        <Card title="Pipeline + Quality">
+            <div className="space-y-5">
+                <div>
+                    <p className="text-sm text-slate-500">Schema Validation Pass Rate</p>
+                    <p className="mt-1 text-3xl font-semibold text-[#064225]">98.72%</p>
+                    <ProgressBar value={98.72} color="#2f7d4f" />
+                </div>
+                <div>
+                    <p className="text-sm text-slate-500">Kafka Replay Feed</p>
+                    <p className="mt-1 font-semibold text-[#064225]">Healthy · 5.6K msg/s</p>
+                </div>
+            </div>
+        </Card>
+    </div>
+
+    <div className="grid gap-6 xl:grid-cols-[1.5fr_0.8fr_0.8fr]">
+        <Card title="Recent Matches" action={<button onClick={()=> setActive("Match Browser")} className="text-sm
+            font-semibold text-[#5b2e91]">View all →</button>}>
+            <Table columns={["Date", "Tournament" , "Round" , "Players" , "Surface" , "Score" ]} rows={matches.slice(0,
+                5).map(m=> [m.date, m.tournament, m.round, m.players, m.surface, m.score])} />
+        </Card>
+        <Card title="Surface Performance" action={<button onClick={()=> setActive("Surface Analytics")}
+            className="text-sm font-semibold text-[#5b2e91]">Open →</button>}>
+            <DonutChart value={58} />
+            <div className="mt-4 space-y-2 text-sm">
+                <p className="flex justify-between"><span>Hard</span><span>60.1%</span></p>
+                <p className="flex justify-between"><span>Clay</span><span>56.8%</span></p>
+                <p className="flex justify-between"><span>Grass</span><span>57.9%</span></p>
+            </div>
+        </Card>
+        <Card title="Recent Reports" action={<button onClick={()=> setActive("Reports")} className="text-sm
+            font-semibold text-[#5b2e91]">Open →</button>}>
+            <div className="space-y-3">{reports.slice(0, 4).map(r => <div key={r.name}
+                    className="flex items-center justify-between rounded-xl border border-[#eee7db] p-3">
+                    <div>
+                        <p className="text-sm font-medium">{r.name}</p>
+                        <p className="text-xs text-slate-500">{r.date} · {r.type}</p>
+                    </div><span className="text-[#5b2e91]">↓</span>
+                </div>)}</div>
+        </Card>
+    </div>
+</div>
+);
+}
+
+function MatchBrowser({ setActive }) {
+const [selected, setSelected] = useState(0);
+const m = matches[selected];
+return (
+<div className="grid gap-6 xl:grid-cols-[1.5fr_0.8fr]">
+    <div className="space-y-6">
+        <Card title="Search and Filters">
+            <div className="grid gap-3 md:grid-cols-6">
+                <input className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm md:col-span-2"
+                    placeholder="Search player or tournament" />
+                {['Surface', 'Year', 'Round', 'Status'].map(x => <button key={x}
+                    className="rounded-xl border border-[#ded8c9] bg-[#fbfaf6] px-4 py-3 text-sm text-slate-600">{x}
+                    ▾</button>)}
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2 text-xs"><span
+                    className="rounded-full bg-[#eee7f7] px-3 py-1 text-[#5b2e91]">Saved: Grand Slams</span><span
+                    className="rounded-full bg-[#e8f3ec] px-3 py-1 text-[#064225]">Replay Ready</span><span
+                    className="rounded-full bg-[#f6eedb] px-3 py-1 text-[#8a6518]">Clay Matches</span></div>
+        </Card>
+        <Card title="Match Results">
+            <Table columns={["Date", "Tournament" , "Round" , "Players" , "Surface" , "Score" , "Status" ]}
+                rows={matches.map(m=> [m.date, m.tournament, m.round, m.players, m.surface, m.score, m.status])}
+                selectedIndex={selected} onSelect={setSelected} />
+        </Card>
+    </div>
+    <Card title="Selected Match Details">
+        <div className="space-y-5">
+            <div>
+                <p className="text-xs uppercase tracking-widest text-slate-500">Match</p>
+                <p className="mt-1 text-xl font-semibold text-[#0f2f22]">{m.players}</p>
+                <p className="text-sm text-slate-500">{m.tournament} · {m.round} · {m.surface}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="rounded-xl bg-[#fbfaf6] p-3">
+                    <p className="text-slate-500">Score</p>
+                    <p className="font-semibold">{m.score}</p>
+                </div>
+                <div className="rounded-xl bg-[#fbfaf6] p-3">
+                    <p className="text-slate-500">Duration</p>
+                    <p className="font-semibold">{m.duration}</p>
+                </div>
+            </div>
+            <div className="grid gap-3"><button onClick={()=> setActive("Replay Center")} className="rounded-xl
+                    bg-[#5b2e91] px-4 py-3 text-sm font-semibold text-white">View Replay</button><button onClick={()=>
+                    setActive("Point Timeline")} className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm
+                    font-semibold text-[#5b2e91]">Open Point Timeline</button><button onClick={()=> setActive("Player
+                    Comparison")} className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm font-semibold
+                    text-[#5b2e91]">Compare Players</button></div>
+        </div>
+    </Card>
+</div>
+);
+}
+
+function ReplayCenter({ setActive }) {
+const [playing, setPlaying] = useState(false);
+const [speed, setSpeed] = useState("1x");
+return (
+<div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
+    <div className="space-y-6">
+        <Card title="Historical Match Replay" action={<button onClick={()=> setActive("Replay Manifest")}
+            className="text-sm font-semibold text-[#5b2e91]">Manifest →</button>}>
+            <div className="rounded-2xl bg-[#fbfaf6] p-5">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <p className="text-sm text-slate-500">Rome Masters · Clay · R16</p>
+                        <p className="text-2xl font-semibold text-[#0f2f22]">Sinner vs Alcaraz</p>
+                    </div>
+                    <div className="text-right">
+                        <p className="text-sm text-slate-500">Current Score</p>
+                        <p className="text-3xl font-semibold text-[#5b2e91]">4–6 · 6–3 · 4–5</p>
+                    </div>
+                </div>
+                <div className="my-6 h-56 rounded-2xl border border-[#d9d2c5] bg-[#0b5d36] p-5">
+                    <div className="relative h-full rounded-xl border-2 border-white/75">
+                        <div className="absolute inset-y-0 left-1/2 w-px bg-white/70" />
+                        <div className="absolute inset-x-0 top-1/2 h-px bg-white/70" />
+                        <div className="absolute left-[23%] top-0 h-full w-px bg-white/40" />
+                        <div className="absolute right-[23%] top-0 h-full w-px bg-white/40" /><span
+                            className="absolute left-[62%] top-[42%] h-3 w-3 rounded-full bg-[#d8b45d]" />
+                    </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-3"><button onClick={()=> setPlaying(!playing)}
+                        className="rounded-xl bg-[#5b2e91] px-5 py-3 text-sm font-semibold text-white">{playing ?
+                        "Pause" : "Play"}</button><button
+                        className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm">Step +1 Point</button><button
+                        className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm">Jump Game</button><button
+                        onClick={()=> setSpeed(speed === "1x" ? "2x" : "1x")} className="rounded-xl border
+                        border-[#ded8c9] px-4 py-3 text-sm">Speed {speed}</button><button onClick={()=> setActive("Point
+                        Timeline")} className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm font-semibold
+                        text-[#5b2e91]">Open Full Timeline</button></div>
+            </div>
+        </Card>
+        <Card title="Point Event Stream">
+            <div className="space-y-2">{pointEvents.map(e => <div key={e}
+                    className="rounded-xl border border-[#eee7db] bg-[#fbfaf6] p-3 text-sm text-slate-700">{e}</div>)}
+            </div>
+        </Card>
+    </div>
+    <div className="space-y-6">
+        <Card title="Replay Summary">
+            <div className="space-y-3 text-sm">
+                <p className="flex justify-between"><span>Producer status</span><strong
+                        className="text-[#064225]">Running</strong></p>
+                <p className="flex justify-between"><span>Events produced</span><strong>12,842</strong></p>
+                <p className="flex justify-between"><span>Consumer lag</span><strong>2.7s</strong></p>
+                <p className="flex justify-between"><span>Error rate</span><strong>0.01%</strong></p>
+            </div>
+        </Card>
+        <Card title="Mini Timeline">
+            <div className="space-y-3">{[22, 45, 61, 72, 88].map((v, i) => <div key={i}>
+                    <div className="mb-1 flex justify-between text-xs text-slate-500"><span>Game {i +
+                            1}</span><span>{v}% momentum</span></div>
+                    <ProgressBar value={v} color={i % 2 ? "#d8b45d" : "#5b2e91" } />
+                </div>)}</div>
+        </Card>
+    </div>
+</div>
+);
+}
+
+function Players({ setActive }) {
+const [selected, setSelected] = useState(0);
+const p = players[selected];
+return (
+<div className="grid gap-6 xl:grid-cols-[0.9fr_1.2fr]">
+    <Card title="Player Directory">
+        <div className="mb-4"><input className="w-full rounded-xl border border-[#ded8c9] px-4 py-3 text-sm"
+                placeholder="Search player" /></div>
+        <Table columns={["Player", "Country" , "Best Surface" , "Win %" ]} rows={players.map(p=> [p.name, p.country,
+            p.bestSurface, `${p.winRate}%`])} selectedIndex={selected} onSelect={setSelected} />
+    </Card>
+    <div className="space-y-6">
+        <Card title="Player Profile" action={<button onClick={()=> setActive("Prediction Center")} className="text-sm
+            font-semibold text-[#5b2e91]">Predict Match →</button>}>
+            <div className="flex flex-wrap items-center gap-5">
+                <div className="grid h-24 w-24 place-items-center rounded-full bg-[#eee7f7] text-3xl text-[#5b2e91]">
+                    {p.name.split(" ").map(x => x[0]).join("")}</div>
+                <div>
+                    <p className="text-sm text-slate-500">{p.country} · {p.style}</p>
+                    <h3 className="text-3xl font-semibold text-[#0f2f22]">{p.name}</h3>
+                    <p className="mt-1 text-sm text-slate-500">Best Surface: {p.bestSurface}</p>
+                </div>
+            </div>
+            <div className="mt-6 grid gap-4 md:grid-cols-4">
+                <MetricCard label="Matches" value={p.matches} sub="played" />
+                <MetricCard label="Wins" value={p.wins} sub="won" accent="green" />
+                <MetricCard label="Losses" value={p.losses} sub="lost" accent="gold" />
+                <MetricCard label="Win Rate" value={`${p.winRate}%`} sub="overall" />
+            </div>
+        </Card>
+        <Card title="Recent Form">
+            <MiniLineChart />
+        </Card>
+    </div>
+</div>
+);
+}
+
+function PlayerComparison({ setActive }) {
+return (
+<div className="space-y-6">
+    <Card title="Compare Two Players" action={<button onClick={()=> setActive("Prediction Center")}
+        className="rounded-xl bg-[#5b2e91] px-4 py-2 text-sm font-semibold text-white">Predict Winner</button>}>
+        <div className="grid gap-3 md:grid-cols-3"><select className="rounded-xl border border-[#ded8c9] px-4 py-3">
+                <option>Carlos Alcaraz</option>
+            </select><select className="rounded-xl border border-[#ded8c9] px-4 py-3">
+                <option>Alexander Zverev</option>
+            </select><select className="rounded-xl border border-[#ded8c9] px-4 py-3">
+                <option>Clay</option>
+                <option>Hard</option>
+                <option>Grass</option>
+            </select></div>
+    </Card>
+    <div className="grid gap-6 xl:grid-cols-2">
+        <Card title="Side-by-Side Metrics">
+            <Table columns={["Metric", "Alcaraz" , "Zverev" ]} rows={[["Overall Win %", "82%" , "74%" ], ["Clay Win
+                %", "78%" , "72%" ], ["Hard Win %", "74%" , "76%" ], ["Matches Played", "86" , "78" ],
+                ["Head-to-head", "5" , "4" ]]} />
+        </Card>
+        <Card title="Recent Form Trend">
+            <MiniLineChart />
+        </Card>
+    </div>
+</div>
+);
+}
+
+function Tournaments() {
+return <div className="space-y-6">
+    <Card title="Tournament Explorer">
+        <div className="mb-4 grid gap-3 md:grid-cols-4"><input
+                className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm"
+                placeholder="Search tournament" /><button
+                className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm">Year ▾</button><button
+                className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm">Surface ▾</button><button
+                className="rounded-xl border border-[#ded8c9] px-4 py-3 text-sm">Level ▾</button></div>
+        <Table columns={["Tournament", "Level" , "Surface" , "Years" , "Matches" ]} rows={tournaments.map(t=> [t.name,
+            t.level, t.surface, t.years, t.matches])} />
+    </Card>
+</div>;
+}
+
+function SurfaceAnalytics() {
+return <div className="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
+    <Card title="Surface Distribution">
+        <DonutChart value={58} />
+        <div className="mt-4 space-y-3">{[["Hard", 60], ["Clay", 57], ["Grass", 58], ["Carpet/Indoor", 54]].map(([name,
+            value]) => <div key={name}>
+                <div className="mb-1 flex justify-between text-sm"><span>{name}</span><span>{value}%</span></div>
+                <ProgressBar value={value} color={name==="Grass" ? "#064225" : name==="Clay" ? "#d8b45d" : "#5b2e91"
+                    } />
+            </div>)}</div>
+    </Card>
+    <Card title="Top Players by Surface">
+        <Table columns={["Surface", "Player" , "Matches" , "Wins" , "Win %" ]} rows={[["Clay", "Carlos Alcaraz" , "42"
+            , "33" , "78%" ], ["Hard", "Novak Djokovic" , "58" , "49" , "84%" ], ["Grass", "Jannik Sinner" , "21" , "16"
+            , "76%" ], ["Indoor", "Daniil Medvedev" , "19" , "14" , "74%" ]]} />
+    </Card>
+</div>;
+}
+
+function Rankings() {
+return <Card title="Dataset-Derived Rankings">
+    <p className="mb-4 text-sm text-slate-500">These rankings are computed from the project dataset, not official live
+        ATP rankings.</p>
+    <Table columns={["Rank", "Player" , "Matches" , "Wins" , "Win %" , "Best Surface" ]} rows={players.sort((a,b)=>
+        b.winRate-a.winRate).map((p, i) => [i + 1, p.name, p.matches, p.wins, `${p.winRate}%`, p.bestSurface])} />
+</Card>;
+}
+
+function PointTimeline() {
+return <div className="space-y-6">
+    <Card title="Point-by-Point Timeline">
+        <div className="space-y-3">{pointEvents.concat(pointEvents).map((e, i) => <div key={i}
+                className="grid grid-cols-[80px_1fr_auto] items-center rounded-xl border border-[#eee7db] bg-white p-3 text-sm">
+                <span className="font-semibold text-[#5b2e91]">P{i + 184}</span><span>{e}</span><span
+                    className="rounded-full bg-[#f6eedb] px-2 py-1 text-xs text-[#8a6518]">{i % 4 === 0 ? "Break Point"
+                    : "Point"}</span></div>)}</div>
+    </Card>
+</div>;
+}
+
+function ReplayManifest() {
+return <Card title="Replay Manifest Viewer">
+    <Table columns={["Replay ID", "Tournament" , "Source File" , "Status" , "Events" ]} rows={replayManifest} />
+</Card>;
+}
+
+function PredictionCenter({ setActive }) {
+const [winner, setWinner] = useState("Carlos Alcaraz");
+const [confidence, setConfidence] = useState(72);
+function predict() {
+setWinner(winner === "Carlos Alcaraz" ? "Alexander Zverev" : "Carlos Alcaraz");
+setConfidence(confidence === 72 ? 64 : 72);
+}
+return (
+<div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+    <Card title="Match Outcome Prediction">
+        <div className="grid gap-3"><select className="rounded-xl border border-[#ded8c9] px-4 py-3">
+                <option>Carlos Alcaraz</option>
+                <option>Jannik Sinner</option>
+            </select><select className="rounded-xl border border-[#ded8c9] px-4 py-3">
+                <option>Alexander Zverev</option>
+                <option>Holger Rune</option>
+            </select><select className="rounded-xl border border-[#ded8c9] px-4 py-3">
+                <option>Clay</option>
+                <option>Hard</option>
+                <option>Grass</option>
+            </select><select className="rounded-xl border border-[#ded8c9] px-4 py-3">
+                <option>Roland Garros</option>
+                <option>Wimbledon</option>
+                <option>US Open</option>
+            </select><button onClick={predict}
+                className="rounded-xl bg-[#5b2e91] px-4 py-3 font-semibold text-white">Generate Prediction</button>
+        </div>
+    </Card>
+    <div className="space-y-6">
+        <Card title="Prediction Result" action={<button onClick={()=> setActive("Model Performance")} className="text-sm
+            font-semibold text-[#5b2e91]">Model details →</button>}><p
+                className="text-sm uppercase tracking-widest text-slate-500">Predicted Winner</p>
+            <p className="mt-2 text-4xl font-semibold text-[#0f2f22]">{winner}</p>
+            <p className="mt-5 text-sm text-slate-500">Confidence: {confidence}%</p>
+            <div className="mt-2">
+                <ProgressBar value={confidence} />
+            </div>
+            <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
+                <div className="rounded-xl bg-[#fbfaf6] p-3">
+                    <p className="text-slate-500">Player A</p>
+                    <p className="font-semibold">{confidence}%</p>
+                </div>
+                <div className="rounded-xl bg-[#fbfaf6] p-3">
+                    <p className="text-slate-500">Player B</p>
+                    <p className="font-semibold">{100-confidence}%</p>
+                </div>
+            </div>
+        </Card>
+        <Card title="Prediction History">
+            <Table columns={["Match", "Predicted" , "Actual" , "Correct" ]} rows={[["Alcaraz vs Zverev", "Alcaraz"
+                , "Alcaraz" , "Yes" ], ["Sinner vs Medvedev", "Sinner" , "Sinner" , "Yes" ], ["Rune vs Rublev", "Rublev"
+                , "Rune" , "No" ]]} />
+        </Card>
+    </div>
+</div>
+);
+}
+
+function ModelPerformance() {
+return <div className="space-y-6">
+    <div className="grid gap-4 md:grid-cols-4">
+        <MetricCard label="Accuracy" value="74.6%" sub="test split" />
+        <MetricCard label="Precision" value="73.2%" sub="winner class" />
+        <MetricCard label="Recall" value="75.8%" sub="winner class" />
+        <MetricCard label="F1 Score" value="74.4%" sub="balanced score" />
+    </div>
+    <div className="grid gap-6 xl:grid-cols-2">
+        <Card title="Confusion Matrix">
+            <div className="grid grid-cols-2 gap-3 text-center">
+                <div className="rounded-xl bg-[#e8f3ec] p-8">
+                    <p className="text-3xl font-semibold text-[#064225]">1240</p>
+                    <p className="text-sm text-slate-500">True Positive</p>
+                </div>
+                <div className="rounded-xl bg-[#f6eedb] p-8">
+                    <p className="text-3xl font-semibold text-[#8a6518]">318</p>
+                    <p className="text-sm text-slate-500">False Positive</p>
+                </div>
+                <div className="rounded-xl bg-[#f6eedb] p-8">
+                    <p className="text-3xl font-semibold text-[#8a6518]">294</p>
+                    <p className="text-sm text-slate-500">False Negative</p>
+                </div>
+                <div className="rounded-xl bg-[#eee7f7] p-8">
+                    <p className="text-3xl font-semibold text-[#5b2e91]">1198</p>
+                    <p className="text-sm text-slate-500">True Negative</p>
+                </div>
+            </div>
+        </Card>
+        <Card title="Feature Importance">
+            <div className="space-y-4">{[["Surface win rate", 88], ["Recent form", 81], ["Ranking delta", 73],
+                ["Head-to-head", 62], ["Tournament level", 51]].map(([name, value]) => <div key={name}>
+                    <div className="mb-1 flex justify-between text-sm"><span>{name}</span><span>{value}</span></div>
+                    <ProgressBar value={value} />
+                </div>)}</div>
+        </Card>
+    </div>
+</div>;
+}
+
+function DataExplorer() {
+return <Card title="Dataset Explorer">
+    <Table columns={["Dataset", "Type" , "Rows" , "Schema" , "Use" ]} rows={[["matches.csv", "Raw CSV" , "12,842"
+        , "valid" , "Match Browser" ], ["points.csv", "Raw CSV" , "3.21M" , "valid" , "Replay + Timeline" ],
+        ["replay_manifest.parquet", "Parquet" , "248" , "valid" , "Replay Manifest" ], ["model_predictions.json", "JSON"
+        , "8,400" , "valid" , "Prediction Center" ]]} />
+</Card>;
+}
+
+function Validation() {
+return <div className="grid gap-6 xl:grid-cols-[0.7fr_1.3fr]">
+    <Card title="Validation Summary">
+        <p className="text-5xl font-semibold text-[#064225]">98.72%</p>
+        <p className="mt-2 text-sm text-slate-500">schema pass rate across all feeds</p>
+        <div className="mt-5">
+            <ProgressBar value={98.72} color="#2f7d4f" />
+        </div>
+    </Card>
+    <Card title="Schema Validation Results">
+        <Table columns={["Feed", "Records" , "Passed" , "Failed" , "Status" ]} rows={[["matches", "12,842" , "12,811"
+            , "31" , "warning" ], ["points", "3.21M" , "3.20M" , "12,842" , "warning" ], ["manifest", "248" , "248"
+            , "0" , "valid" ], ["predictions", "8,400" , "8,400" , "0" , "valid" ]]} />
+    </Card>
+</div>;
+}
+
+function PipelineMonitor() {
+return <div className="grid gap-6 xl:grid-cols-2">
+    <Card title="Kafka Replay Feed">
+        <div className="space-y-4">{[["Producer", "Running"], ["Consumer", "Healthy"], ["Ingestion Lag", "1.2s"],
+            ["Consumer Lag", "2.7s"], ["Throughput", "5.6K msg/s"], ["Error Rate", "0.01%"]].map(([k,v]) => <div key={k}
+                className="flex justify-between rounded-xl border border-[#eee7db] p-3"><span>{k}</span><strong
+                    className="text-[#064225]">{v}</strong></div>)}</div>
+    </Card>
+    <Card title="Throughput Trend">
+        <MiniLineChart a={[42, 51, 59, 62, 71, 69, 76]} b={[30, 35, 39, 41, 48, 52, 55]} />
+    </Card>
+</div>;
+}
+
+function Reports() {
+return <Card title="Reports and Downloads">
+    <div className="grid gap-3 md:grid-cols-2">{reports.map(r => <div key={r.name}
+            className="flex items-center justify-between rounded-xl border border-[#eee7db] p-4">
+            <div>
+                <p className="font-medium text-[#0f2f22]">{r.name}</p>
+                <p className="text-sm text-slate-500">{r.date} · {r.type} · {r.size}</p>
+            </div><button className="rounded-xl border border-[#ded8c9] px-3 py-2 text-[#5b2e91]">Download</button>
+        </div>)}</div>
+</Card>;
+}
+
+export default function CentreCourtAnalyticsApp() {
+const [active, setActive] = useState("Dashboard");
+
+const content = useMemo(() => {
+const props = { setActive };
+switch (active) {
+case "Dashboard": return
+<Dashboard {...props} />;
+case "Match Browser": return
+<MatchBrowser {...props} />;
+case "Replay Center": return
+<ReplayCenter {...props} />;
+case "Players": return
+<Players {...props} />;
+case "Player Comparison": return
+<PlayerComparison {...props} />;
+case "Tournaments": return
+<Tournaments />;
+case "Surface Analytics": return
+<SurfaceAnalytics />;
+case "Rankings": return
+<Rankings />;
+case "Point Timeline": return
+<PointTimeline />;
+case "Replay Manifest": return
+<ReplayManifest />;
+case "Prediction Center": return
+<PredictionCenter {...props} />;
+case "Model Performance": return
+<ModelPerformance />;
+case "Data Explorer": return
+<DataExplorer />;
+case "Validation": return
+<Validation />;
+case "Pipeline Monitor": return
+<PipelineMonitor />;
+case "Reports": return
+<Reports />;
+default: return
+<Dashboard {...props} />;
+}
+}, [active]);
+
+return <AppShell active={active} setActive={setActive}>{content}</AppShell>;
+}

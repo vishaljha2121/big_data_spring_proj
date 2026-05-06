@@ -4,6 +4,8 @@
 
 The project has a validated local end-to-end demo path from curated tennis point data to model-scored events, a file-backed API, a presentation-ready tennis dashboard, and final preflight/demo launcher scripts.
 
+Milestone 4F pivots the frontend into a Centre Court Analytics product shell with grouped sidebar navigation, multiple analytics/replay/model/data-ops pages, and clear real-versus-planned module labeling.
+
 ## Completed Milestones
 
 - Milestone 1B: cleaned/curated data layer
@@ -16,6 +18,8 @@ The project has a validated local end-to-end demo path from curated tennis point
 - Milestone 4B: minimal dashboard/frontend
 - Milestone 4C: final build freeze, preflight, smoke test, and one-command demo
 - Milestone 4D: frontend presentation redesign and demo polish
+- Milestone 4E: final frontend narrative polish and model comparison context
+- Milestone 4F: Centre Court Analytics product pivot over the existing API
 
 ## Demo Path
 
@@ -37,6 +41,7 @@ replay JSONL
 - Risk config: `v1`
 - Frontend build: see `data/results/frontend_validation/frontend_validation_report.json`
 - Frontend theme system: clay, hard, grass, neutral
+- Frontend product shell: Analytics, Replay, ML Model, and Data Ops navigation groups
 - Backend validation: see `data/results/api_validation/api_validation_report.json`
 - Final preflight: see `data/results/final_demo/final_preflight_report.json`
 - Demo smoke test: see `data/results/final_demo/full_demo_smoke_report.json`
@@ -57,5 +62,6 @@ Open:
 
 - Probabilities are point-level probabilities only.
 - Risk scores are statistical anomaly signals for review only.
+- Surface analytics and official rankings are not claimed; those modules are clearly marked blocked or sample-derived.
 - Kafka runtime is optional for the current demo and was not required.
 - No PostgreSQL, Redis, or production deployment is included.
