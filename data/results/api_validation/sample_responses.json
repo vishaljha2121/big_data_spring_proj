@@ -106,7 +106,7 @@
   "health": {
     "service": "tennis-scoring-api",
     "status": "ok",
-    "timestamp": "2026-05-06T23:42:24Z",
+    "timestamp": "2026-05-06T23:45:38Z",
     "version": "api_v1"
   },
   "match_detail": {
@@ -11735,7 +11735,7 @@
       "scoring_run_report": true
     },
     "status": "ready",
-    "timestamp": "2026-05-06T23:42:24Z"
+    "timestamp": "2026-05-06T23:45:38Z"
   },
   "risk_summary": {
     "count_by_bucket": {
