@@ -131,11 +131,30 @@ export default function ReplayCenterPage({ data, onNavigate }) {
               <div className="point-stats">
                 <p><span className="soft-label">Server</span> <strong>{currentEvent.server_player || "n/a"}</strong></p>
                 <p><span className="soft-label">Point Winner</span> <strong>{currentEvent.point_winner_player || "n/a"}</strong></p>
-                <p><span className="soft-label">P(A)</span> <strong>{pct(currentEvent.point_probability_player_a)}</strong></p>
-                <p><span className="soft-label">P(B)</span> <strong>{pct(currentEvent.point_probability_player_b)}</strong></p>
+                
+                {/* Micro Probability */}
+                <p><span className="soft-label">Point P(A)</span> <strong>{pct(currentEvent.point_probability_player_a)}</strong></p>
+                
+                {/* Macro Probabilities */}
+                {currentEvent.game_probability_player_a !== undefined && (
+                   <p><span className="soft-label">Game P(A)</span> <strong>{pct(currentEvent.game_probability_player_a)}</strong></p>
+                )}
+                {currentEvent.set_probability_player_a !== undefined && (
+                   <p><span className="soft-label">Set P(A)</span> <strong>{pct(currentEvent.set_probability_player_a)}</strong></p>
+                )}
+                {currentEvent.match_probability_player_a !== undefined && (
+                   <p><span className="soft-label">Match P(A)</span> <strong>{pct(currentEvent.match_probability_player_a)}</strong></p>
+                )}
+                
+                {/* Risk */}
                 {risk(currentEvent.risk_bucket, currentEvent.risk_score)}
                 <p><span className="soft-label">Risk Signal</span> <strong>{currentEvent.primary_risk_signal || "No signal"}</strong></p>
               </div>
+              {currentEvent.outcome_probabilities_available && (
+                <div style={{ marginTop: "1rem", fontSize: "0.8rem", color: "var(--light-border)" }}>
+                  <em>Note: Game/Set/Match probabilities are statistical estimates and do not represent betting odds or match-win certainty.</em>
+                </div>
+              )}
             </div>
           </Card>
         )}

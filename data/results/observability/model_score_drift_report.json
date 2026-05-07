@@ -1,0 +1,10 @@
+{
+  "note": "This represents distribution shift, not formal concept drift.",
+  "scored_mean": 0.5094738375896406,
+  "scored_std": 0.12616723962680454,
+  "shift_magnitude": 0.01097162181573641,
+  "shift_warning": false,
+  "status": "available",
+  "validation_mean": 0.520445459405377,
+  "validation_std": 0.11613471778333755
+}

@@ -1,0 +1,7 @@
+{
+  "average_latency_ms": 0.3923722489999997,
+  "events_scored": 1000,
+  "feature_schema_hash": "b6ee9d5a6a4c6357487a29c1e66293b390d76b471f76610f4fe9232313d4d738",
+  "invalid_events": 0,
+  "p95_latency_ms": 0.5734891780000289
+}

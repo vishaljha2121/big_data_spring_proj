@@ -63,6 +63,14 @@
     "scoring_latency_ms": {"type": "number", "minimum": 0},
     "scored_at": {"type": "string"},
     "input_event_valid": {"type": "boolean"},
-    "feature_row_valid": {"type": "boolean"}
+    "feature_row_valid": {"type": "boolean"},
+    "game_probability_player_a": {"type": "number", "minimum": 0, "maximum": 1},
+    "set_probability_player_a": {"type": "number", "minimum": 0, "maximum": 1},
+    "match_probability_player_a": {"type": "number", "minimum": 0, "maximum": 1},
+    "outcome_probabilities_available": {"type": "boolean"},
+    "outcome_model_versions": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    }
   }
 }

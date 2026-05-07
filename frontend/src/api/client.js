@@ -65,6 +65,22 @@ export function getDataCoverage() {
   return request("/api/data/coverage");
 }
 
+export function getObservabilitySummary() {
+  return request("/api/observability/summary");
+}
+
+export function getObservabilityAlerts() {
+  return request("/api/observability/alerts");
+}
+
+export function getObservabilityMetrics() {
+  return request("/api/observability/metrics");
+}
+
+export function getOutcomeModels() {
+  return request("/api/models/outcomes");
+}
+
 export function getReplayMatches(params = {}) {
   const query = new URLSearchParams({ limit: params.limit || 100, offset: params.offset || 0 });
   if (params.search) query.set("search", params.search);
@@ -88,7 +104,9 @@ export async function loadDashboardData(selectedMatchId = null) {
     models,
     benchmarks,
     dataCoverage,
-    replayMatches
+    replayMatches,
+    observability,
+    outcomes
   ] = await Promise.all([
     getHealth(),
     getReady(),
@@ -100,7 +118,9 @@ export async function loadDashboardData(selectedMatchId = null) {
     getModelInfo(),
     getBenchmarkInfo(),
     getDataCoverage().catch(() => null),
-    getReplayMatches({ limit: 100 }).catch(() => null)
+    getReplayMatches({ limit: 100 }).catch(() => null),
+    getObservabilitySummary().catch(() => null),
+    getOutcomeModels().catch(() => null)
   ]);
   const matchId = selectedMatchId || (matches.items && matches.items[0] && matches.items[0].synthetic_match_id) || null;
   const matchDetail = matchId ? await getMatchDetail(matchId) : null;
@@ -119,6 +139,8 @@ export async function loadDashboardData(selectedMatchId = null) {
     matchEvents,
     dataCoverage,
     replayMatches,
+    observability,
+    outcomes,
     selectedMatchId: matchId
   };
 }

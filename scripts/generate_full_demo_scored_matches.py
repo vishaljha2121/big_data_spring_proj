@@ -54,7 +54,7 @@ def main() -> None:
         type=Path,
         default=Path("data/results/streaming_scoring/scored_events_demo_full.parquet"),
     )
-    parser.add_argument("--max-matches", type=int, default=50)
+    parser.add_argument("--max-matches", type=int, default=50, help="Number of matches to score")
     parser.add_argument("--min-events-per-match", type=int, default=40)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
@@ -62,8 +62,20 @@ def main() -> None:
         type=Path,
         default=Path("data/results/streaming_scoring/full_demo_scoring_report.json"),
     )
+    parser.add_argument("--include-outcome-models", action="store_true", help="Include game/set/match outcome probabilities")
     args = parser.parse_args()
 
+    # ── Initialization ────────────────────────────────────────
+    print(f"Initializing full demo generator (target: {args.max_matches} matches)...")
+    
+    outcome_models = None
+    if args.include_outcome_models:
+        outcome_models = {
+            "game": Path("data/models/outcomes/game/latest.json"),
+            "set": Path("data/models/outcomes/set/latest.json"),
+            "match": Path("data/models/outcomes/match/latest.json"),
+        }
+        
     # ── Load replay manifest ──────────────────────────────────
     print(f"Loading replay manifest from {args.manifest} ...")
     import pyarrow.parquet as pq
@@ -120,7 +132,7 @@ def main() -> None:
     print(f"  Selected {len(selected)} matches for scoring")
 
     # ── Score selected matches ────────────────────────────────
-    scorer = StreamScorer(args.odds_latest, args.risk_latest)
+    scorer = StreamScorer(args.odds_latest, args.risk_latest, outcome_models=outcome_models)
     scored: List[Dict[str, Any]] = []
     errors: List[str] = []
     latencies: List[float] = []
@@ -157,12 +169,25 @@ def main() -> None:
             probabilities = scorer.odds.predict_proba(
                 pd.DataFrame(match_features, columns=scorer.odds.feature_columns)
             )
+            
+            # Batch inference for outcome models
+            outcome_probs_batch = [{} for _ in range(len(match_features))]
+            if scorer.outcomes:
+                for target_name, loader in scorer.outcomes.items():
+                    try:
+                        df_target_features = pd.DataFrame(match_features, columns=loader.feature_columns)
+                        target_probs = loader.model.predict_proba(df_target_features.apply(pd.to_numeric, errors="coerce").astype(float))[:, 1]
+                        for i, prob in enumerate(target_probs):
+                            outcome_probs_batch[i][target_name] = float(prob)
+                    except Exception as exc:
+                        pass # Ignore if feature missing
+                        
             proba_lat = ((time.perf_counter() - proba_start) * 1000.0) / len(match_features)
 
             match_scored = [
-                scorer.format_scored_event(evt, prob, risk_r, lat + proba_lat)
-                for evt, prob, risk_r, lat in zip(
-                    match_events_list, probabilities, match_risks, match_latencies
+                scorer.format_scored_event(evt, prob, risk_r, lat + proba_lat, outcome_probs)
+                for evt, prob, risk_r, lat, outcome_probs in zip(
+                    match_events_list, probabilities, match_risks, match_latencies, outcome_probs_batch
                 )
             ]
             scored.extend(match_scored)

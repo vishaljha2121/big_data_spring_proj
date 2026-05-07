@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-05-07T02:18:25Z",
+  "targets": {
+    "game": {
+      "label_col": "label_player_a_wins_game",
+      "path": "data/features/outcome_targets/point_to_game/part-00000.parquet",
+      "positive_class_ratio": 0.5016278609067737,
+      "rows": 1892975
+    },
+    "match": {
+      "label_col": "label_player_a_wins_match",
+      "path": "data/features/outcome_targets/point_to_match/part-00000.parquet",
+      "positive_class_ratio": 0.5086601572417352,
+      "rows": 1922136
+    },
+    "set": {
+      "label_col": "label_player_a_wins_set",
+      "path": "data/features/outcome_targets/point_to_set/part-00000.parquet",
+      "positive_class_ratio": 0.5008293069878128,
+      "rows": 1705641
+    }
+  }
+}

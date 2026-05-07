@@ -271,6 +271,82 @@
         ]
       }
     },
+    "/api/models/outcomes": {
+      "get": {
+        "operationId": "outcomes_summary_api_models_outcomes_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Outcomes Summary",
+        "tags": [
+          "models"
+        ]
+      }
+    },
+    "/api/observability/alerts": {
+      "get": {
+        "operationId": "get_observability_alerts_api_observability_alerts_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Observability Alerts",
+        "tags": [
+          "observability"
+        ]
+      }
+    },
+    "/api/observability/metrics": {
+      "get": {
+        "operationId": "get_observability_metrics_api_observability_metrics_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Observability Metrics",
+        "tags": [
+          "observability"
+        ]
+      }
+    },
+    "/api/observability/summary": {
+      "get": {
+        "operationId": "get_observability_summary_api_observability_summary_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Observability Summary",
+        "tags": [
+          "observability"
+        ]
+      }
+    },
     "/api/replay/matches": {
       "get": {
         "operationId": "list_replay_matches_api_replay_matches_get",

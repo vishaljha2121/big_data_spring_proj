@@ -38,10 +38,19 @@ def main() -> None:
     parser.add_argument("--output-jsonl", type=Path, required=True)
     parser.add_argument("--output-parquet", type=Path, default=None)
     parser.add_argument("--max-events", type=int, default=None)
+    parser.add_argument("--include-outcome-models", action="store_true")
     parser.add_argument("--report", type=Path, required=True)
     args = parser.parse_args()
 
-    scorer = StreamScorer(args.odds_latest, args.risk_latest)
+    outcome_models = None
+    if args.include_outcome_models:
+        outcome_models = {
+            "game": Path("data/models/outcomes/game/latest.json"),
+            "set": Path("data/models/outcomes/set/latest.json"),
+            "match": Path("data/models/outcomes/match/latest.json"),
+        }
+
+    scorer = StreamScorer(args.odds_latest, args.risk_latest, outcome_models=outcome_models)
     scored: List[Dict[str, Any]] = []
     events: List[Dict[str, Any]] = []
     feature_rows: List[Dict[str, Any]] = []
@@ -70,13 +79,29 @@ def main() -> None:
             except Exception as exc:
                 errors.append(f"line {line_no}: {exc}")
 
+    warnings: List[str] = []
+    
     if feature_rows:
         proba_start = time.perf_counter()
-        probabilities = scorer.odds.predict_proba(pd.DataFrame(feature_rows, columns=scorer.odds.feature_columns))
+        df_features = pd.DataFrame(feature_rows, columns=scorer.odds.feature_columns)
+        probabilities = scorer.odds.predict_proba(df_features)
+        
+        # Batch inference for outcome models
+        outcome_probs_batch = [{} for _ in range(len(feature_rows))]
+        if scorer.outcomes:
+            for target_name, loader in scorer.outcomes.items():
+                try:
+                    df_target_features = pd.DataFrame(feature_rows, columns=loader.feature_columns)
+                    target_probs = loader.model.predict_proba(df_target_features.apply(pd.to_numeric, errors="coerce").astype(float))[:, 1]
+                    for i, prob in enumerate(target_probs):
+                        outcome_probs_batch[i][target_name] = float(prob)
+                except Exception as exc:
+                    warnings.append(f"Outcome model {target_name} batch inference failed: {exc}")
+
         proba_latency = ((time.perf_counter() - proba_start) * 1000.0) / len(feature_rows)
         scored = [
-            scorer.format_scored_event(event, probability, risk, latency + proba_latency)
-            for event, probability, risk, latency in zip(events, probabilities, risks, latencies)
+            scorer.format_scored_event(event, probability, risk, latency + proba_latency, outcome_probs)
+            for event, probability, risk, latency, outcome_probs in zip(events, probabilities, risks, latencies, outcome_probs_batch)
         ]
 
     args.output_jsonl.parent.mkdir(parents=True, exist_ok=True)
@@ -85,7 +110,6 @@ def main() -> None:
             handle.write(json.dumps(event, sort_keys=True, separators=(",", ":")) + "\n")
 
     parquet_path = None
-    warnings: List[str] = []
     if args.output_parquet is not None:
         try:
             pd.DataFrame(scored).to_parquet(args.output_parquet, index=False)

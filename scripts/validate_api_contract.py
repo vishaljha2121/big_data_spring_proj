@@ -36,6 +36,10 @@ def main() -> None:
         "benchmarks_latest": "/api/benchmarks/latest",
         "data_coverage": "/api/data/coverage",
         "replay_matches": "/api/replay/matches?limit=5",
+        "observability_summary": "/api/observability/summary",
+        "observability_alerts": "/api/observability/alerts",
+        "observability_metrics": "/api/observability/metrics",
+        "models_outcomes": "/api/models/outcomes",
     }
     samples: Dict[str, Any] = {}
     errors = []

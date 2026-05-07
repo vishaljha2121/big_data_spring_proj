@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ObservabilitySnapshot",
+  "type": "object",
+  "properties": {
+    "generated_at": {"type": "string"},
+    "trace_id": {"type": "string"},
+    "api_metrics": {"type": "object"},
+    "scoring_metrics": {"type": "object"},
+    "streaming_metrics": {"type": "object"},
+    "drift_summary": {"type": "object"},
+    "active_alerts": {"type": "array"}
+  },
+  "required": ["generated_at", "trace_id", "api_metrics", "scoring_metrics", "streaming_metrics", "drift_summary", "active_alerts"]
+}

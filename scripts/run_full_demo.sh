@@ -130,6 +130,7 @@ if [[ ! -f "data/results/streaming_scoring/scored_events_sample.jsonl" ]]; then
     --output-jsonl data/results/streaming_scoring/scored_events_sample.jsonl \
     --output-parquet data/results/streaming_scoring/scored_events_sample.parquet \
     --max-events 1000 \
+    --include-outcome-models \
     --report data/results/streaming_scoring/scoring_run_report.json
 fi
 

@@ -10,10 +10,14 @@
     "/api/models/current",
     "/api/benchmarks/latest",
     "/api/data/coverage",
-    "/api/replay/matches?limit=5"
+    "/api/replay/matches?limit=5",
+    "/api/observability/summary",
+    "/api/observability/alerts",
+    "/api/observability/metrics",
+    "/api/models/outcomes"
   ],
-  "generated_at": "2026-05-07T01:58:05Z",
-  "scored_event_count": 9049,
+  "generated_at": "2026-05-07T02:37:09Z",
+  "scored_event_count": 1000,
   "status": "PASSED",
-  "unique_match_count": 50
+  "unique_match_count": 6
 }

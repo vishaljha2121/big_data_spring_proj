@@ -1,0 +1,38 @@
+{
+  "blocking_errors": [],
+  "generated_at": "2026-05-07T02:22:07Z",
+  "metrics": {
+    "candidate_metrics": {
+      "hist_gradient_boosting": {
+        "test_auc": 0.8177344409710203,
+        "test_brier_score": 0.17405531521372333,
+        "test_log_loss": 0.517324384659436,
+        "validation_auc": 0.8268120966885738,
+        "validation_brier_score": 0.1699533608545862,
+        "validation_log_loss": 0.5079453738760833
+      },
+      "logistic_regression": {
+        "test_auc": 0.8102784266330901,
+        "test_brier_score": 0.17747970983850198,
+        "test_log_loss": 0.5255453059860757,
+        "validation_auc": 0.8203357396380091,
+        "validation_brier_score": 0.17307388685895086,
+        "validation_log_loss": 0.5162925696489081
+      }
+    },
+    "feature_count": 46,
+    "selected_model_type": "hist_gradient_boosting",
+    "target_column": "label_player_a_wins_set",
+    "version": "v1"
+  },
+  "model_type": "outcome_set",
+  "quality_gates": {
+    "test_auc_min": 0.55,
+    "test_brier_max": 0.3,
+    "validation_auc_min": 0.55,
+    "validation_brier_max": 0.3
+  },
+  "schema_version": "outcome_model_eval_report_v1",
+  "status": "PASSED",
+  "warnings": []
+}

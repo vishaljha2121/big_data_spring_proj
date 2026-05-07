@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ObservabilityAlert",
+  "type": "object",
+  "properties": {
+    "type": {"type": "string"},
+    "severity": {"type": "string", "enum": ["info", "medium", "high", "critical"]},
+    "message": {"type": "string"}
+  },
+  "required": ["type", "severity", "message"]
+}

@@ -1,0 +1,19 @@
+{
+  "alerts": [
+    {
+      "message": "Surface metadata is completely unavailable (0% coverage).",
+      "severity": "medium",
+      "type": "SURFACE_COVERAGE"
+    },
+    {
+      "message": "ATP player ID bridge is unavailable. Stats mapping is limited.",
+      "severity": "medium",
+      "type": "ATP_BRIDGE_MISSING"
+    },
+    {
+      "message": "Only 1000 events scored out of 1917672 available in manifest.",
+      "severity": "info",
+      "type": "PARTIAL_COVERAGE"
+    }
+  ]
+}

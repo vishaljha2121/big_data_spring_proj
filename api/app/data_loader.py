@@ -80,6 +80,13 @@ class ApiDataStore:
         self.risk_config = read_json(root / self.risk_latest.get("artifact_path", "")) or {}
         self.odds_eval_report = read_json(cfg.odds_eval_report) or {}
         self.risk_eval_report = read_json(cfg.risk_eval_report) or {}
+        
+        self.outcome_models_metadata = {}
+        for target in ["game", "set", "match"]:
+            latest_path = root / f"data/models/outcomes/{target}/latest.json"
+            if latest_path.exists():
+                latest = read_json(latest_path) or {}
+                self.outcome_models_metadata[target] = latest
 
     def readiness_checks(self) -> Dict[str, bool]:
         return {

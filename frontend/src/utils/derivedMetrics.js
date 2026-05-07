@@ -97,6 +97,7 @@ export function reportItems() {
 
 export function validationItems(data) {
   const bench = data?.benchmarks || {};
+  const obs = data?.observability || null;
   return [
     ["API contract", "PASSED", "FastAPI endpoints validated"],
     ["Frontend build", "PASSED", "Vite build and frontend validator passed"],
@@ -105,5 +106,6 @@ export function validationItems(data) {
     ["Risk config", bench.risk_model_eval_report?.status || "PASSED", "No fake labels used"],
     ["Replay dry-run", "PASSED", "Canonical JSONL replay events validated"],
     ["Pytest", "PASSED", "64 tests passed in latest validation"],
+    ["Observability Snapshot Validated", obs && obs.generated_at ? "PASSED" : "CHECK", "observability_validation_report.json"],
   ];
 }

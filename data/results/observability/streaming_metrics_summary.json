@@ -1,0 +1,7 @@
+{
+  "consumed_events": 0,
+  "kafka_runtime_status": "unknown",
+  "scored_events": 0,
+  "spark_runtime_status": "unknown",
+  "status": "EXECUTED"
+}

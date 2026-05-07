@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Dict
 
 import jsonschema
-from streaming.model_loader import OddsModelLoader, RiskConfigLoader
+from streaming.model_loader import OddsModelLoader, RiskConfigLoader, OutcomeModelLoader
 from streaming.online_feature_builder import OnlineFeatureBuilder
 from streaming.risk_scorer import RuntimeRiskScorer
 from streaming.scored_event_schema import SCORED_EVENT_SCHEMA_VERSION, SCORER_VERSION
@@ -25,6 +25,7 @@ class StreamScorer:
         odds_latest: Path,
         risk_latest: Path,
         point_event_schema: Path = Path("contracts/point_event_schema.json"),
+        outcome_models: Dict[str, Path] | None = None,
     ):
         self.odds = OddsModelLoader(odds_latest)
         self.risk_loader = RiskConfigLoader(risk_latest)
@@ -34,6 +35,12 @@ class StreamScorer:
         self.point_event_validator = jsonschema.Draft7Validator(self.point_event_schema)
         self.defaulted_features = self.feature_builder.defaulted_features
         self.missing_features = self.feature_builder.missing_features
+        
+        self.outcomes = {}
+        if outcome_models:
+            for target_name, path in outcome_models.items():
+                if path.exists():
+                    self.outcomes[target_name] = OutcomeModelLoader(path)
 
     def validate_event(self, event: Dict[str, Any]) -> None:
         self.point_event_validator.validate(event)
@@ -43,10 +50,19 @@ class StreamScorer:
         self.validate_event(event)
         features = self.feature_builder.build_features(event)
         probability_a = self.odds.predict_one(features)
+        
+        outcome_probs = {}
+        for target_name, loader in self.outcomes.items():
+            try:
+                outcome_probs[target_name] = loader.predict_one(features)
+            except ValueError:
+                # If features are missing for outcome model, skip
+                pass
+                
         risk = self.risk.score(features)
         self.feature_builder.update_state(event)
         latency_ms = (time.perf_counter() - start) * 1000.0
-        return self.format_scored_event(event, probability_a, risk, latency_ms)
+        return self.format_scored_event(event, probability_a, risk, latency_ms, outcome_probs)
 
     def format_scored_event(
         self,
@@ -54,8 +70,9 @@ class StreamScorer:
         probability_a: float,
         risk: Dict[str, Any],
         latency_ms: float,
+        outcome_probs: Dict[str, float],
     ) -> Dict[str, Any]:
-        return {
+        scored = {
             "schema_version": SCORED_EVENT_SCHEMA_VERSION,
             "scorer_version": SCORER_VERSION,
             "replay_session_id": event["replay_session_id"],
@@ -86,3 +103,16 @@ class StreamScorer:
             "input_event_valid": True,
             "feature_row_valid": True,
         }
+        
+        if "game" in outcome_probs:
+            scored["game_probability_player_a"] = float(outcome_probs["game"])
+        if "set" in outcome_probs:
+            scored["set_probability_player_a"] = float(outcome_probs["set"])
+        if "match" in outcome_probs:
+            scored["match_probability_player_a"] = float(outcome_probs["match"])
+            
+        if self.outcomes:
+            scored["outcome_probabilities_available"] = True
+            scored["outcome_model_versions"] = {name: loader.version for name, loader in self.outcomes.items()}
+            
+        return scored

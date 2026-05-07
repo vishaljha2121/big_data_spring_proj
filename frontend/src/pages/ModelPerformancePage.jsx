@@ -19,6 +19,9 @@ export default function ModelPerformancePage({ data }) {
     { cells: ["Validation Brier", fixed(model.validationBrier, 4)] },
     { cells: ["Test Brier", fixed(model.testBrier, 4)] },
   ];
+  
+  const outcomes = data.outcomes || null;
+
   return (
     <div className="page-stack">
       <div className="metric-grid four">
@@ -41,6 +44,33 @@ export default function ModelPerformancePage({ data }) {
           <ProgressBar value={Math.min(100, Number(bench.eventsPerSecond || 0) / 30)} color="var(--green)" />
         </Card>
       </div>
+      
+      {outcomes && (
+        <Card title="Outcome Models (Macro-Level)" subtitle="Game, Set, and Match Outcome Probabilities">
+          <div className="status-list" style={{ marginBottom: "1rem" }}>
+             <p><span>Game Model</span>{status(outcomes.status?.game === "published" ? "PUBLISHED" : "BLOCKED")}</p>
+             <p><span>Set Model</span>{status(outcomes.status?.set === "published" ? "PUBLISHED" : "BLOCKED")}</p>
+             <p><span>Match Model</span>{status(outcomes.status?.match === "published" ? "PUBLISHED" : "BLOCKED")}</p>
+          </div>
+          <DataTable 
+             columns={["Target", "Val AUC", "Test AUC"]}
+             rows={outcomes.published_models.map(target => ({
+                cells: [
+                   target.toUpperCase(), 
+                   fixed(outcomes.metrics[target]?.validation_auc, 3), 
+                   fixed(outcomes.metrics[target]?.test_auc, 3)
+                ]
+             }))}
+          />
+          <div style={{ marginTop: "1rem", fontSize: "0.85rem", color: "var(--light-border)" }}>
+            <strong>Limitations:</strong>
+            <ul>
+              {outcomes.limitations.map((lim, i) => <li key={i}>{lim}</li>)}
+            </ul>
+          </div>
+        </Card>
+      )}
+      
     </div>
   );
 }

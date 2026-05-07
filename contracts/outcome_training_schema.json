@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Schema for game, set, and match outcome training datasets.",
+  "properties": {
+    "current_game_number": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "current_set_number": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "elapsed_seconds": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "elapsed_seconds_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "elapsed_seconds_delta_from_prev": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "game_number": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "has_elapsed_seconds": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "has_rally_length": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "has_surface": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "has_valid_point_winner": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "has_valid_server": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "is_receiver_player_a": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "is_server_player_a": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "label_player_a_wins_game": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "label_player_a_wins_match": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "label_player_a_wins_set": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "match_id": {
+      "type": "string"
+    },
+    "p1_games_won": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "p1_score": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "p1_score_numeric": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "p2_games_won": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "p2_score": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "p2_score_numeric": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_a_aces_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_a_break_points_seen_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_a_break_points_won_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_a_double_faults_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_a_point_win_pct_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_a_points_won_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_a_rally_length_avg_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_a_recent_10_win_pct_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_a_recent_5_win_pct_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_b_aces_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_b_break_points_seen_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_b_break_points_won_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_b_double_faults_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_b_point_win_pct_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_b_points_won_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_b_rally_length_avg_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_b_recent_10_win_pct_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "player_b_recent_5_win_pct_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "point_number": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "points_played_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "rally_length_avg_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "receiver_point_win_pct_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "receiver_points_played_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "receiver_points_won_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "serve_speed_kmh_avg_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "server_point_win_pct_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "server_points_played_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "server_points_won_before": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "set_number": {
+      "type": [
+        "number",
+        "boolean",
+        "null"
+      ]
+    }
+  },
+  "title": "OutcomeTrainingData",
+  "type": "object"
+}

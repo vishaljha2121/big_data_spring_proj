@@ -1,0 +1,57 @@
+{
+  "active_alerts": [
+    {
+      "message": "Surface metadata is completely unavailable (0% coverage).",
+      "severity": "medium",
+      "type": "SURFACE_COVERAGE"
+    },
+    {
+      "message": "ATP player ID bridge is unavailable. Stats mapping is limited.",
+      "severity": "medium",
+      "type": "ATP_BRIDGE_MISSING"
+    },
+    {
+      "message": "Only 1000 events scored out of 1917672 available in manifest.",
+      "severity": "info",
+      "type": "PARTIAL_COVERAGE"
+    }
+  ],
+  "api_metrics": {
+    "loaded_events": 1000,
+    "loaded_matches": 6,
+    "readiness": {
+      "odds_latest": true,
+      "risk_latest": true,
+      "scored_events_file": true,
+      "scored_events_loaded": true,
+      "scoring_run_report": true
+    },
+    "status": "up"
+  },
+  "drift_summary": {
+    "note": "This represents distribution shift, not formal concept drift.",
+    "scored_mean": 0.5094738375896406,
+    "scored_std": 0.12616723962680454,
+    "shift_magnitude": 0.01097162181573641,
+    "shift_warning": false,
+    "status": "available",
+    "validation_mean": 0.520445459405377,
+    "validation_std": 0.11613471778333755
+  },
+  "generated_at": "2026-05-07T02:32:01Z",
+  "scoring_metrics": {
+    "average_latency_ms": 0.3923722489999997,
+    "events_scored": 1000,
+    "feature_schema_hash": "b6ee9d5a6a4c6357487a29c1e66293b390d76b471f76610f4fe9232313d4d738",
+    "invalid_events": 0,
+    "p95_latency_ms": 0.5734891780000289
+  },
+  "streaming_metrics": {
+    "consumed_events": 0,
+    "kafka_runtime_status": "unknown",
+    "scored_events": 0,
+    "spark_runtime_status": "unknown",
+    "status": "EXECUTED"
+  },
+  "trace_id": "4de6665b-abb7-4ad0-a6ad-d14a78ee3ac2"
+}

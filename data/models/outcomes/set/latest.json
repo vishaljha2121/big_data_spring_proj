@@ -1,0 +1,11 @@
+{
+  "feature_schema_hash": "",
+  "latest_version": "v1",
+  "model_type": "outcome_set",
+  "path": "data/models/outcomes/set/v1",
+  "published_at": "2026-05-07T02:22:07Z",
+  "schema_version": "outcome_model_registry_v1",
+  "test_auc": 0.8177344409710203,
+  "training_script": "scripts/train_outcome_models.py",
+  "validation_auc": 0.8268120966885738
+}

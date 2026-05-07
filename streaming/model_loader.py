@@ -69,6 +69,36 @@ class OddsModelLoader:
         return probability
 
 
+class OutcomeModelLoader:
+    def __init__(self, latest_path: Path):
+        self.latest_path = latest_path
+        self.latest = read_json(latest_path)
+        root = Path.cwd()
+        self.model = joblib.load(root / self.latest["path"] / "model.joblib")
+        self.feature_schema = read_json(root / self.latest["path"] / "feature_schema.json")
+        self.metadata = read_json(root / self.latest["path"] / "metadata.json")
+        self.feature_columns = list(self.feature_schema["feature_columns"])
+        self.target_column = self.feature_schema["target_column"]
+        self.version = self.latest["latest_version"]
+        self.model_type = self.latest["model_type"]
+
+    def validate_features(self, features_df: pd.DataFrame) -> None:
+        missing = [col for col in self.feature_columns if col not in features_df.columns]
+        if missing:
+            raise ValueError(f"missing required {self.model_type} feature columns: {missing}")
+
+    def predict_one(self, feature_row: Dict[str, Any]) -> float:
+        missing = [col for col in self.feature_columns if col not in feature_row]
+        if missing:
+            raise ValueError(f"missing required {self.model_type} feature columns: {missing}")
+        row = np.array([[feature_row[col] for col in self.feature_columns]], dtype=float)
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="X does not have valid feature names")
+            probability = float(self.model.predict_proba(row)[:, 1][0])
+        return probability
+
+
+
 class RiskConfigLoader:
     def __init__(self, latest_path: Path):
         self.latest_path = latest_path

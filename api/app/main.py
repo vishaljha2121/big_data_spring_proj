@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.app.config import settings
-from api.app.routes import benchmarks, health, matches, models, replay, risk, scored_events
+from api.app.routes import benchmarks, health, matches, models, replay, risk, scored_events, observability
 
 
 app = FastAPI(
@@ -38,3 +38,4 @@ app.include_router(matches.router)
 app.include_router(replay.router)
 app.include_router(risk.router)
 app.include_router(models.router)
+app.include_router(observability.router)

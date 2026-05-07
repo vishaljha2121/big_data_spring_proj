@@ -1,0 +1,19 @@
+{
+  "blocked_reasons": [],
+  "game_label_status": "usable",
+  "generated_at": "2026-05-07T02:15:41Z",
+  "match_label_status": "usable",
+  "recommended_targets": [
+    "label_player_a_wins_match",
+    "label_player_a_wins_set",
+    "label_player_a_wins_game"
+  ],
+  "set_label_status": "usable",
+  "usable_game_count": 300739,
+  "usable_game_rows": 1892975,
+  "usable_match_count": 10508,
+  "usable_match_rows": 1922136,
+  "usable_set_count": 31372,
+  "usable_set_rows": 1705641,
+  "warnings": []
+}

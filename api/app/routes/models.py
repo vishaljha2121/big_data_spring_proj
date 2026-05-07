@@ -34,4 +34,29 @@ def current_models():
             "bucket_rules": store.risk_config.get("bucket_rules", {}),
             "fake_labels_used": store.risk_config.get("fake_labels_used"),
         },
+        "outcomes_metadata": store.outcome_models_metadata,
+    }
+
+@router.get("/outcomes")
+def outcomes_summary():
+    store = get_store()
+    return {
+        "published_models": list(store.outcome_models_metadata.keys()),
+        "status": {
+            "game": "published" if "game" in store.outcome_models_metadata else "blocked/partial",
+            "set": "published" if "set" in store.outcome_models_metadata else "blocked/partial",
+            "match": "published" if "match" in store.outcome_models_metadata else "blocked/partial",
+        },
+        "metrics": {
+            k: {
+                "validation_auc": v.get("validation_auc"),
+                "test_auc": v.get("test_auc")
+            }
+            for k, v in store.outcome_models_metadata.items()
+        },
+        "limitations": [
+            "Outcome probabilities are not betting odds.",
+            "They do not account for player fatigue, injury, or off-court factors.",
+            "Match and set outcomes are heavily dependent on momentum not captured in point-level features."
+        ]
     }

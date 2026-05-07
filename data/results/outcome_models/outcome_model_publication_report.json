@@ -1,0 +1,8 @@
+{
+  "blocked_targets": [],
+  "published_targets": [
+    "game",
+    "set",
+    "match"
+  ]
+}

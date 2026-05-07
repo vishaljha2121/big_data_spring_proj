@@ -1,0 +1,12 @@
+{
+  "loaded_events": 1000,
+  "loaded_matches": 6,
+  "readiness": {
+    "odds_latest": true,
+    "risk_latest": true,
+    "scored_events_file": true,
+    "scored_events_loaded": true,
+    "scoring_run_report": true
+  },
+  "status": "up"
+}

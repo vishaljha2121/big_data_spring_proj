@@ -1,9 +1,9 @@
 {
-  "average_scoring_latency_ms": 0.3627773372748787,
+  "average_scoring_latency_ms": 0.48694849165657206,
   "avg_events_per_match": 180.98,
   "blocking_errors": [],
   "feature_schema_hash": "b6ee9d5a6a4c6357487a29c1e66293b390d76b471f76610f4fe9232313d4d738",
-  "generated_at": "2026-05-07T01:34:29Z",
+  "generated_at": "2026-05-07T02:35:53Z",
   "invalid_event_count": 0,
   "limitations": [
     "Uses existing published model artifacts \u2014 no retraining performed.",
@@ -315,7 +315,7 @@
   "odds_model_version": "v1",
   "output_jsonl": "data/results/streaming_scoring/scored_events_demo_full.jsonl",
   "output_parquet": "data/results/streaming_scoring/scored_events_demo_full.parquet",
-  "p95_scoring_latency_ms": 0.5976428317706846,
+  "p95_scoring_latency_ms": 0.8737461954022943,
   "sample_players": [
     "A. Barty",
     "Ajla Tomljanovic",
