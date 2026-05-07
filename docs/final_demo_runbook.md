@@ -32,6 +32,37 @@ Stop the demo:
 bash scripts/stop_full_demo.sh
 ```
 
+## Milestone 5B: Expanded Data Coverage
+
+The original demo showed only 1,000 scored events across 6 matches. This was a **data serving limitation**, not a model problem. Milestone 5B fixes this:
+
+### Generate Full Demo Scored Data (optional, already pre-generated)
+
+```bash
+.venv/bin/python scripts/generate_full_demo_scored_matches.py --max-matches 50
+```
+
+This scores 50 complete matches (~9,000+ events) from the replay manifest using existing model artifacts. No model retraining needed.
+
+### Use Full Demo Data
+
+The `run_full_demo.sh` script auto-detects the full demo file. Or set manually:
+
+```bash
+TENNIS_SCORED_EVENTS_PATH=data/results/streaming_scoring/scored_events_demo_full.jsonl \
+  bash scripts/run_full_demo.sh
+```
+
+### What Changed in 5B
+
+| Issue | Root Cause | Fix |
+|-------|-----------|-----|
+| Replay Center didn't replay | No playback state/interval | Added currentIndex, Play/Pause, Step ±1, speed selector |
+| Dashboard showed 6 matches | Scored sample had 1,000 events | Full-demo scoring generates 50+ complete matches |
+| Synthetic IDs prominent | UI used replay IDs as primary | Player names are now primary labels |
+| Missing data coverage info | No coverage endpoint | Added `/api/data/coverage` endpoint |
+| No replay catalog | API only loaded scored sample | Added `/api/replay/matches` from full manifest |
+
 ## Manual Fallback Path
 
 Validate first:

@@ -1,4 +1,4 @@
-"""Benchmark and summary endpoints."""
+"""Benchmark, summary, and data coverage endpoints."""
 
 from fastapi import APIRouter
 
@@ -43,3 +43,9 @@ def latest_benchmark():
             "benchmark": store.scoring_benchmark_report.get("status"),
         },
     }
+
+
+@router.get("/api/data/coverage")
+def data_coverage():
+    """Return metadata about scored data vs replay manifest coverage."""
+    return get_store().data_coverage()

@@ -184,9 +184,57 @@ A new `ModelComparisonPanel.jsx` component provides honest context comparing our
 
 Full analysis documented in `docs/model_comparison_analysis.md`.
 
+## Milestone 5B — Full Replay & Data Coverage Fix
+
+Milestone 5B fixes three product-level issues:
+
+### Replay Center Playback
+
+`ReplayCenterPage.jsx` now implements real point-by-point playback:
+
+- `currentIndex` state tracking with `setInterval` auto-advance
+- Play/Pause toggle that starts/stops the interval timer
+- Step +1 / Step −1 for manual point navigation
+- Restart to return to point 0
+- Speed selector: 0.5x, 1x, 2x, 5x
+- Progress bar driven by `currentIndex / totalEvents`
+- Current point detail card showing server, point winner, P(A), P(B), risk, and signal
+- Event stream highlights the current point and supports click-to-seek
+
+### Data Coverage Dashboard Card
+
+`DashboardPage.jsx` shows a Data Coverage card displaying:
+
+- Scored event count and scored match count from the API
+- Replay manifest event count and match count from the full catalog
+- Coverage mode explanation (sample, full_demo, or manifest_catalog)
+
+### Match Browser Catalog Tabs
+
+`MatchBrowserPage.jsx` now offers:
+
+- **Scored Matches** tab: existing scored match list with player names primary
+- **Full Replay Catalog** tab: browsing the full 10,464-match replay manifest via `/api/replay/matches`
+- Catalog entries show scored availability and can navigate to scored matches
+
+### Real Match Labeling
+
+- `displayMatchTitle()` uses player names as primary label
+- `isRealPlayerName()` rejects "Unknown", "Player A", "Player B"
+- `compactReplayId()` is shown as secondary `<code>` element
+- Source match IDs shown where available
+
+### New API Endpoints Used
+
+- `GET /api/data/coverage`
+- `GET /api/replay/matches`
+- `GET /api/replay/matches/{id}/events`
+
 ## Limitations
 
 - The dashboard reads the static local scored sample through the API.
 - No authentication or production deployment is included.
 - Kafka runtime remains optional and was not required for this demo path.
 - The court-surface theme switcher is frontend-only because reliable surface metadata is unavailable.
+- Full demo shows 50 scored matches; the remaining ~10,400 manifest matches are browsable but not scored.
+

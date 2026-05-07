@@ -9,8 +9,8 @@ from api.app.data_loader import ApiDataStore
 from api.app.schemas import RISK_DISCLAIMER
 
 
-def paginate(items: List[Dict[str, Any]], limit: int, offset: int) -> Dict[str, Any]:
-    limit = max(1, min(limit, 1000))
+def paginate(items: List[Dict[str, Any]], limit: int, offset: int, max_limit: int = 1000) -> Dict[str, Any]:
+    limit = max(1, min(limit, max_limit))
     offset = max(0, offset)
     page = items[offset : offset + limit]
     return {"items": page, "limit": limit, "offset": offset, "count": len(page), "total_available": len(items)}
@@ -87,7 +87,7 @@ class MatchRepository:
         events = self.store.events_by_match.get(synthetic_match_id)
         if events is None:
             return None
-        return paginate(events, limit, offset)
+        return paginate(events, limit, offset, max_limit=5000)
 
     @staticmethod
     def _risk_summary(events: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -97,6 +97,37 @@ class MatchRepository:
             "max_risk_score": max(float(row.get("risk_score", 0.0)) for row in events) if events else 0.0,
             "disclaimer": RISK_DISCLAIMER,
         }
+
+
+class ReplayRepository:
+    """Repository for replay manifest data (all matches, not just scored)."""
+
+    def __init__(self, store: ApiDataStore):
+        self.store = store
+
+    def list_matches(
+        self, limit: int = 100, offset: int = 0, search: Optional[str] = None
+    ) -> Dict[str, Any]:
+        items = self.store.replay_match_catalog
+        if search:
+            q = search.lower()
+            items = [
+                m for m in items
+                if q in (m.get("primary_match_label") or "").lower()
+                or q in (m.get("player_a") or "").lower()
+                or q in (m.get("player_b") or "").lower()
+                or q in (m.get("synthetic_match_id") or "").lower()
+                or q in (m.get("source_match_id") or "").lower()
+            ]
+        return paginate(items, limit, offset, max_limit=500)
+
+    def get_match_events(
+        self, synthetic_match_id: str, limit: int = 1000, offset: int = 0
+    ) -> Optional[Dict[str, Any]]:
+        events = self.store.replay_events_by_match.get(synthetic_match_id)
+        if events is None:
+            return None
+        return paginate(events, limit, offset, max_limit=5000)
 
 
 class RiskRepository:

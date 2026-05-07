@@ -25,7 +25,7 @@ def get_match_detail(synthetic_match_id: str):
 @router.get("/{synthetic_match_id}/events")
 def get_match_events(
     synthetic_match_id: str,
-    limit: int = Query(200, ge=1, le=1000),
+    limit: int = Query(200, ge=1, le=5000),
     offset: int = Query(0, ge=0),
 ):
     events = MatchRepository(get_store()).list_match_events(synthetic_match_id, limit, offset)

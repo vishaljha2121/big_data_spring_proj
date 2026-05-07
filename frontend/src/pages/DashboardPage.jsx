@@ -5,7 +5,7 @@ import DataTable from "../components/DataTable.jsx";
 import MiniLineChart from "../components/MiniLineChart.jsx";
 import ProgressBar from "../components/ProgressBar.jsx";
 import { getBenchmarkMetrics, getMatches, getModelMetrics, getScoredEvents, getSelectedMatch, reportItems } from "../utils/derivedMetrics.js";
-import { compactReplayId, fixed, matchLabel, pct, probability, risk, status } from "./pageUtils.jsx";
+import { compactReplayId, displayMatchTitle, fixed, pct, probability, risk, status } from "./pageUtils.jsx";
 
 export default function DashboardPage({ data, onNavigate }) {
   const matches = getMatches(data);
@@ -14,9 +14,11 @@ export default function DashboardPage({ data, onNavigate }) {
   const model = getModelMetrics(data);
   const bench = getBenchmarkMetrics(data);
   const riskCounts = data?.riskSummary?.count_by_bucket || data?.riskSummary?.bucket_counts || {};
+  const coverage = data?.dataCoverage;
+
   const recentRows = matches.slice(0, 5).map((match) => ({
     key: match.synthetic_match_id,
-    cells: [matchLabel(match), match.event_count || 0, probability(match.avg_point_probability_player_a), risk(Number(match.max_risk_score || 0) >= 0.7 ? "high" : Number(match.max_risk_score || 0) >= 0.4 ? "medium" : "low", match.max_risk_score)],
+    cells: [displayMatchTitle(match), match.event_count || 0, probability(match.avg_point_probability_player_a), risk(Number(match.max_risk_score || 0) >= 0.7 ? "high" : Number(match.max_risk_score || 0) >= 0.4 ? "medium" : "low", match.max_risk_score)],
   }));
   return (
     <div className="page-stack">
@@ -33,9 +35,9 @@ export default function DashboardPage({ data, onNavigate }) {
         <Card title="Featured Match" eyebrow="Real API match" action={<button className="primary-action" onClick={() => onNavigate("Replay Center")}>View Replay</button>}>
           <div className="featured-match">
             <div>
+              <h2>{displayMatchTitle(selected)}</h2>
               <span className="soft-label">Replay ID</span>
               {compactReplayId(selected?.synthetic_match_id)}
-              <h2>{matchLabel(selected)}</h2>
               <p>{selected?.event_count || 0} scored points · max risk {fixed(selected?.max_risk_score, 3)}</p>
               <div className="inline-metrics">
                 <span>Avg P(A) <strong>{pct(selected?.avg_point_probability_player_a)}</strong></span>
@@ -67,6 +69,27 @@ export default function DashboardPage({ data, onNavigate }) {
           </div>
         </Card>
       </div>
+
+      {/* Data Coverage card */}
+      {coverage && (
+        <Card title="Data Coverage" eyebrow={`Mode: ${coverage.coverage_mode}`}>
+          <div className="metric-grid four">
+            <MetricCard label="Scored Events" value={(coverage.scored_event_count || 0).toLocaleString()} sub="in API" />
+            <MetricCard label="Scored Matches" value={(coverage.scored_match_count || 0).toLocaleString()} sub="browsable" accent="green" />
+            <MetricCard label="Manifest Events" value={(coverage.replay_manifest_event_count || 0).toLocaleString()} sub="full catalog" />
+            <MetricCard label="Manifest Matches" value={(coverage.replay_manifest_match_count || 0).toLocaleString()} sub="replay catalog" accent="green" />
+          </div>
+          {coverage.warning && <p className="disclaimer">{coverage.warning}</p>}
+          <p className="muted-copy" style={{ marginTop: "0.5rem" }}>
+            {coverage.coverage_mode === "sample"
+              ? "Dashboard shows a scored sample. Run generate_full_demo_scored_matches.py for broader coverage."
+              : coverage.coverage_mode === "full_demo"
+              ? "Full demo scored dataset loaded. Coverage expanded beyond sample."
+              : "Replay catalog available. Scored data is a subset of the full manifest."
+            }
+          </p>
+        </Card>
+      )}
 
       <div className="dashboard-layout lower">
         <Card title="Recent Matches" action={<button className="link-action" onClick={() => onNavigate("Match Browser")}>View all →</button>}>

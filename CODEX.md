@@ -6,9 +6,16 @@ Build a tennis point-level analytics platform with validated batch data, model a
 
 ## Current Priority
 
-Current completed milestone: **Milestone 5A — Kafka + Spark Structured Streaming Runtime Completion**.
+Current completed milestone: **Milestone 5B — Full Match Replay Experience, Data Coverage Fix, and Real Match Labeling**.
 
-Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, Milestone 4C, Milestone 4D, Milestone 4E, Milestone 4F, and Milestone 5A are complete and validated. Milestone 5A executed Kafka and Spark Structured Streaming locally with 1000 streamed/scored events and PASSED runtime reports.
+Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, Milestone 4C, Milestone 4D, Milestone 4E, Milestone 4F, Milestone 5A, and Milestone 5B are complete and validated.
+
+Milestone 5B key outcomes:
+- Replay Center now has real point-by-point playback with Step ±1, Play/Pause, and speed controls.
+- Full-demo scored dataset: 50 matches, 9,000+ events generated from the replay manifest using the existing model (no retraining).
+- Dashboard data coverage was a serving/sample issue, not a model-training issue.
+- Player names are now the primary match label; synthetic IDs are secondary metadata.
+- New API endpoints: `/api/data/coverage`, `/api/replay/matches`, `/api/replay/matches/{id}/events`.
 
 The next allowed priority is:
 
@@ -55,6 +62,12 @@ Allowed stable inputs for the next tracks:
 - `spark_streaming/`
 - `scripts/run_streaming_demo.sh`
 - `docs/streaming_gap_analysis.md`
+- `data/results/streaming_scoring/scored_events_demo_full.jsonl`
+- `data/results/streaming_scoring/scored_events_demo_full.parquet`
+- `data/results/streaming_scoring/full_demo_scoring_report.json`
+- `scripts/generate_full_demo_scored_matches.py`
+- `api/app/routes/replay.py`
+- `docs/full_replay_data_coverage_gap_analysis.md`
 
 Do not use staging CSV.GZ files directly.
 
@@ -94,7 +107,7 @@ CourtIQ replay producer files under `external_review/courtiq/` are reference-onl
 
 ## Validation Gate
 
-Milestone 5A baseline gates include:
+Milestone 5B baseline gates include:
 
 ```bash
 .venv/bin/python scripts/final_preflight_check.py

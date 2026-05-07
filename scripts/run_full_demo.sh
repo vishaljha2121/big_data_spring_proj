@@ -99,6 +99,15 @@ wait_for_url() {
 
 cd "${REPO_ROOT}"
 
+# Auto-detect full demo scored dataset for broader coverage
+if [[ -z "${TENNIS_SCORED_EVENTS_PATH:-}" ]]; then
+  FULL_DEMO="${REPO_ROOT}/data/results/streaming_scoring/scored_events_demo_full.jsonl"
+  if [[ -f "${FULL_DEMO}" ]]; then
+    export TENNIS_SCORED_EVENTS_PATH="${FULL_DEMO}"
+    echo "Using full demo scored dataset: ${FULL_DEMO}"
+  fi
+fi
+
 if [[ ! -x "${PYTHON}" ]]; then
   echo "Missing executable Python venv at ${PYTHON}. Create it and install requirements first." >&2
   exit 1

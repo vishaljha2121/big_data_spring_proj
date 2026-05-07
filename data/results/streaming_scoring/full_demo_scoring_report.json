@@ -1,0 +1,346 @@
+{
+  "average_scoring_latency_ms": 0.3627773372748787,
+  "avg_events_per_match": 180.98,
+  "blocking_errors": [],
+  "feature_schema_hash": "b6ee9d5a6a4c6357487a29c1e66293b390d76b471f76610f4fe9232313d4d738",
+  "generated_at": "2026-05-07T01:34:29Z",
+  "invalid_event_count": 0,
+  "limitations": [
+    "Uses existing published model artifacts \u2014 no retraining performed.",
+    "Only 50 matches scored, not full 10,464-match manifest.",
+    "Feature builder resets per match; cross-match features not available."
+  ],
+  "match_details": [
+    {
+      "event_count": 206,
+      "player_a": "Sam Groth",
+      "player_b": "Kei Nishikori",
+      "synthetic_match_id": "synthetic_match_8a4f24ad3bcd516b"
+    },
+    {
+      "event_count": 174,
+      "player_a": "Mikhail Kukushkin",
+      "player_b": "Roger Federer",
+      "synthetic_match_id": "synthetic_match_4312fef54ac2c79d"
+    },
+    {
+      "event_count": 136,
+      "player_a": "Arantxa Rus",
+      "player_b": "Madison Keys",
+      "synthetic_match_id": "synthetic_match_61391fde0dd3d01e"
+    },
+    {
+      "event_count": 102,
+      "player_a": "Maria Kirilenko",
+      "player_b": "Victoria Larriere",
+      "synthetic_match_id": "synthetic_match_69dcf2a2991b938a"
+    },
+    {
+      "event_count": 105,
+      "player_a": "Nao Hibino",
+      "player_b": "Madison Keys",
+      "synthetic_match_id": "synthetic_match_6e8a02b0f1899c77"
+    },
+    {
+      "event_count": 197,
+      "player_a": "Aljaz Bedene",
+      "player_b": "Damir Dzumhur",
+      "synthetic_match_id": "synthetic_match_738f471e845bd425"
+    },
+    {
+      "event_count": 133,
+      "player_a": "Claire Liu",
+      "player_b": "Sara Sorribes Tormo",
+      "synthetic_match_id": "synthetic_match_42b21acc531a3958"
+    },
+    {
+      "event_count": 240,
+      "player_a": "G. Dimitrov",
+      "player_b": "K. Edmund",
+      "synthetic_match_id": "synthetic_match_84b8f48ee08a700d"
+    },
+    {
+      "event_count": 190,
+      "player_a": "Emma Navarro",
+      "player_b": "Coco Gauff",
+      "synthetic_match_id": "synthetic_match_df462592506553d3"
+    },
+    {
+      "event_count": 150,
+      "player_a": "Fabio Fognini",
+      "player_b": "Tatsuma Ito",
+      "synthetic_match_id": "synthetic_match_716680aef8f765b7"
+    },
+    {
+      "event_count": 214,
+      "player_a": "Aliz\u00e9 Cornet",
+      "player_b": "Tsvetana Pironkova",
+      "synthetic_match_id": "synthetic_match_f793b21cde46f50f"
+    },
+    {
+      "event_count": 230,
+      "player_a": "Sam Groth",
+      "player_b": "Pablo Cuevas",
+      "synthetic_match_id": "synthetic_match_451d8b75e4c56565"
+    },
+    {
+      "event_count": 254,
+      "player_a": "Stan Wawrinka",
+      "player_b": "Andreas Seppi",
+      "synthetic_match_id": "synthetic_match_896169dc74caad13"
+    },
+    {
+      "event_count": 213,
+      "player_a": "Milos Raonic",
+      "player_b": "Novak Djokovic",
+      "synthetic_match_id": "synthetic_match_9baea2769285ac53"
+    },
+    {
+      "event_count": 142,
+      "player_a": "C Gauff",
+      "player_b": "Q Wang",
+      "synthetic_match_id": "synthetic_match_763783bf05db56c5"
+    },
+    {
+      "event_count": 217,
+      "player_a": "Joao Sousa",
+      "player_b": "Andy Murray",
+      "synthetic_match_id": "synthetic_match_5d1114f0369b04bc"
+    },
+    {
+      "event_count": 247,
+      "player_a": "Lukas Lacko",
+      "player_b": "Benjamin Bonzi",
+      "synthetic_match_id": "synthetic_match_3d39df297ec895f1"
+    },
+    {
+      "event_count": 173,
+      "player_a": "Dustin Brown",
+      "player_b": "Milos Raonic",
+      "synthetic_match_id": "synthetic_match_d0d5934b7c92d46c"
+    },
+    {
+      "event_count": 185,
+      "player_a": "Bernard Tomic",
+      "player_b": "Jeremy Chardy",
+      "synthetic_match_id": "synthetic_match_a3f5ac2dab276809"
+    },
+    {
+      "event_count": 148,
+      "player_a": "Kurumi Nara",
+      "player_b": "Oceane Dodin",
+      "synthetic_match_id": "synthetic_match_aa49e8ebb91070c3"
+    },
+    {
+      "event_count": 260,
+      "player_a": "Yuichi Sugita",
+      "player_b": "Leonardo Mayer",
+      "synthetic_match_id": "synthetic_match_c46c6de5d95a4837"
+    },
+    {
+      "event_count": 216,
+      "player_a": "Pedro Martinez",
+      "player_b": "Christopher Eubanks",
+      "synthetic_match_id": "synthetic_match_850577e0b2beb177"
+    },
+    {
+      "event_count": 108,
+      "player_a": "Aliaksandra Sasnovich",
+      "player_b": "Caroline Wozniacki",
+      "synthetic_match_id": "synthetic_match_856df323e13c86f2"
+    },
+    {
+      "event_count": 168,
+      "player_a": "R Nadal",
+      "player_b": "R Gasquet",
+      "synthetic_match_id": "synthetic_match_516ece4557c91593"
+    },
+    {
+      "event_count": 158,
+      "player_a": "David Ferrer",
+      "player_b": "Lukas Lacko",
+      "synthetic_match_id": "synthetic_match_19f39e9057cb544d"
+    },
+    {
+      "event_count": 226,
+      "player_a": "Andy Murray",
+      "player_b": "Emilio Nava",
+      "synthetic_match_id": "synthetic_match_74892d8170c9ed46"
+    },
+    {
+      "event_count": 133,
+      "player_a": "Liudmila Samsonova",
+      "player_b": "Claire Liu",
+      "synthetic_match_id": "synthetic_match_cd0749b9b36c9d6f"
+    },
+    {
+      "event_count": 370,
+      "player_a": "Jordan Thompson",
+      "player_b": "Steve Darcis",
+      "synthetic_match_id": "synthetic_match_0226b74b42ad8874"
+    },
+    {
+      "event_count": 191,
+      "player_a": "Marcos Giron",
+      "player_b": "Frances Tiafoe",
+      "synthetic_match_id": "synthetic_match_9d1f98e3048c9570"
+    },
+    {
+      "event_count": 103,
+      "player_a": "S Halep",
+      "player_b": "S Sorribes Tormo",
+      "synthetic_match_id": "synthetic_match_e04dad02fd32577b"
+    },
+    {
+      "event_count": 94,
+      "player_a": "Klara Zakopalova",
+      "player_b": "Francesca Schiavone",
+      "synthetic_match_id": "synthetic_match_9aba6fc20c424674"
+    },
+    {
+      "event_count": 108,
+      "player_a": "Simona Halep",
+      "player_b": "Saisai Zheng",
+      "synthetic_match_id": "synthetic_match_fa1ae295ac3e5050"
+    },
+    {
+      "event_count": 153,
+      "player_a": "Mikhail Youzhny",
+      "player_b": "James Ward",
+      "synthetic_match_id": "synthetic_match_27563084ad055895"
+    },
+    {
+      "event_count": 293,
+      "player_a": "R. Nadal",
+      "player_b": "D. Schwartzman",
+      "synthetic_match_id": "synthetic_match_052b25be7b4e0522"
+    },
+    {
+      "event_count": 202,
+      "player_a": "N. Jarry",
+      "player_b": "J. Del Potro",
+      "synthetic_match_id": "synthetic_match_2c7a52bf60502cc5"
+    },
+    {
+      "event_count": 135,
+      "player_a": "Ons Jabeur",
+      "player_b": "Venus Williams",
+      "synthetic_match_id": "synthetic_match_7d765c77442fd20b"
+    },
+    {
+      "event_count": 186,
+      "player_a": "Jelena Jankovic",
+      "player_b": "Evgeniya Rodina",
+      "synthetic_match_id": "synthetic_match_f4a8c4a51b86b481"
+    },
+    {
+      "event_count": 168,
+      "player_a": "Roberto Carballes Baena",
+      "player_b": "Denis Shapovalov",
+      "synthetic_match_id": "synthetic_match_7aab6c19df3e5966"
+    },
+    {
+      "event_count": 269,
+      "player_a": "Xavier Malisse",
+      "player_b": "John Isner",
+      "synthetic_match_id": "synthetic_match_c2cf9f434c791635"
+    },
+    {
+      "event_count": 211,
+      "player_a": "Maria Sharapova",
+      "player_b": "Eugenie Bouchard",
+      "synthetic_match_id": "synthetic_match_569e0b4cf15a0203"
+    },
+    {
+      "event_count": 133,
+      "player_a": "Mathilde Johansson",
+      "player_b": "Heather Watson",
+      "synthetic_match_id": "synthetic_match_23adc02d932eaee6"
+    },
+    {
+      "event_count": 147,
+      "player_a": "Novak Djokovic",
+      "player_b": "Jeremy Chardy",
+      "synthetic_match_id": "synthetic_match_bfdbe526fd349529"
+    },
+    {
+      "event_count": 185,
+      "player_a": "Kenny De Schepper",
+      "player_b": "Kei Nishikori",
+      "synthetic_match_id": "synthetic_match_8d16a0d5b5d7e95f"
+    },
+    {
+      "event_count": 201,
+      "player_a": "Victoria Azarenka",
+      "player_b": "Alberta Brianti",
+      "synthetic_match_id": "synthetic_match_2659f385991390ae"
+    },
+    {
+      "event_count": 252,
+      "player_a": "Denis Kudla",
+      "player_b": "Dusan Lajovic",
+      "synthetic_match_id": "synthetic_match_bc1fb17885dcbf23"
+    },
+    {
+      "event_count": 187,
+      "player_a": "M Bouzkova",
+      "player_b": "K Kanepi",
+      "synthetic_match_id": "synthetic_match_677eacd62ef2e6be"
+    },
+    {
+      "event_count": 121,
+      "player_a": "A. Barty",
+      "player_b": "M. Sakkari",
+      "synthetic_match_id": "synthetic_match_ae01a376f22354e5"
+    },
+    {
+      "event_count": 107,
+      "player_a": "Kiki Bertens",
+      "player_b": "Mandy Minella",
+      "synthetic_match_id": "synthetic_match_29f8b291dc3a0ce5"
+    },
+    {
+      "event_count": 109,
+      "player_a": "Ajla Tomljanovic",
+      "player_b": "Daria Kasatkina",
+      "synthetic_match_id": "synthetic_match_99fd60133a78ab4d"
+    },
+    {
+      "event_count": 199,
+      "player_a": "N. Hibino",
+      "player_b": "S. Peng",
+      "synthetic_match_id": "synthetic_match_ce9c907f6670cc2a"
+    }
+  ],
+  "odds_model_version": "v1",
+  "output_jsonl": "data/results/streaming_scoring/scored_events_demo_full.jsonl",
+  "output_parquet": "data/results/streaming_scoring/scored_events_demo_full.parquet",
+  "p95_scoring_latency_ms": 0.5976428317706846,
+  "sample_players": [
+    "A. Barty",
+    "Ajla Tomljanovic",
+    "Alberta Brianti",
+    "Aliaksandra Sasnovich",
+    "Aliz\u00e9 Cornet",
+    "Aljaz Bedene",
+    "Andreas Seppi",
+    "Andy Murray",
+    "Arantxa Rus",
+    "Benjamin Bonzi",
+    "Bernard Tomic",
+    "C Gauff",
+    "Caroline Wozniacki",
+    "Christopher Eubanks",
+    "Claire Liu",
+    "Coco Gauff",
+    "D. Schwartzman",
+    "Damir Dzumhur",
+    "Daria Kasatkina",
+    "David Ferrer"
+  ],
+  "scored_event_count": 9049,
+  "selected_match_count": 50,
+  "status": "PASSED",
+  "unique_player_count": 91,
+  "warnings": []
+}

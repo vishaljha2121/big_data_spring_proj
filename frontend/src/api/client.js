@@ -37,7 +37,7 @@ export function getMatchDetail(matchId) {
 }
 
 export function getMatchEvents(matchId, params = {}) {
-  const query = new URLSearchParams({ limit: params.limit || 200, offset: params.offset || 0 });
+  const query = new URLSearchParams({ limit: params.limit || 2000, offset: params.offset || 0 });
   return request(`/api/matches/${encodeURIComponent(matchId)}/events?${query.toString()}`);
 }
 
@@ -59,6 +59,23 @@ export function getBenchmarkInfo() {
   return request("/api/benchmarks/latest");
 }
 
+// ── New Milestone 5B endpoints ───────────────────────────────
+
+export function getDataCoverage() {
+  return request("/api/data/coverage");
+}
+
+export function getReplayMatches(params = {}) {
+  const query = new URLSearchParams({ limit: params.limit || 100, offset: params.offset || 0 });
+  if (params.search) query.set("search", params.search);
+  return request(`/api/replay/matches?${query.toString()}`);
+}
+
+export function getReplayMatchEvents(matchId, params = {}) {
+  const query = new URLSearchParams({ limit: params.limit || 1000, offset: params.offset || 0 });
+  return request(`/api/replay/matches/${encodeURIComponent(matchId)}/events?${query.toString()}`);
+}
+
 export async function loadDashboardData(selectedMatchId = null) {
   const [
     health,
@@ -69,7 +86,9 @@ export async function loadDashboardData(selectedMatchId = null) {
     riskSummary,
     riskEvents,
     models,
-    benchmarks
+    benchmarks,
+    dataCoverage,
+    replayMatches
   ] = await Promise.all([
     getHealth(),
     getReady(),
@@ -79,11 +98,13 @@ export async function loadDashboardData(selectedMatchId = null) {
     getRiskSummary(),
     getRiskEvents({ limit: 100 }),
     getModelInfo(),
-    getBenchmarkInfo()
+    getBenchmarkInfo(),
+    getDataCoverage().catch(() => null),
+    getReplayMatches({ limit: 100 }).catch(() => null)
   ]);
   const matchId = selectedMatchId || (matches.items && matches.items[0] && matches.items[0].synthetic_match_id) || null;
   const matchDetail = matchId ? await getMatchDetail(matchId) : null;
-  const matchEvents = matchId ? await getMatchEvents(matchId, { limit: 200 }) : null;
+  const matchEvents = matchId ? await getMatchEvents(matchId, { limit: 2000 }) : null;
   return {
     health,
     ready,
@@ -96,6 +117,8 @@ export async function loadDashboardData(selectedMatchId = null) {
     benchmarks,
     matchDetail,
     matchEvents,
+    dataCoverage,
+    replayMatches,
     selectedMatchId: matchId
   };
 }
