@@ -16,8 +16,8 @@
     "/api/observability/metrics",
     "/api/models/outcomes"
   ],
-  "generated_at": "2026-05-07T02:37:09Z",
-  "scored_event_count": 1000,
+  "generated_at": "2026-05-07T02:47:02Z",
+  "scored_event_count": 9049,
   "status": "PASSED",
-  "unique_match_count": 6
+  "unique_match_count": 50
 }
