@@ -12,7 +12,7 @@
     "/api/data/coverage",
     "/api/replay/matches?limit=5"
   ],
-  "generated_at": "2026-05-07T01:46:52Z",
+  "generated_at": "2026-05-07T01:58:05Z",
   "scored_event_count": 9049,
   "status": "PASSED",
   "unique_match_count": 50

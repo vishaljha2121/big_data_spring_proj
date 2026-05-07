@@ -108,7 +108,7 @@
     "replay_manifest_event_count": 1917672,
     "replay_manifest_match_count": 10464,
     "replay_manifest_source": "/Users/vishaljha/Desktop/Homeworks/BigData/Project/data/replay/manifests/replay_manifest_v1.parquet",
-    "scored_data_source": "data/results/streaming_scoring/scored_events_demo_full.jsonl",
+    "scored_data_source": "/Users/vishaljha/Desktop/Homeworks/BigData/Project/data/results/streaming_scoring/scored_events_demo_full.jsonl",
     "scored_event_count": 9049,
     "scored_match_count": 50,
     "warning": null
@@ -116,7 +116,7 @@
   "health": {
     "service": "tennis-scoring-api",
     "status": "ok",
-    "timestamp": "2026-05-07T01:45:58Z",
+    "timestamp": "2026-05-07T01:57:17Z",
     "version": "api_v1"
   },
   "match_detail": {
@@ -5947,7 +5947,7 @@
       "scoring_run_report": true
     },
     "status": "ready",
-    "timestamp": "2026-05-07T01:46:52Z"
+    "timestamp": "2026-05-07T01:58:05Z"
   },
   "replay_matches": {
     "count": 5,
