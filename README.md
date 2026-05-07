@@ -10,7 +10,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Milestone 2.6: PASSED after CourtIQ integration audit and guardrail validation
 - Milestone 2.7: PASSED for model artifacts and replay dry-run validation
 - Milestone 2B: PASSED as part of Milestone 2.7
-- Milestone 3A: PASSED for dry-run replay implementation; Kafka runtime was not executed locally
+- Milestone 3A: PASSED for dry-run replay implementation; Kafka runtime completed later in Milestone 5A
 - Milestone 3B: VERIFIED PASSED for local JSONL streaming scorer integration
 - Milestone 4A: PASSED for local file-backed FastAPI serving layer
 - Milestone 4B: PASSED for minimal dashboard/frontend over documented API
@@ -18,6 +18,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Milestone 4D: PASSED for frontend presentation redesign and demo polish
 - Milestone 4E: PASSED for final frontend narrative polish, KPI reordering, humanized labels, and model comparison panel
 - Milestone 4F: PASSED for Centre Court Analytics product pivot over the documented API
+- Milestone 5A: PASSED for Kafka + Spark Structured Streaming runtime completion
 
 ## Completed Checklist
 
@@ -53,12 +54,14 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - [x] Pivoted the frontend into a Centre Court Analytics app shell with grouped sidebar navigation and product pages.
 - [x] Added mockup analysis and API mapping docs for the product pivot.
 - [x] Clearly labeled sample-derived and planned modules for players, tournaments, surfaces, rankings, and replay manifest browsing.
+- [x] Added Kafka runtime validation scripts and Spark Structured Streaming scorer implementation for Milestone 5A.
 
 ## Remaining Checklist
 
 - [ ] Final report and presentation packaging.
 - [ ] Capture manual screenshots from the running dashboard.
 - [ ] Prepare final slides from the validated runbook and screenshots.
+- [x] Executed Kafka + Spark runtime locally with 1000 streamed/scored events.
 - [ ] Do not add new architecture unless fixing a demo blocker.
 
 ## Key Findings So Far
@@ -89,6 +92,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Dashboard theme system supports clay, hard, grass, and neutral themes. Clay is the default demo theme because source surface metadata is unavailable.
 - Model comparison note: our model is a point-level predictor (test AUC 0.6415, test Brier 0.2347). Public tennis prediction references operate at match-level and use different metrics. Direct comparison is not valid without building a match-level predictor on the same evaluation set.
 - Centre Court pivot note: the frontend now exposes Analytics, Replay, ML Model, and Data Ops navigation groups. Real modules use the documented API; unsupported modules are labeled planned or sample-derived.
+- Streaming note: the deterministic JSONL path remains a validated fallback. Milestone 5A executed a real Kafka + Spark Structured Streaming runtime path with reports under `data/results/kafka_runtime/` and `data/results/spark_streaming/` showing `PASSED`.
 
 ## CourtIQ Integration Audit
 
@@ -137,7 +141,44 @@ docker compose -f infra/docker/docker-compose.kafka.yml up -d
 bash infra/kafka/kafka_setup.sh
 ```
 
-Kafka runtime was not executed in the current validation environment.
+Kafka runtime was executed and validated in Milestone 5A.
+
+## Kafka + Spark Structured Streaming
+
+Milestone 5A adds the runtime path:
+
+```text
+Kafka tennis-point-events
+  -> Spark Structured Streaming readStream
+  -> foreachBatch StreamScorer
+  -> local scored JSONL/Parquet sink
+```
+
+Run when Docker, Java, PySpark, and Spark Kafka connector dependencies are available:
+
+```bash
+bash scripts/run_streaming_demo.sh --max-events 1000
+```
+
+Manual checks:
+
+```bash
+docker compose -f infra/docker/docker-compose.kafka.yml up -d
+bash infra/kafka/kafka_setup.sh
+.venv/bin/python scripts/validate_kafka_runtime.py
+.venv/bin/python scripts/run_kafka_replay_smoke.py --max-events 1000
+.venv/bin/python scripts/run_spark_streaming_scorer.py --max-events 1000 --timeout-seconds 60
+.venv/bin/python scripts/validate_spark_streaming_output.py --expected-count 1000
+```
+
+If runtime execution is unavailable, keep using the deterministic JSONL demo and state the blocker honestly.
+
+Validated Milestone 5A evidence:
+
+- Kafka runtime report: `data/results/kafka_runtime/kafka_runtime_report.json`
+- Kafka replay smoke report: `data/results/kafka_runtime/kafka_replay_smoke_report.json`
+- Spark run report: `data/results/spark_streaming/spark_streaming_run_report.json`
+- Spark validation report: `data/results/spark_streaming/spark_streaming_validation_report.json`
 
 ## One-Command Demo
 

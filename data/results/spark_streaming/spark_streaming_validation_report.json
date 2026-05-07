@@ -1,0 +1,13 @@
+{
+  "blocking_errors": [],
+  "checkpoint_exists": true,
+  "expected_count": 1000,
+  "generated_at": "2026-05-07T00:32:21Z",
+  "jsonl_event_count": 1000,
+  "parquet_event_count": 1000,
+  "parquet_file_count": 1,
+  "run_report_exists": true,
+  "schema_error_examples": [],
+  "status": "PASSED",
+  "warnings": []
+}

@@ -10,7 +10,16 @@ RETENTION_MS="$(.venv/bin/python -c 'import json,sys; print(json.load(open(sys.a
 CLEANUP_POLICY="$(.venv/bin/python -c 'import json,sys; print(json.load(open(sys.argv[1]))["cleanup_policy"])' "$CONFIG_PATH")"
 MAX_MESSAGE_BYTES="$(.venv/bin/python -c 'import json,sys; print(json.load(open(sys.argv[1]))["max_message_bytes"])' "$CONFIG_PATH")"
 
-docker exec tennis-kafka kafka-topics.sh \
+KAFKA_TOPICS_BIN="${KAFKA_TOPICS_BIN:-/opt/kafka/bin/kafka-topics.sh}"
+
+for _ in {1..45}; do
+  if docker exec tennis-kafka "$KAFKA_TOPICS_BIN" --bootstrap-server localhost:9092 --list >/dev/null 2>&1; then
+    break
+  fi
+  sleep 2
+done
+
+docker exec tennis-kafka "$KAFKA_TOPICS_BIN" \
   --bootstrap-server localhost:9092 \
   --create \
   --if-not-exists \
@@ -21,4 +30,4 @@ docker exec tennis-kafka kafka-topics.sh \
   --config "cleanup.policy=$CLEANUP_POLICY" \
   --config "max.message.bytes=$MAX_MESSAGE_BYTES"
 
-docker exec tennis-kafka kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic "$TOPIC"
+docker exec tennis-kafka "$KAFKA_TOPICS_BIN" --bootstrap-server localhost:9092 --describe --topic "$TOPIC"

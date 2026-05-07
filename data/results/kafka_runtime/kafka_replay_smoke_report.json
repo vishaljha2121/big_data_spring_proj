@@ -1,0 +1,32 @@
+{
+  "blocking_errors": [],
+  "bootstrap_servers": "localhost:9092",
+  "consume_report": {
+    "bootstrap_servers": "localhost:9092",
+    "duplicate_synthetic_event_ids": 0,
+    "errors": [],
+    "events_checked": 1000,
+    "expected_events": 1000,
+    "generated_at": "2026-05-07T00:30:36Z",
+    "status": "PASSED",
+    "synthetic_match_missing": 0,
+    "topic": "tennis-point-events"
+  },
+  "consumer": {
+    "command": ".venv/bin/python scripts/consume_replay_sample.py --bootstrap-servers localhost:9092 --topic tennis-point-events --max-events 1000 --group-id spark-tennis-validation-1778113792 --report data/results/kafka_runtime/kafka_consume_sample_report.json",
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\n  \"generated_at\": \"2026-05-07T00:30:36Z\",\n  \"status\": \"PASSED\",\n  \"bootstrap_servers\": \"localhost:9092\",\n  \"topic\": \"tennis-point-events\",\n  \"events_checked\": 1000,\n  \"expected_events\": 1000,\n  \"synthetic_match_missing\": 0,\n  \"duplicate_synthetic_event_ids\": 0,\n  \"errors\": []\n}\n"
+  },
+  "expected_events": 1000,
+  "generated_at": "2026-05-07T00:30:36Z",
+  "producer": {
+    "command": ".venv/bin/python producer/replay_producer.py --manifest data/replay/manifests/replay_manifest_v1.parquet --config infra/kafka/topic_config.json --bootstrap-servers localhost:9092 --topic tennis-point-events --max-events 1000 --speed 0",
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "Kafka replay complete: produced=1000 invalid=0 topic=tennis-point-events\n"
+  },
+  "status": "PASSED",
+  "topic": "tennis-point-events",
+  "warnings": []
+}

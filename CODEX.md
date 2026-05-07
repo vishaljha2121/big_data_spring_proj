@@ -6,17 +6,17 @@ Build a tennis point-level analytics platform with validated batch data, model a
 
 ## Current Priority
 
-Current completed milestone: **Milestone 4F — Centre Court Analytics Product Pivot**.
+Current completed milestone: **Milestone 5A — Kafka + Spark Structured Streaming Runtime Completion**.
 
-Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, Milestone 4C, Milestone 4D, Milestone 4E, and Milestone 4F are complete and validated. Milestone 4F pivots the frontend into a Centre Court Analytics product shell with Analytics, Replay, ML Model, and Data Ops navigation groups while preserving the existing FastAPI-backed local demo. Kafka runtime code exists, but Kafka was not executed locally.
+Milestone 1B, Milestone 2A, Milestone 2.5, Milestone 2.6, Milestone 2.7, Milestone 3B, Milestone 4A, Milestone 4B, Milestone 4C, Milestone 4D, Milestone 4E, Milestone 4F, and Milestone 5A are complete and validated. Milestone 5A executed Kafka and Spark Structured Streaming locally with 1000 streamed/scored events and PASSED runtime reports.
 
 The next allowed priority is:
 
-- **Screenshots, report, and slides only**
+- **Screenshots, report, and slides**
 - **Final submission cleanup**
 - **Bug fixes only if a validation or demo blocker appears**
 
-Do not add new architecture before submission. Do not introduce PostgreSQL, Redis, Kafka runtime requirements, authentication, deployment work, or another broad frontend redesign for the final packaging pass.
+Do not redesign the frontend. Do not introduce PostgreSQL, Redis, authentication, deployment work, or another broad product architecture change. Kafka/Spark runtime can be claimed only with the existing Milestone 5A reports.
 
 Do not use CourtIQ assets unless they were merged or listed as approved reference in `docs/courtiq_integration_audit.md`.
 
@@ -52,6 +52,9 @@ Allowed stable inputs for the next tracks:
 - `frontend/src/shell/navigation.js`
 - `docs/mockup_pivot_analysis.md`
 - `docs/mockup_to_api_mapping.md`
+- `spark_streaming/`
+- `scripts/run_streaming_demo.sh`
+- `docs/streaming_gap_analysis.md`
 
 Do not use staging CSV.GZ files directly.
 
@@ -91,7 +94,7 @@ CourtIQ replay producer files under `external_review/courtiq/` are reference-onl
 
 ## Validation Gate
 
-Milestone 4F is done only when:
+Milestone 5A baseline gates include:
 
 ```bash
 .venv/bin/python scripts/final_preflight_check.py
@@ -106,6 +109,18 @@ Milestone 4F is done only when:
 ```
 
 all pass.
+
+Kafka/Spark runtime gates require:
+
+```bash
+docker compose -f infra/docker/docker-compose.kafka.yml up -d
+bash infra/kafka/kafka_setup.sh
+.venv/bin/python scripts/validate_kafka_runtime.py
+.venv/bin/python scripts/run_kafka_replay_smoke.py --max-events 1000
+.venv/bin/python scripts/run_spark_streaming_scorer.py --max-events 1000 --timeout-seconds 60
+.venv/bin/python scripts/validate_spark_streaming_output.py --expected-count 1000
+bash scripts/run_streaming_demo.sh --max-events 1000
+```
 
 ## Demo Runner
 

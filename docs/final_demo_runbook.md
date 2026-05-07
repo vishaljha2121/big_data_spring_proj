@@ -72,6 +72,23 @@ npm run dev
 .venv/bin/python -m pytest tests
 ```
 
+## Kafka + Spark Streaming Evidence
+
+Milestone 5A validated the real streaming path. To rerun it:
+
+```bash
+bash scripts/run_streaming_demo.sh --max-events 1000
+```
+
+The current reports show `PASSED`:
+
+- `data/results/kafka_runtime/kafka_runtime_report.json`
+- `data/results/kafka_runtime/kafka_replay_smoke_report.json`
+- `data/results/spark_streaming/spark_streaming_run_report.json`
+- `data/results/spark_streaming/spark_streaming_validation_report.json`
+
+The deterministic JSONL path remains the fallback for environments where Docker or Spark cannot run.
+
 Frontend build:
 
 ```bash
