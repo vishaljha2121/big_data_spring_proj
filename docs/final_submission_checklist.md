@@ -15,6 +15,7 @@
 - [x] Final preflight checker
 - [x] One-command demo runner
 - [x] Centre Court Analytics sidebar product shell
+- [x] Kafka + Spark Structured Streaming runtime implementation
 
 Run before submission:
 
@@ -30,6 +31,14 @@ Run before submission:
 .venv/bin/python scripts/validate_parallel_readiness.py
 .venv/bin/python -m pytest tests
 ```
+
+Optional streaming runtime evidence:
+
+```bash
+bash scripts/run_streaming_demo.sh --max-events 1000
+```
+
+- [x] Kafka and Spark reports show `PASSED` for Milestone 5A.
 
 ## Demo Validation
 
@@ -61,6 +70,8 @@ Run before submission:
 - [ ] Scored events table (humanized column headers)
 - [ ] FastAPI `/docs`
 - [ ] Terminal showing final validation pass
+- [ ] Kafka runtime report, if executed
+- [ ] Spark streaming validation report, if executed
 
 ## Report Sections Needed
 
@@ -84,7 +95,7 @@ Run before submission:
 
 ## Known Limitations
 
-- Kafka runtime is optional for the local final demo and was not required.
+- Kafka/Spark runtime is validated for Milestone 5A, but the JSONL path remains the deterministic fallback for environments without Docker/Spark.
 - The API and dashboard are file-backed over the current validated scored sample.
 - Surface, rally-primary, and ATP bridge features remain blocked by data limitations.
 - Centre Court pages for tournaments, surface analytics, and official rankings are planned or sample-derived unless backed by current API data.

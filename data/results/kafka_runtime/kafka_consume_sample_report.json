@@ -1,0 +1,11 @@
+{
+  "bootstrap_servers": "localhost:9092",
+  "duplicate_synthetic_event_ids": 0,
+  "errors": [],
+  "events_checked": 1000,
+  "expected_events": 1000,
+  "generated_at": "2026-05-07T00:30:36Z",
+  "status": "PASSED",
+  "synthetic_match_missing": 0,
+  "topic": "tennis-point-events"
+}

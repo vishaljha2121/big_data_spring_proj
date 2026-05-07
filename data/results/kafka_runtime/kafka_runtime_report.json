@@ -1,0 +1,33 @@
+{
+  "blocking_errors": [],
+  "checks": {
+    "container_ps": {
+      "command": "docker ps --filter name=tennis-kafka --format {{.Names}}",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "tennis-kafka\n"
+    },
+    "container_running": true,
+    "docker_available": true,
+    "docker_info": {
+      "command": "docker info",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Client:\n Context:    default\n Debug Mode: true\n Plugins:\n  buildx: Docker Buildx (Docker Inc., v0.7.1)\n  compose: Docker Compose (Docker Inc., v2.2.3)\n  scan: Docker Scan (Docker Inc., v0.16.0)\n\nServer:\n Containers: 25\n  Running: 2\n  Paused: 0\n  Stopped: 23\n Images: 69\n Server Version: 20.10.12\n Storage Driver: overlay2\n  Backing Filesystem: extfs\n  Supports d_type: true\n  Native Overlay Diff: true\n  userxattr: false\n Logging Driver: json-file\n Cgroup Driver: cgroupfs\n Cgroup Version: 2\n Plugins:\n  Volume: local\n  Network: bridge host ipvlan macvlan null overlay\n  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog\n Swarm: inactive\n Runtimes: io.containerd.runc.v2 io.containerd.runtime.v1.linux runc\n Default Runtime: runc\n Init Binary: docker-init\n containerd version: 7b11cfaabd73bb80907dd23182b9347b4245eb5d\n runc version: v1.0.2-0-g52b36a2\n init version: de40ad0\n Security Options:\n  seccomp\n   Profile: default\n  cgroupns\n Kernel Version: 5.10.76-linuxkit\n Operating System: Docker Desktop\n OSType: linux\n Architecture: x86_64\n CPUs: 4\n Total Memory: 3.842GiB\n Name: docker-desktop\n ID: 2RVK:4DP3:4QX3:NLWE:ZAL2:CJHD:TAKJ:4ZWY:FOZ4:SADZ:NXCT:ARKZ\n Docker Root Dir: /var/lib/docker\n Debug Mode: false\n Registry: https://index.docker.io/v1/\n Labels:\n Experimental: false\n Insecure Registries:\n  127.0.0.0/8\n Live Restore Enabled: false\n\n"
+    },
+    "docker_path": "/usr/local/bin/docker",
+    "partition_count_actual": 20,
+    "topic_describe": {
+      "command": "docker exec tennis-kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic tennis-point-events",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Topic: tennis-point-events\tTopicId: KjT6UBTPQTStqLcVSo-aaw\tPartitionCount: 20\tReplicationFactor: 1\tConfigs: cleanup.policy=delete,retention.ms=86400000,max.message.bytes=1048576\n\tTopic: tennis-point-events\tPartition: 0\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 1\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 2\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 3\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 4\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 5\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 6\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 7\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 8\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 9\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 10\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 11\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 12\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 13\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 14\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 15\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 16\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 17\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 18\tLeader: 1\tReplicas: 1\tIsr: 1\n\tTopic: tennis-point-events\tPartition: 19\tLeader: 1\tReplicas: 1\tIsr: 1\n"
+    }
+  },
+  "generated_at": "2026-05-07T00:31:42Z",
+  "partition_count_actual": 20,
+  "partition_count_expected": 20,
+  "status": "PASSED",
+  "topic": "tennis-point-events",
+  "warnings": []
+}

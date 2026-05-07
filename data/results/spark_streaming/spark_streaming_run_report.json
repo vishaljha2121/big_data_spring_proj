@@ -1,0 +1,31 @@
+{
+  "batch_reports": [
+    {
+      "attempted_count": 1000,
+      "batch_id": 0,
+      "input_count": 1000,
+      "invalid_count": 0,
+      "invalid_examples": [],
+      "jsonl_path": "data/results/spark_streaming/scored_events_jsonl/part-00000.jsonl",
+      "latency_seconds": 2.2570896279999992,
+      "parquet_batch_path": "data/results/spark_streaming/scored_events_parquet/batch-000000.parquet",
+      "parse_invalid_count": 0,
+      "scored_count": 1000
+    }
+  ],
+  "blocking_errors": [],
+  "bootstrap_servers": "localhost:9092",
+  "checkpoint_dir": "data/checkpoints/spark_streaming_scorer",
+  "elapsed_seconds": 10.032663747999997,
+  "generated_at": "2026-05-07T00:31:59Z",
+  "input_count": 1000,
+  "invalid_count": 0,
+  "max_events": 1000,
+  "output_jsonl": "data/results/spark_streaming/scored_events_jsonl/part-00000.jsonl",
+  "output_parquet_dir": "data/results/spark_streaming/scored_events_parquet",
+  "scored_count": 1000,
+  "started_at": "2026-05-07T00:31:49Z",
+  "status": "PASSED",
+  "topic": "tennis-point-events",
+  "warnings": []
+}
