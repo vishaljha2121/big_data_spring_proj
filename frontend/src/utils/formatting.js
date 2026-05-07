@@ -42,15 +42,21 @@ export function bucketClass(bucket) {
 // ── Match display helpers ───────────────────────────────────
 
 /**
+ * Returns true when a player name looks like a real (non-placeholder) name.
+ */
+export function isRealPlayerName(name) {
+  if (!name) return false;
+  const lower = name.toLowerCase();
+  return lower !== "unknown" && lower !== "player a" && lower !== "player b" && lower !== "unknown player";
+}
+
+/**
  * Returns true when both player names exist and are not just
- * generic fallback values (e.g. "Player A" / "Player B" with no
- * actual name data).
+ * generic fallback values.
  */
 export function hasRealPlayers(matchOrEvent) {
   if (!matchOrEvent) return false;
-  const a = matchOrEvent.player_a;
-  const b = matchOrEvent.player_b;
-  return Boolean(a && b && a !== "Unknown" && b !== "Unknown");
+  return isRealPlayerName(matchOrEvent.player_a) && isRealPlayerName(matchOrEvent.player_b);
 }
 
 /**
@@ -58,9 +64,11 @@ export function hasRealPlayers(matchOrEvent) {
  * Prioritises player names; falls back to a compact replay ID.
  */
 export function displayMatchTitle(match) {
+  if (!match) return "No match selected";
   if (hasRealPlayers(match)) {
     return `${match.player_a} vs ${match.player_b}`;
   }
+  if (match.primary_match_label) return match.primary_match_label;
   return compactId(match?.synthetic_match_id);
 }
 
@@ -71,6 +79,14 @@ export function displayMatchTitle(match) {
 export function displayReplayId(id) {
   if (!id) return "n/a";
   return compactId(id);
+}
+
+/**
+ * Display a source match ID.
+ */
+export function displaySourceId(id) {
+  if (!id) return null;
+  return id;
 }
 
 // ── Label humanization ──────────────────────────────────────

@@ -78,6 +78,35 @@ Returns odds latest pointer, odds metadata summary, feature count, risk latest p
 
 Returns scoring benchmark, scoring run report, scoring validation report, model eval reports, and validation status.
 
+### `GET /api/data/coverage` *(Milestone 5B)*
+
+Returns data coverage metadata:
+
+- `scored_event_count`, `scored_match_count`: from the scored events file
+- `replay_manifest_event_count`, `replay_manifest_match_count`: from the full replay manifest
+- `scored_data_source`, `replay_manifest_source`: file paths
+- `coverage_mode`: `"sample"`, `"full_demo"`, or `"manifest_catalog"`
+- `warning`: present when only sample data is loaded
+
+### `GET /api/replay/matches` *(Milestone 5B)*
+
+Query parameters:
+
+- `limit`: default `100`, max `500`
+- `offset`: default `0`
+- `search`: optional player name or match ID substring
+
+Returns the replay catalog from the full manifest. Each item includes `player_a`, `player_b`, `primary_match_label`, `replay_id`, `replay_event_count`, `first_event_ts`, `last_event_ts`, and `scored_available`.
+
+### `GET /api/replay/matches/{synthetic_match_id}/events` *(Milestone 5B)*
+
+Query parameters:
+
+- `limit`: default `1000`, max `5000`
+- `offset`: default `0`
+
+Returns raw replay manifest events for a match (even if not scored). Events are sorted by `replay_order`.
+
 ## Contract Artifacts
 
 ```text

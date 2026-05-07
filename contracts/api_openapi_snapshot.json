@@ -75,6 +75,26 @@
         ]
       }
     },
+    "/api/data/coverage": {
+      "get": {
+        "description": "Return metadata about scored data vs replay manifest coverage.",
+        "operationId": "data_coverage_api_data_coverage_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Data Coverage",
+        "tags": [
+          "benchmarks"
+        ]
+      }
+    },
     "/api/matches": {
       "get": {
         "operationId": "list_matches_api_matches_get",
@@ -188,7 +208,7 @@
             "required": false,
             "schema": {
               "default": 200,
-              "maximum": 1000,
+              "maximum": 5000,
               "minimum": 1,
               "title": "Limit",
               "type": "integer"
@@ -248,6 +268,139 @@
         "summary": "Current Models",
         "tags": [
           "models"
+        ]
+      }
+    },
+    "/api/replay/matches": {
+      "get": {
+        "operationId": "list_replay_matches_api_replay_matches_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "maximum": 500,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Replay Matches",
+        "tags": [
+          "replay"
+        ]
+      }
+    },
+    "/api/replay/matches/{synthetic_match_id}/events": {
+      "get": {
+        "operationId": "get_replay_match_events_api_replay_matches__synthetic_match_id__events_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "synthetic_match_id",
+            "required": true,
+            "schema": {
+              "title": "Synthetic Match Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 1000,
+              "maximum": 5000,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Replay Match Events",
+        "tags": [
+          "replay"
         ]
       }
     },

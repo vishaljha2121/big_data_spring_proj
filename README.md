@@ -19,6 +19,7 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Milestone 4E: PASSED for final frontend narrative polish, KPI reordering, humanized labels, and model comparison panel
 - Milestone 4F: PASSED for Centre Court Analytics product pivot over the documented API
 - Milestone 5A: PASSED for Kafka + Spark Structured Streaming runtime completion
+- Milestone 5B: PASSED for full match replay experience, data coverage fix, and real match labeling
 
 ## Completed Checklist
 
@@ -55,6 +56,12 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - [x] Added mockup analysis and API mapping docs for the product pivot.
 - [x] Clearly labeled sample-derived and planned modules for players, tournaments, surfaces, rankings, and replay manifest browsing.
 - [x] Added Kafka runtime validation scripts and Spark Structured Streaming scorer implementation for Milestone 5A.
+- [x] Fixed Replay Center with real point-by-point playback (currentIndex, Play/Pause, Step ±1, speed selector).
+- [x] Generated full-demo scored dataset (50 matches, 9,000+ events) from replay manifest using existing model.
+- [x] Added `/api/data/coverage` and `/api/replay/matches` endpoints for data visibility.
+- [x] Made player names the primary match label; synthetic IDs are secondary replay metadata.
+- [x] Added replay manifest catalog browsing in Match Browser.
+- [x] Documented that missing dashboard coverage was a serving/sample issue, not a model-training issue.
 
 ## Remaining Checklist
 
@@ -87,7 +94,8 @@ This repository contains the validated data, model artifact, replay, scoring, lo
 - Replay dry-run validation passed for `1000` canonical point events.
 - Streaming scorer validated `1000` scored events with `0` invalid events.
 - Streaming benchmark: `974.13` events/sec, average latency `0.9635` ms/event, p95 latency `1.5229` ms/event, model load time `3.2619` seconds.
-- API validation passed with `1000` scored events and `6` unique matches exposed.
+- API validation passed with `1000` scored events and `6` unique matches in sample; full demo has `9,049` events and `50` matches.
+- Full replay manifest: `1,917,672` events / `10,464` matches available via `/api/replay/matches`.
 - Frontend build validation passed with local Node/npm.
 - Dashboard theme system supports clay, hard, grass, and neutral themes. Clay is the default demo theme because source surface metadata is unavailable.
 - Model comparison note: our model is a point-level predictor (test AUC 0.6415, test Brier 0.2347). Public tennis prediction references operate at match-level and use different metrics. Direct comparison is not valid without building a match-level predictor on the same evaluation set.
@@ -283,6 +291,9 @@ GET /api/risk/summary
 GET /api/risk/events
 GET /api/models/current
 GET /api/benchmarks/latest
+GET /api/data/coverage
+GET /api/replay/matches
+GET /api/replay/matches/{synthetic_match_id}/events
 ```
 
 Contract artifacts:

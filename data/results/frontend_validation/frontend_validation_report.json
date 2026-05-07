@@ -1,7 +1,7 @@
 {
   "blocking_errors": [],
   "frontend_dir": "/Users/vishaljha/Desktop/Homeworks/BigData/Project/frontend",
-  "generated_at": "2026-05-07T00:18:03Z",
+  "generated_at": "2026-05-07T01:45:45Z",
   "missing_files": [],
   "node_available": true,
   "node_path": "/usr/local/bin/node",
@@ -10,7 +10,7 @@
     "command": "npm run build",
     "returncode": 0,
     "stderr_tail": "",
-    "stdout_tail": "\n> tennis-scoring-dashboard@1.0.0 build\n> vite build\n\nvite v2.9.16 building for production...\ntransforming...\n\u2713 69 modules transformed.\nrendering chunks...\ndist/index.html                  0.39 KiB\ndist/assets/index.85fe6c81.css   14.26 KiB / gzip: 3.65 KiB\ndist/assets/index.a8e3f3cb.js    167.61 KiB / gzip: 52.61 KiB\n"
+    "stdout_tail": "\n> tennis-scoring-dashboard@1.0.0 build\n> vite build\n\nvite v2.9.16 building for production...\ntransforming...\n\u2713 69 modules transformed.\nrendering chunks...\ndist/index.html                  0.39 KiB\ndist/assets/index.85fe6c81.css   14.26 KiB / gzip: 3.65 KiB\ndist/assets/index.4ee533c6.js    172.88 KiB / gzip: 54.14 KiB\n"
   },
   "npm_install": null,
   "npm_path": "/usr/local/bin/npm",

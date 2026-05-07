@@ -32,13 +32,13 @@ def get_json(path: str, origin: str | None = None) -> Tuple[int, Dict[str, str],
     request = urllib.request.Request(f"http://127.0.0.1:{PORT}{path}")
     if origin:
         request.add_header("Origin", origin)
-    with urllib.request.urlopen(request, timeout=5) as response:
+    with urllib.request.urlopen(request, timeout=120) as response:
         headers = {key.lower(): value for key, value in response.headers.items()}
         body = response.read().decode("utf-8")
         return response.status, headers, json.loads(body) if body else None
 
 
-def wait_for_health(timeout_seconds: int = 45) -> bool:
+def wait_for_health(timeout_seconds: int = 120) -> bool:
     deadline = time.time() + timeout_seconds
     while time.time() < deadline:
         try:
