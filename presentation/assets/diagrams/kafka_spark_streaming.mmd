@@ -1,0 +1,6 @@
+flowchart LR
+  A[Replay producer] --> B[(Kafka tennis-point-events)]
+  B --> C[Spark Structured Streaming]
+  C --> D[foreachBatch StreamScorer]
+  D --> E[Scored JSONL + Parquet]
+  C --> F[Checkpointing]

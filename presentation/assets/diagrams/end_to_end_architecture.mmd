@@ -1,0 +1,6 @@
+flowchart LR
+  A[Curated Parquet Data Lake] --> B[Point-in-Time Feature Layer]
+  B --> C[Odds Model + Risk Config]
+  C --> D[Replay / Kafka / Spark Scoring]
+  D --> E[Scored JSONL + Parquet]
+  E --> F[FastAPI + Centre Court Frontend]

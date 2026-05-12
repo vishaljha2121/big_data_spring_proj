@@ -1,0 +1,3 @@
+flowchart LR
+A[Replay producer]-->B[(Kafka topic)]-->C[Spark readStream]-->D[foreachBatch scorer]-->E[Scored sink]
+C-->F[Checkpoint]

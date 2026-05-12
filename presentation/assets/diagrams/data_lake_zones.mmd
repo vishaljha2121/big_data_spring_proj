@@ -1,0 +1,6 @@
+flowchart LR
+  staging[Staging inventory] --> cleaned[Cleaned Parquet]
+  cleaned --> curated[Curated singles]
+  curated --> features[Point features + baselines]
+  curated --> replay[Replay manifest]
+  replay --> scored[Scored outputs]

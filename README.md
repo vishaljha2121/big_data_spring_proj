@@ -1,472 +1,170 @@
-# Tennis Point-Level Analytics Project
+# Centre Court Analytics
 
-This repository contains the validated data, model artifact, replay, scoring, local serving, and dashboard foundation for a tennis point-level analytics pipeline. Milestone 4F pivots the frontend into a broader **Centre Court Analytics** product shell inspired by the local mockup reference while preserving the existing FastAPI-backed demo path.
+Centre Court Analytics is a local Big Data tennis analytics system that turns historical point-level match data into validated Parquet-style data layers, deterministic replay events, point-level probability scores, conservative risk signals, a FastAPI service, and a React dashboard for final review and demo.
 
-## Current Status
+## 1. What This Project Does
 
-- Milestone 1B: PASSED
-- Milestone 2A: PASSED
-- Milestone 2.5: PASSED after running `scripts/validate_parallel_readiness.py`
-- Milestone 2.6: PASSED after CourtIQ integration audit and guardrail validation
-- Milestone 2.7: PASSED for model artifacts and replay dry-run validation
-- Milestone 2B: PASSED as part of Milestone 2.7
-- Milestone 3A: PASSED for dry-run replay implementation; Kafka runtime completed later in Milestone 5A
-- Milestone 3B: VERIFIED PASSED for local JSONL streaming scorer integration
-- Milestone 4A: PASSED for local file-backed FastAPI serving layer
-- Milestone 4B: PASSED for minimal dashboard/frontend over documented API
-- Milestone 4C: PASSED for final build freeze, full preflight, and one-command demo runner
-- Milestone 4D: PASSED for frontend presentation redesign and demo polish
-- Milestone 4E: PASSED for final frontend narrative polish, KPI reordering, humanized labels, and model comparison panel
-- Milestone 4F: PASSED for Centre Court Analytics product pivot over the documented API
-- Milestone 5A: PASSED for Kafka + Spark Structured Streaming runtime completion
-- Milestone 5B: PASSED for full match replay experience, data coverage fix, and real match labeling
+- Curates historical tennis point data into singles point and match layers.
+- Replays historical matches as event streams with deterministic synthetic replay IDs.
+- Scores each point with a point-level probability model and a conservative statistical risk signal.
+- Serves validated scored output through a local FastAPI API.
+- Presents the result in the Centre Court Analytics dashboard: Dashboard, Match Browser, Replay Center, Point Timeline, Prediction Center, Model Performance, Validation, and Pipeline Monitor.
 
-## Completed Checklist
+The probability outputs are point-level model probabilities. They are not betting odds and they are not match-win probabilities.
 
-- [x] Converted staging CSV.GZ inputs into cleaned Parquet layers.
-- [x] Built curated singles-only point data under `data/curated/singles_points/`.
-- [x] Built curated singles match metadata under `data/curated/singles_matches/`.
-- [x] Preserved invalid/special point evidence under `data/quarantine/`.
-- [x] Built point-in-time-safe features under `data/features/point_features/`.
-- [x] Built match features under `data/features/match_features/`.
-- [x] Built player baselines under `data/baselines/player_baselines/`.
-- [x] Built deterministic replay manifest under `data/replay/manifests/replay_manifest_v1.parquet`.
-- [x] Added validation reports, schema contracts, tests, and audit docs through Milestone 2A.
-- [x] Froze Track A and Track B contracts for parallel implementation.
-- [x] Added paste-ready Codex prompts for both tracks.
-- [x] Audited CourtIQ teammate repo and preserved compatible reference assets under `external_review/courtiq/`.
-- [x] Trained and published an MVP odds model under `data/models/odds/v1/`.
-- [x] Built and published a conservative risk config under `data/models/risk/v1/`.
-- [x] Implemented canonical replay JSONL dry-run producer and validator.
-- [x] Added local Kafka Compose and topic setup files.
-- [x] Implemented local streaming scorer integration from replay JSONL to scored JSONL/Parquet.
-- [x] Added online feature builder, model loader, risk scorer, scored event contract, validation, benchmark, and tests.
-- [x] Added file-backed FastAPI serving layer over scored output.
-- [x] Exported OpenAPI snapshot and API sample responses for frontend handoff.
-- [x] Added minimal dashboard frontend over the documented FastAPI API.
-- [x] Added final demo runbook, submission checklist, and frontend build validation.
-- [x] Added final preflight checks and one-command local demo launcher.
-- [x] Redesigned the dashboard with a clay-court presentation theme, theme switcher, polished chart, KPI strip, insight rail, and readable tables.
-- [x] Reordered KPI strip with model quality metrics (AUC, Brier) and removed Risk Config from top KPIs.
-- [x] Humanized all underscore/raw technical labels across the dashboard.
-- [x] Made player names primary and synthetic IDs secondary throughout the UI.
-- [x] Added Model Comparison Context panel with honest public reference benchmark context.
-- [x] Created `docs/model_comparison_analysis.md` documenting fair comparison analysis.
-- [x] Pivoted the frontend into a Centre Court Analytics app shell with grouped sidebar navigation and product pages.
-- [x] Added mockup analysis and API mapping docs for the product pivot.
-- [x] Clearly labeled sample-derived and planned modules for players, tournaments, surfaces, rankings, and replay manifest browsing.
-- [x] Added Kafka runtime validation scripts and Spark Structured Streaming scorer implementation for Milestone 5A.
-- [x] Fixed Replay Center with real point-by-point playback (currentIndex, Play/Pause, Step ±1, speed selector).
-- [x] Generated full-demo scored dataset (50 matches, 9,000+ events) from replay manifest using existing model.
-- [x] Added `/api/data/coverage` and `/api/replay/matches` endpoints for data visibility.
-- [x] Made player names the primary match label; synthetic IDs are secondary replay metadata.
-- [x] Added replay manifest catalog browsing in Match Browser.
-- [x] Documented that missing dashboard coverage was a serving/sample issue, not a model-training issue.
+## 2. Why This Satisfies Big Data Scope
 
-## Remaining Checklist
-
-- [ ] Final report and presentation packaging.
-- [ ] Capture manual screenshots from the running dashboard.
-- [ ] Prepare final slides from the validated runbook and screenshots.
-- [x] Executed Kafka + Spark runtime locally with 1000 streamed/scored events.
-- [ ] Do not add new architecture unless fixing a demo blocker.
-
-## Key Findings So Far
-
-- Curated singles point rows: `1,922,136`.
-- Curated singles matches: `10,508`.
-- Point feature rows: `1,922,136`.
-- Match feature rows: `10,508`.
-- Player baselines: `1,891`.
-- Replay manifest events: `1,917,672`.
-- Replay manifest matches: `10,464`.
-- Replay exclusions: `44` matches.
-- Surface coverage is `0.0%`; surface-based features remain blocked.
-- Rally length coverage is about `5.96%`; rally length is not a primary MVP feature.
-- ATP bridge remains unvalidated; ATP-derived labels/features remain blocked.
-- CourtIQ had useful replay/Kafka reference code, but it did not contain model code or frontend assets.
-- CourtIQ replay code is not canonical yet because it requires adaptation to frozen contracts and topic config.
-- Published odds model target: `label_point_winner_is_player_a`.
-- Published odds model type: `HistGradientBoostingClassifier`.
-- Odds validation/test AUC: `0.6395` / `0.6415`.
-- Odds validation/test Brier score: `0.2351` / `0.2347`.
-- Risk artifact uses baseline deviation rules with `fake_labels_used=false`.
-- Replay dry-run validation passed for `1000` canonical point events.
-- Streaming scorer validated `1000` scored events with `0` invalid events.
-- Streaming benchmark: `974.13` events/sec, average latency `0.9635` ms/event, p95 latency `1.5229` ms/event, model load time `3.2619` seconds.
-- API validation passed with `1000` scored events and `6` unique matches in sample; full demo has `9,049` events and `50` matches.
-- Full replay manifest: `1,917,672` events / `10,464` matches available via `/api/replay/matches`.
-- Frontend build validation passed with local Node/npm.
-- Dashboard theme system supports clay, hard, grass, and neutral themes. Clay is the default demo theme because source surface metadata is unavailable.
-- Model comparison note: our model is a point-level predictor (test AUC 0.6415, test Brier 0.2347). Public tennis prediction references operate at match-level and use different metrics. Direct comparison is not valid without building a match-level predictor on the same evaluation set.
-- Centre Court pivot note: the frontend now exposes Analytics, Replay, ML Model, and Data Ops navigation groups. Real modules use the documented API; unsupported modules are labeled planned or sample-derived.
-- Streaming note: the deterministic JSONL path remains a validated fallback. Milestone 5A executed a real Kafka + Spark Structured Streaming runtime path with reports under `data/results/kafka_runtime/` and `data/results/spark_streaming/` showing `PASSED`.
-
-## CourtIQ Integration Audit
-
-CourtIQ was inspected during Milestone 2.6. Useful files were preserved as reference-only under `external_review/courtiq/preserved_reference/`.
-
-| Result | Summary |
+| Big Data requirement | Implemented evidence |
 | --- | --- |
-| Files seen | `17` |
-| Direct runtime merges | `0` |
-| Preserved reference assets | replay producer, validation consumer, Kafka setup, Compose fragment, replay audit, point-event schema mismatch evidence |
-| Rejected assets | duplicate/obsolete contracts, staging data notes, non-canonical completion claims |
+| Dataset scale | 1,922,136 curated point rows and 10,508 curated singles matches |
+| Replay scale | 1,917,672 replay events across 10,464 replay matches |
+| Lake-style processing | Curated, feature, baseline, replay, model, and results layers under `data/` |
+| Schema discipline | JSON contracts under `contracts/` and validation reports under `data/results/` |
+| Streaming architecture | Kafka replay topic plus Spark Structured Streaming scorer |
+| Checkpointed output | Spark checkpoint and JSONL/Parquet scored sinks under `data/checkpoints/` and `data/results/spark_streaming/` |
+| Serving/product layer | FastAPI API plus Vite/React dashboard validated by scripts |
 
-Use `docs/courtiq_integration_audit.md`, `docs/courtiq_file_inventory.md`, and `docs/post_merge_next_phase_plan.md` before adapting any CourtIQ asset.
+The local demo is intentionally bounded for reproducibility. The architecture demonstrates scalable patterns: partitioned Parquet-style artifacts, schema contracts, Kafka replay, Spark Structured Streaming, checkpointed scoring output, and API/dashboard serving over validated artifacts.
 
-## Model Artifacts
-
-```text
-data/models/odds/latest.json
-data/models/odds/v1/model.joblib
-data/models/odds/v1/feature_schema.json
-data/models/risk/latest.json
-data/models/risk/v1/risk_config.json
-```
-
-## Replay Producer
-
-Dry-run:
-
-```bash
-.venv/bin/python producer/replay_producer.py \
-  --manifest data/replay/manifests/replay_manifest_v1.parquet \
-  --config infra/kafka/topic_config.json \
-  --dry-run \
-  --dry-run-output data/results/replay_dry_run/sample_events.jsonl \
-  --max-events 1000
-
-.venv/bin/python scripts/validate_replay_producer.py \
-  --events data/results/replay_dry_run/sample_events.jsonl \
-  --schema contracts/point_event_schema.json
-```
-
-Kafka local:
-
-```bash
-docker compose -f infra/docker/docker-compose.kafka.yml up -d
-bash infra/kafka/kafka_setup.sh
-```
-
-Kafka runtime was executed and validated in Milestone 5A.
-
-## Kafka + Spark Structured Streaming
-
-Milestone 5A adds the runtime path:
+## 3. System Architecture
 
 ```text
-Kafka tennis-point-events
-  -> Spark Structured Streaming readStream
-  -> foreachBatch StreamScorer
-  -> local scored JSONL/Parquet sink
+raw data
+  -> cleaned/curated Parquet
+  -> point-in-time features
+  -> replay manifest
+  -> Kafka / JSONL replay
+  -> Spark Structured Streaming / local scorer
+  -> scored JSONL/Parquet
+  -> FastAPI
+  -> React dashboard
 ```
 
-Run when Docker, Java, PySpark, and Spark Kafka connector dependencies are available:
+Key directories: `data/`, `contracts/`, `producer/`, `streaming/`, `spark_streaming/`, `api/`, `frontend/`, `infra/`, `scripts/`, `docs/`, and `presentation/`.
+
+## 4. Key Results
+
+| Metric | Value |
+| --- | --- |
+| Curated point rows | 1,922,136 |
+| Curated matches | 10,508 |
+| Replay events | 1,917,672 |
+| Replay matches | 10,464 |
+| Full-demo scored events | 9,049 events across 50 matches |
+| Model target | `label_point_winner_is_player_a` |
+| Model type | `HistGradientBoostingClassifier` |
+| Test AUC | 0.6415 |
+| Test Brier score | 0.2347 |
+| Local scoring benchmark | 2,454.17 events/sec, 0.575 ms p95 latency |
+| Kafka/Spark runtime | PASSED for 1,000 streamed/scored events |
+| API/frontend validation | PASSED |
+
+## 5. Run the Local Demo
 
 ```bash
-bash scripts/run_streaming_demo.sh --max-events 1000
-```
-
-Manual checks:
-
-```bash
-docker compose -f infra/docker/docker-compose.kafka.yml up -d
-bash infra/kafka/kafka_setup.sh
-.venv/bin/python scripts/validate_kafka_runtime.py
-.venv/bin/python scripts/run_kafka_replay_smoke.py --max-events 1000
-.venv/bin/python scripts/run_spark_streaming_scorer.py --max-events 1000 --timeout-seconds 60
-.venv/bin/python scripts/validate_spark_streaming_output.py --expected-count 1000
-```
-
-If runtime execution is unavailable, keep using the deterministic JSONL demo and state the blocker honestly.
-
-Validated Milestone 5A evidence:
-
-- Kafka runtime report: `data/results/kafka_runtime/kafka_runtime_report.json`
-- Kafka replay smoke report: `data/results/kafka_runtime/kafka_replay_smoke_report.json`
-- Spark run report: `data/results/spark_streaming/spark_streaming_run_report.json`
-- Spark validation report: `data/results/spark_streaming/spark_streaming_validation_report.json`
-
-## One-Command Demo
-
-Run the complete local demo stack:
-
-```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 bash scripts/run_full_demo.sh
 ```
 
-The script validates the API contract, starts FastAPI, waits for `/health` and `/ready`, starts the Vite dashboard, and prints:
+The demo runner validates the API contract, starts FastAPI, waits for health/readiness, starts the Vite dashboard, and writes logs under `data/results/final_demo/logs/`.
 
-```text
-Backend:  http://127.0.0.1:8000
-API docs: http://127.0.0.1:8000/docs
-Frontend: http://127.0.0.1:5173
-```
+Open:
 
-Logs and PID files are written under:
+- Frontend: `http://127.0.0.1:5173`
+- API docs: `http://127.0.0.1:8000/docs`
+- API health: `http://127.0.0.1:8000/health`
 
-```text
-data/results/final_demo/logs/
-data/results/final_demo/pids/
-```
+Node/npm are required for the dashboard. If dependencies are already installed, `scripts/run_full_demo.sh` uses `frontend/node_modules`; otherwise it can run `npm install`.
 
-Stop any remaining demo processes:
+Stop the demo:
 
 ```bash
 bash scripts/stop_full_demo.sh
 ```
 
-## Centre Court Analytics Frontend
+## 6. Optional Big Data Streaming Demo
 
-The current React dashboard uses a mockup-inspired product shell:
+Run this only when Docker, Java, PySpark, and the Spark Kafka connector are available:
 
-- Analytics: Dashboard, Match Browser, Players, Player Comparison, Tournaments, Surface Analytics, Rankings
-- Replay: Replay Center, Point Timeline, Replay Manifest
-- ML Model: Prediction Center, Model Performance
-- Data Ops: Data Explorer, Validation, Pipeline Monitor, Reports
+```bash
+docker compose -f infra/docker/docker-compose.kafka.yml up -d
+bash infra/kafka/kafka_setup.sh
+bash scripts/run_streaming_demo.sh --max-events 1000
+```
 
-Real API-backed pages use the FastAPI endpoints documented in `docs/api_contract.md`. Pages without current backend support are shown as planned or sample-derived and do not claim official tournament data, surface analytics, ATP rankings, match-winner prediction, betting odds, or proof of misconduct.
+The checked-in Milestone 5A reports show Kafka and Spark Structured Streaming passed for 1,000 events. Do not claim a fresh streaming run unless the script actually executes in the current environment.
 
-Fast preflight:
+## 7. Validation Commands
 
 ```bash
 .venv/bin/python scripts/final_preflight_check.py
 .venv/bin/python scripts/smoke_test_full_demo.py
-```
-
-## Next Milestone
-
-Final report and presentation packaging.
-
-Scope:
-
-- capture screenshots
-- prepare slides/report
-- rehearse the runbook
-- avoid new backend architecture unless a blocker appears
-- bug fixes only if a validation or demo blocker appears
-
-## Streaming Scorer
-
-Run the local JSONL scorer:
-
-```bash
-.venv/bin/python scripts/run_scoring_from_jsonl.py \
-  --input-events data/results/replay_dry_run/sample_events.jsonl \
-  --odds-latest data/models/odds/latest.json \
-  --risk-latest data/models/risk/latest.json \
-  --output-jsonl data/results/streaming_scoring/scored_events_sample.jsonl \
-  --output-parquet data/results/streaming_scoring/scored_events_sample.parquet \
-  --max-events 1000 \
-  --report data/results/streaming_scoring/scoring_run_report.json
-```
-
-## Local API
-
-Validate the API contract:
-
-```bash
-.venv/bin/python scripts/validate_api_contract.py
-```
-
-Run locally:
-
-```bash
-.venv/bin/python scripts/run_api.py --host 127.0.0.1 --port 8000
-```
-
-Key endpoints:
-
-```text
-GET /health
-GET /ready
-GET /api/summary
-GET /api/scored-events
-GET /api/scored-events/{event_id}
-GET /api/matches
-GET /api/matches/{synthetic_match_id}
-GET /api/matches/{synthetic_match_id}/events
-GET /api/risk/summary
-GET /api/risk/events
-GET /api/models/current
-GET /api/benchmarks/latest
-GET /api/data/coverage
-GET /api/replay/matches
-GET /api/replay/matches/{synthetic_match_id}/events
-```
-
-Contract artifacts:
-
-```text
-docs/api_contract.md
-contracts/api_openapi_snapshot.json
-contracts/api_response_examples.json
-data/results/api_validation/api_validation_report.json
-data/results/api_validation/sample_responses.json
-```
-
-## Frontend Dashboard
-
-Run the frontend:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Open:
-
-```text
-http://127.0.0.1:5173
-```
-
-Build/validate:
-
-```bash
-cd frontend
-npm run build
-cd ..
-.venv/bin/python scripts/validate_frontend_build.py
-```
-
-The dashboard consumes:
-
-```text
-GET /health
-GET /ready
-GET /api/summary
-GET /api/scored-events
-GET /api/matches
-GET /api/matches/{synthetic_match_id}
-GET /api/matches/{synthetic_match_id}/events
-GET /api/risk/summary
-GET /api/risk/events
-GET /api/models/current
-GET /api/benchmarks/latest
-```
-
-Dashboard sections include a clay-court hero, KPI strip, selected match analytics, point probability timeline, risk summary, model metadata, benchmark evidence, match table, and scored events table. The UI states that probabilities are point-level probabilities, not betting odds, and risk scores are statistical anomaly signals, not proof of misconduct.
-
-Theme notes:
-
-- Default: clay-court demo theme.
-- Available themes: clay, hard court, grass court, neutral.
-- Surface metadata is unavailable in the current sample, so the theme switcher is frontend-only and does not imply true surface labels.
-
-## Final Demo Sequence
-
-```bash
-.venv/bin/python scripts/final_preflight_check.py
 .venv/bin/python scripts/validate_api_contract.py
 .venv/bin/python scripts/validate_frontend_build.py
-bash scripts/run_full_demo.sh
-```
-
-Manual fallback, if you do not use the one-command runner:
-
-```bash
-.venv/bin/python scripts/run_api.py --host 127.0.0.1 --port 8000
-cd frontend
-npm install
-npm run dev
-```
-
-Then open `http://127.0.0.1:5173`.
-
-Validate and benchmark:
-
-```bash
-.venv/bin/python scripts/validate_scored_events.py \
-  --events data/results/streaming_scoring/scored_events_sample.jsonl \
-  --schema contracts/scored_event_schema.json \
-  --odds-latest data/models/odds/latest.json \
-  --report data/results/streaming_scoring/scoring_validation_report.json \
-  --expected-count 1000
-
-.venv/bin/python scripts/benchmark_scoring_pipeline.py \
-  --input-events data/results/replay_dry_run/sample_events.jsonl \
-  --odds-latest data/models/odds/latest.json \
-  --risk-latest data/models/risk/latest.json \
-  --max-events 1000 \
-  --report data/results/streaming_scoring/scoring_benchmark_report.json
-```
-
-Scored outputs:
-
-```text
-data/results/streaming_scoring/scored_events_sample.jsonl
-data/results/streaming_scoring/scored_events_sample.parquet
-data/results/streaming_scoring/scoring_run_report.json
-data/results/streaming_scoring/scoring_validation_report.json
-data/results/streaming_scoring/scoring_benchmark_report.json
-```
-
-## Historical Workstream Split
-
-| Track | Branch | Owner Scope | Prompt |
-| --- | --- | --- | --- |
-| Track A | `feature/milestone-2b-model-artifacts` | model training, risk config, evaluation, two-phase publication | `docs/codex_prompt_milestone_2b.md` |
-| Track B | `feature/milestone-3a-replay-producer` | Kafka local setup, replay producer, validation consumer, event contract | `docs/codex_prompt_milestone_3a.md` |
-
-## Stable Inputs
-
-```text
-data/features/point_features/
-data/features/match_features/
-data/baselines/player_baselines/
-data/replay/manifests/replay_manifest_v1.parquet
-data/features/feature_quality_report.json
-data/features/validation_report.json
-data/baselines/baseline_quality_report.json
-data/replay/replay_manifest_report.json
-contracts/
-```
-
-Do not use `cleaned_data/` or staging CSV.GZ files for future modeling or replay work.
-
-## Validate Parallel Readiness
-
-```bash
-.venv/bin/python scripts/validate_parallel_readiness.py
-.venv/bin/python -m pytest tests
-```
-
-## Validate Milestone 2.7
-
-```bash
 .venv/bin/python scripts/validate_model_artifacts.py --models data/models --contracts contracts --results data/results/model_eval
-.venv/bin/python scripts/validate_replay_producer.py --events data/results/replay_dry_run/sample_events.jsonl --schema contracts/point_event_schema.json
 .venv/bin/python scripts/validate_feature_layer.py --curated data/curated --features data/features --baselines data/baselines --replay data/replay --contracts contracts
 .venv/bin/python -m pytest tests
 ```
 
-## Validate Milestone 3B
+Spark output validation, when the optional streaming demo has run:
 
 ```bash
-.venv/bin/python scripts/validate_scored_events.py --events data/results/streaming_scoring/scored_events_sample.jsonl --schema contracts/scored_event_schema.json --odds-latest data/models/odds/latest.json --report data/results/streaming_scoring/scoring_validation_report.json --expected-count 1000
-.venv/bin/python scripts/validate_model_artifacts.py --models data/models --contracts contracts --results data/results/model_eval
-.venv/bin/python scripts/validate_replay_producer.py --events data/results/replay_dry_run/sample_events.jsonl --schema contracts/point_event_schema.json
-.venv/bin/python scripts/validate_feature_layer.py --curated data/curated --features data/features --baselines data/baselines --replay data/replay --contracts contracts
-.venv/bin/python scripts/validate_parallel_readiness.py
-.venv/bin/python -m pytest tests
+.venv/bin/python scripts/validate_spark_streaming_output.py --expected-count 1000
 ```
 
-## Validate Milestone 4A
+## 8. Repository Map
 
-```bash
-.venv/bin/python scripts/validate_api_contract.py
-.venv/bin/python -m pytest tests
-```
+| Path | Purpose |
+| --- | --- |
+| `api/` | FastAPI serving layer over validated local artifacts |
+| `frontend/` | React dashboard for the professor-facing demo |
+| `streaming/` | Local JSONL scorer, model loader, online feature builder, and risk scorer |
+| `spark_streaming/` | Spark Structured Streaming scorer |
+| `producer/` | Replay event producer for JSONL/Kafka paths |
+| `infra/` | Kafka Docker Compose and topic setup |
+| `data/` | Generated validated artifacts, model outputs, replay files, and evidence reports |
+| `contracts/` | JSON schemas and API snapshots |
+| `docs/` | Audits, runbooks, final report, validation index, and cleanup notes |
+| `presentation/` | Final slide decks, scripts, diagrams, and screenshots |
+| `scripts/` | Build, validation, scoring, API, demo, and streaming commands |
+| `tests/` | Regression and validation tests |
 
-## Validate CourtIQ Integration Guardrails
+## 9. Deliverables
 
-```bash
-.venv/bin/python scripts/validate_parallel_readiness.py
-.venv/bin/python -m pytest tests
-```
+- Final report: `docs/final_report.md`
+- Final demo runbook: `docs/final_demo_runbook.md`
+- Submission checklist: `docs/final_submission_checklist.md`
+- Professor grading checklist: `docs/professor_grading_checklist.md`
+- API contract: `docs/api_contract.md`
+- Model audit: `docs/model_training_audit.md`
+- Streaming audits: `docs/spark_structured_streaming_audit.md`, `docs/streaming_scorer_audit.md`
+- Recommended slide deck: `presentation/CourtIQ_Final_Presentation_v2.pptx`
+- Recommended speaker script: `presentation/speaker_notes_v2.md`
+- Presentation index: `presentation/README.md`
+- Documentation index: `docs/README.md`
 
-## Deprecated Plan Warning
+## 10. Limitations
 
-`2_week_execution_plan.md` is historical and deprecated. It references older Cassandra, Elasticsearch, Grafana/Kibana, 50M-record, and 25K events/sec goals that are not current milestone requirements. Use `README.md`, `CODEX.md`, `docs/parallel_workstream_handoff.md`, and current milestone docs as source of truth.
+- Point probabilities are analytical model outputs, not betting odds and not match-win probabilities.
+- Risk scores are statistical anomaly signals for review only. They do not prove misconduct or match-fixing.
+- Surface metadata is unavailable in the curated data, so surface analytics are not claimed.
+- Rally length coverage is sparse, so rally-derived features are secondary.
+- ATP bridge/ranking data is not validated; official rankings are not claimed.
+- The local demo is not a production deployment. It is a reproducible academic demo over local files, Docker Kafka, and Spark where available.
+- The full local dashboard scores a bounded 50-match sample for demo performance; the larger replay manifest remains available for catalog/replay evidence.
+
+## 11. Team Contributions
+
+| Team member | Primary contribution area |
+| --- | --- |
+| Member 1 | Data engineering, cleaning, curated layers, schema validation, and data quality evidence |
+| Member 2 | Feature engineering, point-level modeling, evaluation, risk scoring, and model publication |
+| Member 3 | Replay/streaming integration, FastAPI service, frontend dashboard, demo runner, and validation automation |
+
+Shared responsibilities included documentation, tests, demo rehearsal, limitations review, and final submission packaging.
+
+## Milestone Compatibility Note
+
+Historical milestone note for the preflight gate: Milestone 4B: PASSED for the FastAPI-backed dashboard/frontend.
