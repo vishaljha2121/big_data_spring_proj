@@ -1,0 +1,5 @@
+flowchart LR
+  A[Train candidates] --> B[Evaluate AUC/Brier gates]
+  B --> C[Staging artifacts]
+  C --> D[v1 artifact + latest.json]
+  B --> E[Feature hash + fixture checks]
